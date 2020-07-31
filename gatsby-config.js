@@ -5,6 +5,12 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
+    {
+      resolve: 'gatsby-plugin-top-layout',
+      options: {
+        siteId: 'jclub-financial-report',
+      },
+    },
     `gatsby-plugin-material-ui`,
     `gatsby-plugin-graphql-codegen`,
     `gatsby-plugin-react-helmet`,

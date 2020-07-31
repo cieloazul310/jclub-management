@@ -2,11 +2,12 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider, createMuiTheme, lighten } from '@material-ui/core/styles';
+import { PaletteType } from './ThemeState';
 import initialMuiTheme from '../../../src/utils/theme';
 
 interface Props {
   children: JSX.Element | JSX.Element[] | (JSX.Element | JSX.Element[])[] | string;
-  paletteType: 'light' | 'dark';
+  paletteType: PaletteType;
 }
 
 export default function TopThemeProvider({ children, paletteType }: Props) {

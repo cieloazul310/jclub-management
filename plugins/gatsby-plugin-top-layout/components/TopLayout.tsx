@@ -4,27 +4,27 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import TopThemeProvider from './TopThemeProvider';
 import AppStateProvider from './AppStateProvider';
 import ThemeDispatchContext from './ThemeStateContext';
-import themeReducer from './ThemeState';
+import themeReducer, { PaletteType } from './ThemeState';
 import initialTheme from '../../../src/utils/theme';
 
 interface Props {
   children: JSX.Element | JSX.Element[] | (JSX.Element | JSX.Element[])[];
   siteId: string;
   storedItem: {
-    paletteType: 'light' | 'dark';
+    paletteType: PaletteType;
     useSystemTheme: boolean;
   } | null;
 }
 
-export default function TopLayout({ children, storedItem, siteId }) {
+export default function TopLayout({ children, storedItem, siteId }: Props) {
   const defaultPaletteType = initialTheme.palette.type;
-  const storedPaletteType = storedItem !== null ? storedItem.paletteType : defaultPaletteType;
-  const storedUseSystemTheme = storedItem !== null ? storedItem.useSystemTheme : false;
+  const storedPaletteType = storedItem?.paletteType ?? defaultPaletteType;
+  const storedUseSystemTheme = storedItem?.useSystemTheme ?? false;
 
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const [themeState, themeDispatch] = React.useReducer(themeReducer, {
     darkMode: storedPaletteType === 'dark',
-    useSystemTheme: storedUseSystemTheme || false,
+    useSystemTheme: storedUseSystemTheme,
   });
   const { darkMode, useSystemTheme } = themeState;
   const paletteType = useSystemTheme ? (prefersDarkMode ? 'dark' : 'light') : darkMode ? 'dark' : 'light';
