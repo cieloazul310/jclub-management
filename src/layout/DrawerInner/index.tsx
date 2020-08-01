@@ -4,6 +4,7 @@ import Divider from '@material-ui/core/Divider';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import ClearIcon from '@material-ui/icons/Clear';
+import DrawerLinks from './DrawerLinks';
 import ThemeHandler from './ThemeHandler';
 
 const useStyles = makeStyles((theme) =>
@@ -38,6 +39,8 @@ function DrawerInner({ drawerContents, onCloseIconClick }: Props) {
       </div>
       <Divider />
       {drawerContents}
+      <DrawerLinks />
+      <Divider />
       <ThemeHandler />
     </div>
   );

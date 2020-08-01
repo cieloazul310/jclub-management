@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    title: `Jクラブ経営情報2005-2019`,
+    description: `Jリーグクラブの経営情報をクラブ別・年別に閲覧できるページ`,
     author: `@gatsbyjs`,
   },
   plugins: [
@@ -14,6 +14,13 @@ module.exports = {
     `gatsby-plugin-material-ui`,
     `gatsby-plugin-graphql-codegen`,
     `gatsby-plugin-react-helmet`,
+    `gatsby-transformer-yaml`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `./data/`,
+      },
+    },
     {
       resolve: `gatsby-plugin-eslint`,
       options: {
