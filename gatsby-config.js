@@ -14,11 +14,34 @@ module.exports = {
     `gatsby-plugin-material-ui`,
     `gatsby-plugin-graphql-codegen`,
     `gatsby-plugin-react-helmet`,
-    `gatsby-transformer-yaml`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `./data/`,
+        name: 'frames',
+        path: `./data/frames`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: 'dataset',
+        path: `./data/dataset`,
+      },
+    },
+    {
+      resolve: `gatsby-transformer-yaml`,
+      options: {
+        typeName: ({ node }) => {
+          return node.sourceInstanceName === 'dataset'
+            ? `dataset`
+            : node.relativePath === 'clubs.yml'
+            ? `clubsYaml`
+            : node.relativePath === 'years.yml'
+            ? `yearsYaml`
+            : node.relativePath === 'dict.yml'
+            ? `dictYaml`
+            : `yaml`;
+        },
       },
     },
     {

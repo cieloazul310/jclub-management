@@ -1,6 +1,6 @@
 import * as React from 'react';
 import AppBar from '@material-ui/core/AppBar';
-import Drawer from '@material-ui/core/SwipeableDrawer';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Fab from '@material-ui/core/Fab';
 import Slide from '@material-ui/core/Slide';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -61,7 +61,7 @@ function Layout({ children, drawerContents, title }: Props) {
         <main>{children}</main>
       </div>
       <Footer />
-      <Drawer
+      <SwipeableDrawer
         open={drawerOpen}
         onClose={_setDrawer(false)}
         onOpen={_setDrawer(true)}
@@ -69,10 +69,10 @@ function Layout({ children, drawerContents, title }: Props) {
         disableDiscovery={iOS}
       >
         <DrawerInner onCloseIconClick={_setDrawer(false)} drawerContents={drawerContents} />
-      </Drawer>
+      </SwipeableDrawer>
       <div className={classes.fab}>
         <Tooltip title="メニュー">
-          <Fab onClick={_toggleDrawer}>
+          <Fab color="secondary" onClick={_toggleDrawer}>
             <MenuIcon />
           </Fab>
         </Tooltip>
