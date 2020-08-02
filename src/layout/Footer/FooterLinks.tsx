@@ -35,7 +35,7 @@ function CategoryLinks({ title, clubs }: CategoryLinksProps) {
       <Typography className={classes.ul} component="ul">
         {clubs.map(({ node }, index) => (
           <Typography className={classes.li} key={node.short_name ?? index} variant="body2" component="li">
-            <AppLink to="#" color="inherit">
+            <AppLink to={`/club/${node.slug}`} color="inherit">
               {node.short_name}
             </AppLink>
           </Typography>

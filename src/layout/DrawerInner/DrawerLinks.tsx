@@ -35,7 +35,7 @@ function CategoryLinks({ title, clubs }: CategoryLinksProps) {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {clubs.map(({ node }, index) => (
-            <ListItem key={node.short_name ?? index} button dense component={GatsbyLink} to="#">
+            <ListItem key={node.short_name ?? index} button dense component={GatsbyLink} to={`/club/${node.slug}`}>
               <ListItemText primary={node.name} />
             </ListItem>
           ))}
