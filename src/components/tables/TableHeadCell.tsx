@@ -21,6 +21,9 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) =>
       color: ({ mode, sortable, selected }) =>
         mode === 'club' || !sortable ? theme.palette.text.secondary : !selected ? theme.palette.text.primary : theme.palette.primary.main,
       cursor: ({ mode, sortable }) => (mode === 'year' && sortable ? 'pointer' : undefined),
+      '&:hover': {
+        color: ({ mode, sortable }) => (mode === 'club' || !sortable ? theme.palette.text.secondary : theme.palette.primary.light),
+      },
     },
   })
 );

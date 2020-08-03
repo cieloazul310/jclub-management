@@ -4,26 +4,25 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCore from './TableCore';
 import TableHeadRow from './TableHeadRow';
 import TableBodyRow from './TableBodyRow';
-import useSortedEdges from '../../utils/useSortedEdges';
-import { Tab, Mode } from '../../types';
-import { ClubTemplateQuery } from '../../../graphql-types';
+import useStateEdges from '../../utils/useStateEdges';
+import { Tab, Mode, Edge } from '../../types';
 
 interface Props {
-  edges: ClubTemplateQuery['allDataset']['edges'];
+  edges: Edge[];
   mode: Mode;
   tab: Tab;
 }
 
 function FinancialTable({ edges, mode, tab }: Props) {
-  const sorted = useSortedEdges(edges, mode);
+  const stateEdges = useStateEdges(edges, mode);
   return (
     <TableCore mode={mode}>
       <TableHead>
         <TableHeadRow mode={mode} tab={tab} />
       </TableHead>
       <TableBody>
-        {sorted.map((edge, index) => (
-          <TableBodyRow key={edge.node.id ?? index} edge={edge} mode={mode} tab={tab} />
+        {stateEdges.map((edge, index) => (
+          <TableBodyRow key={edge.node.id ?? index} edge={edge} mode={mode} tab={tab} index={index} />
         ))}
       </TableBody>
     </TableCore>

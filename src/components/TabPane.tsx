@@ -12,13 +12,14 @@ const useStyles = makeStyles((theme) =>
 );
 
 interface Props {
+  visibility: boolean;
   table: JSX.Element | JSX.Element[] | (JSX.Element | JSX.Element[])[];
   article: JSX.Element | JSX.Element[] | (JSX.Element | JSX.Element[])[];
 }
 
-function TabPane({ table, article }: Props) {
+function TabPane({ table, article, visibility }: Props) {
   const classes = useStyles();
-  return (
+  return visibility ? (
     <div>
       <section>
         <Container className={classes.content} maxWidth="lg">
@@ -31,7 +32,7 @@ function TabPane({ table, article }: Props) {
         </Container>
       </section>
     </div>
-  );
+  ) : null;
 }
 
 export default TabPane;

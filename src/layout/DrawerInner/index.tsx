@@ -39,6 +39,7 @@ function DrawerInner({ drawerContents, onCloseIconClick }: Props) {
       </div>
       <Divider />
       {drawerContents}
+      {drawerContents ? <Divider /> : null}
       <DrawerLinks />
       <Divider />
       <ThemeHandler />

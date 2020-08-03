@@ -4,28 +4,29 @@ import TableCell from '@material-ui/core/TableCell';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TableBodyLabel } from './TableLabel';
 import { useAppState } from '../../utils/AppStateContext';
-import { Tab, Mode } from '../../types';
-import { ClubTemplateQuery } from '../../../graphql-types';
+import { Tab, Mode, Edge } from '../../types';
 
 interface Props {
   tab: Tab;
-  edge: ClubTemplateQuery['allDataset']['edges'][number];
+  edge: Edge;
   mode: Mode;
+  index: number;
 }
 
-function TableBodyRow({ tab, ...props }: Props) {
+function TableBodyRow({ tab, index, mode, edge }: Props) {
   return (
     <TableRow>
+      <TableBodyLabel mode={mode} edge={edge} index={index} />
       {tab === 'pl' ? (
-        <PLTableRow {...props} />
+        <PLTableRow edge={edge} />
       ) : tab === 'bs' ? (
-        <BSTableRow {...props} />
+        <BSTableRow edge={edge} />
       ) : tab === 'revenue' ? (
-        <RevenueTableRow {...props} />
+        <RevenueTableRow edge={edge} />
       ) : tab === 'expense' ? (
-        <ExpenseTableRow {...props} />
+        <ExpenseTableRow edge={edge} />
       ) : (
-        <AttdTableRow {...props} />
+        <AttdTableRow edge={edge} />
       )}
     </TableRow>
   );
@@ -42,14 +43,13 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-type TableRowProps = Omit<Props, 'tab'>;
+type TableRowProps = Pick<Props, 'edge'>;
 
-export function PLTableRow({ edge, mode }: TableRowProps) {
+export function PLTableRow({ edge }: TableRowProps) {
   const classes = useStyles();
   const { node } = edge;
   return (
     <>
-      <TableBodyLabel>{mode === 'club' ? node.year : node.name}</TableBodyLabel>
       <TableCell align="center">{node.category}</TableCell>
       <TableCell align="right">{node.revenue}</TableCell>
       <TableCell align="right">{node.expense}</TableCell>
@@ -75,12 +75,11 @@ export function PLTableRow({ edge, mode }: TableRowProps) {
   );
 }
 
-export function BSTableRow({ edge, mode }: TableRowProps) {
+export function BSTableRow({ edge }: TableRowProps) {
   const classes = useStyles();
   const { node } = edge;
   return (
     <>
-      <TableBodyLabel>{mode === 'club' ? node.year : node.name}</TableBodyLabel>
       <TableCell align="center">{node.category}</TableCell>
       <TableCell className={classes.emphasized} align="right">
         {node.assets}
@@ -103,12 +102,11 @@ export function BSTableRow({ edge, mode }: TableRowProps) {
   );
 }
 
-export function RevenueTableRow({ edge, mode }: TableRowProps) {
+export function RevenueTableRow({ edge }: TableRowProps) {
   const classes = useStyles();
   const { node } = edge;
   return (
     <>
-      <TableBodyLabel>{mode === 'club' ? node.year : node.name}</TableBodyLabel>
       <TableCell align="center">{node.category}</TableCell>
       <TableCell className={classes.emphasized} align="right">
         {node.revenue}
@@ -139,12 +137,11 @@ export function RevenueTableRow({ edge, mode }: TableRowProps) {
   );
 }
 
-export function ExpenseTableRow({ edge, mode }: TableRowProps) {
+export function ExpenseTableRow({ edge }: TableRowProps) {
   const classes = useStyles();
   const { node } = edge;
   return (
     <>
-      <TableBodyLabel>{mode === 'club' ? node.year : node.name}</TableBodyLabel>
       <TableCell align="center">{node.category}</TableCell>
       <TableCell className={classes.emphasized} align="right">
         {node.expense}
@@ -192,13 +189,12 @@ export function ExpenseTableRow({ edge, mode }: TableRowProps) {
   );
 }
 
-export function AttdTableRow({ edge, mode }: TableRowProps) {
+export function AttdTableRow({ edge }: TableRowProps) {
   const classes = useStyles();
   const { node } = edge;
   const { displayFullAttd } = useAppState();
   return (
     <>
-      <TableBodyLabel>{mode === 'club' ? node.year : node.name}</TableBodyLabel>
       <TableCell align="center">{node.category}</TableCell>
       <TableCell className={classes.emphasized} align="right">
         {node.ticket}

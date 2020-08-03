@@ -76,8 +76,8 @@ export default function reducer(state: AppState, action: Action) {
       return {
         ...state,
         filterCategories: state.filterCategories.includes(action.category)
-          ? [...state.filterCategories, action.category]
-          : state.filterCategories.filter((category) => category !== action.category),
+          ? state.filterCategories.filter((category) => category !== action.category)
+          : [...state.filterCategories, action.category],
       };
     case 'RESET':
       return initialAppState;
