@@ -16,7 +16,7 @@ interface Props {
 function BSTable({ edges, mode }: Props) {
   const classes = useTableStyles();
   return (
-    <TableCore caption="単位:百万円">
+    <TableCore caption="単位: 百万円">
       <TableHead>
         <TableRow>
           <TableHeadLabel mode={mode} />
@@ -78,7 +78,7 @@ function BSTable({ edges, mode }: Props) {
             </TableCell>
             <TableCell align="right">{node.capital_stock}</TableCell>
             <TableCell align="right">{node.capital_surplus ?? '-'}</TableCell>
-            <TableCell align="right">{node.retained_earnings}</TableCell>
+            <TableCell align="right">{node.retained_earnings ?? '-'}</TableCell>
             <TableCell align="right">{node.profit}</TableCell>
           </TableRow>
         ))}

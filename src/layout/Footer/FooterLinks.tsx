@@ -57,7 +57,7 @@ function YearsLinks() {
       <Typography className={classes.ul} component="ul">
         {years.map(({ year, id }, index) => (
           <Typography className={classes.li} key={id ?? index} variant="body2" component="li">
-            <AppLink to="#" color="inherit">
+            <AppLink to={`/year/${year}`} color="inherit">
               {year}
             </AppLink>
           </Typography>

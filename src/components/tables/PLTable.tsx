@@ -16,7 +16,7 @@ interface Props {
 function PLTable({ edges, mode }: Props) {
   const classes = useTableStyles();
   return (
-    <TableCore caption="単位:百万円">
+    <TableCore caption="単位: 百万円">
       <TableHead>
         <TableRow>
           <TableHeadLabel mode={mode} />

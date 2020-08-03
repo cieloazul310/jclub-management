@@ -6,15 +6,18 @@ export default makeStyles((theme) =>
       fontWeight: 'bold',
       fontSize: theme.typography.caption.fontSize,
       padding: theme.spacing(1, 0.5),
+      minWidth: '6em',
     },
     label: {
       position: 'sticky',
       left: 0,
       zIndex: 3,
+      minWidth: '8em',
       borderRight: `1px solid ${theme.palette.divider}`,
     },
     tbodyLabel: {
       fontWeight: 'bold',
+      zIndex: 2,
       background: theme.palette.background.default,
     },
     emphasized: {

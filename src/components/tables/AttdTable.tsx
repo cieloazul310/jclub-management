@@ -19,7 +19,7 @@ function AttdTable({ edges, mode }: Props) {
   const { displayFullAttd } = useAppState();
 
   return (
-    <TableCore caption="単位:入場料収入のみ百万円">
+    <TableCore caption="単位: 入場料収入のみ百万円">
       <TableHead>
         <TableRow>
           <TableHeadLabel mode={mode} />

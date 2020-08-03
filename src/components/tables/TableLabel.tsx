@@ -11,7 +11,7 @@ function TableHeadLabel({ mode }: Props) {
   const classes = useTableStyles();
   return (
     <TableCell className={clsx(classes.label, classes.head)} align="center">
-      {mode === 'club' ? '年' : 'year'}
+      {mode === 'club' ? '年' : 'クラブ'}
     </TableCell>
   );
 }

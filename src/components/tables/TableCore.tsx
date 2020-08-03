@@ -6,9 +6,11 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
+    container: {
+      maxHeight: 'calc(100vh - 120px)',
+    },
     table: {
       minWidth: 600,
-      maxHeight: 'calc(100vh - 100px)',
     },
   })
 );
@@ -21,7 +23,7 @@ interface Props {
 function TableCore({ children, caption }: Props) {
   const classes = useStyles();
   return (
-    <TableContainer component={Paper}>
+    <TableContainer className={classes.container} component={Paper}>
       <Table className={classes.table} size="small" stickyHeader>
         {caption ? <caption>{caption}</caption> : null}
         {children}

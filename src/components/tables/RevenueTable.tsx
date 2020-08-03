@@ -16,7 +16,7 @@ interface Props {
 function RevenueTable({ edges, mode }: Props) {
   const classes = useTableStyles();
   return (
-    <TableCore caption="単位:百万円">
+    <TableCore caption="単位: 百万円">
       <TableHead>
         <TableRow>
           <TableHeadLabel mode={mode} />
@@ -57,17 +57,17 @@ function RevenueTable({ edges, mode }: Props) {
             <TableCell className={classes.emphasized} align="right">
               {node.revenue}
             </TableCell>
-            <TableCell align="right">{node.sponsor}</TableCell>
-            <TableCell align="right">{node.ticket}</TableCell>
+            <TableCell align="right">{node.sponsor ?? '-'}</TableCell>
+            <TableCell align="right">{node.ticket ?? '-'}</TableCell>
             <TableCell align="right">{node.broadcast}</TableCell>
             {(node.year ?? 0) <= 2010 ? (
-              <TableCell align="center" colspan={3}>
+              <TableCell align="center" colSpan={3}>
                 {node.other_revs}
               </TableCell>
             ) : (node.year ?? 0) <= 2015 ? (
               <>
                 <TableCell align="center">{node.academy_rev}</TableCell>
-                <TableCell align="center" colspan={2}>
+                <TableCell align="center" colSpan={2}>
                   {node.other_revs}
                 </TableCell>
               </>

@@ -19,9 +19,26 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+      allYearsYaml(sort: { fields: year }) {
+        edges {
+          node {
+            id
+            categories
+            year
+          }
+          next {
+            year
+          }
+          previous {
+            year
+          }
+        }
+      }
     }
   `);
-  result.data.allClubsYaml.edges.forEach(({ node, previous, next }) => {
+  const { allClubsYaml, allYearsYaml } = result.data;
+
+  allClubsYaml.edges.forEach(({ node, previous, next }) => {
     createPage({
       path: `/club/${node.slug}`,
       component: path.resolve(`./src/templates/club.tsx`),
@@ -31,6 +48,18 @@ exports.createPages = async ({ graphql, actions }) => {
         previous,
         next,
         slug: node.slug,
+      },
+    });
+  });
+
+  allYearsYaml.edges.forEach(({ node, previous, next }) => {
+    createPage({
+      path: `/year/${node.year}`,
+      component: path.resolve(`./src/templates/year.tsx`),
+      context: {
+        previous,
+        next,
+        year: node.year,
       },
     });
   });

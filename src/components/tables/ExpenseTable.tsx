@@ -16,7 +16,7 @@ interface Props {
 function ExpenseTable({ edges, mode }: Props) {
   const classes = useTableStyles();
   return (
-    <TableCore caption="単位:百万円">
+    <TableCore caption="単位: 百万円">
       <TableHead>
         <TableRow>
           <TableHeadLabel mode={mode} />
@@ -60,32 +60,41 @@ function ExpenseTable({ edges, mode }: Props) {
             <TableCell className={classes.emphasized} align="right">
               {node.expense}
             </TableCell>
-            <TableCell align="right">{node.salary}</TableCell>
-            {(node.year ?? 0) <= 2010 ? (
+            {(node.year ?? 0) <= 2005 && !node.salary ? (
               <>
-                <TableCell align="center" colspan={6}>
+                <TableCell align="center" colSpan={7}>
+                  {node.general_exp}
+                </TableCell>
+                <TableCell align="center">{node.sga}</TableCell>
+              </>
+            ) : (node.year ?? 0) <= 2010 ? (
+              <>
+                <TableCell align="right">{node.salary}</TableCell>
+                <TableCell align="center" colSpan={6}>
                   {node.manage_exp}
                 </TableCell>
                 <TableCell align="center">{node.sga}</TableCell>
               </>
             ) : (node.year ?? 0) <= 2015 ? (
               <>
+                <TableCell align="right">{node.salary}</TableCell>
                 <TableCell align="right">{node.game_exp}</TableCell>
                 <TableCell align="right">{node.team_exp}</TableCell>
                 <TableCell align="right">{node.academy_exp}</TableCell>
                 <TableCell align="right">{node.women_exp}</TableCell>
-                <TableCell align="center" colspan={3}>
+                <TableCell align="center" colSpan={3}>
                   {node.sga}
                 </TableCell>
               </>
             ) : (
               <>
+                <TableCell align="right">{node.salary}</TableCell>
                 <TableCell align="right">{node.game_exp}</TableCell>
                 <TableCell align="right">{node.team_exp}</TableCell>
                 <TableCell align="right">{node.academy_exp}</TableCell>
                 <TableCell align="right">{node.women_exp}</TableCell>
                 <TableCell align="center">{node.goods_exp}</TableCell>
-                <TableCell align="center" colspan={2}>
+                <TableCell align="center" colSpan={2}>
                   {node.sga}
                 </TableCell>
               </>

@@ -2,7 +2,8 @@ module.exports = {
   siteMetadata: {
     title: `Jクラブ経営情報2005-2019`,
     description: `Jリーグクラブの経営情報をクラブ別・年別に閲覧できるページ`,
-    author: `@gatsbyjs`,
+    author: `@cieloazul310`,
+    siteUrl: `https://cieloazul310.github.io/jclub-financial-table/`,
   },
   plugins: [
     {
@@ -45,6 +46,18 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: 'UA-74683419-3',
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-adsense`,
+      options: {
+        publisherId: 'ca-pub-7323207940463794',
+      },
+    },
+    {
       resolve: `gatsby-plugin-eslint`,
       options: {
         test: /\.js$|\.jsx$|\.ts$|\.tsx$/,
@@ -59,7 +72,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
+        name: `Jクラブ経営情報2005-2019`,
         short_name: `starter`,
         start_url: `/`,
         background_color: `#663399`,
@@ -68,5 +81,6 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+    `gatsby-plugin-sitemap`,
   ],
 };

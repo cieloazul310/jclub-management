@@ -14,6 +14,7 @@ other_revs: その他収入
 expense: 営業費用
 salary: チーム人件費
 manage_exp: 事業費
+general_exp: 総事業費
 game_exp: 試合関連経費
 team_exp: トップチーム運営経費
 academy_exp: アカデミー運営経費

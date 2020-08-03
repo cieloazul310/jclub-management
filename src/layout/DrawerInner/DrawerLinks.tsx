@@ -66,7 +66,7 @@ function YearsLinks() {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {years.map(({ year, id }, index) => (
-            <ListItem key={id ?? index} button dense component={GatsbyLink} to="#">
+            <ListItem key={id ?? index} button dense component={GatsbyLink} to={`/year/${year}`}>
               <ListItemText primary={year} />
             </ListItem>
           ))}
