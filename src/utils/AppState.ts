@@ -1,12 +1,58 @@
+export type SortKey =
+  | 'revenue'
+  | 'sponsor'
+  | 'ticket'
+  | 'broadcast'
+  | 'academy_rev'
+  | 'goods_rev'
+  | 'other_revs'
+  | 'expense'
+  | 'salary'
+  | 'game_exp'
+  | 'team_exp'
+  | 'academy_exp'
+  | 'women_exp'
+  | 'goods_exp'
+  | 'sga'
+  | 'no_rev'
+  | 'no_exp'
+  | 'sp_rev'
+  | 'sp_exp'
+  | 'op_profit'
+  | 'ordinary_profit'
+  | 'profit'
+  | 'related_revenue'
+  | 'assets'
+  | 'liabilities'
+  | 'capital_stock'
+  | 'net_worth'
+  | 'league_attd'
+  | 'average_attd'
+  | 'unit_price'
+  | 'all_attd';
+
+export type FilterCategory = 'J1' | 'J2' | 'J3' | 'others';
+
 export interface AppState {
+  sortKey: SortKey;
+  sortAsc: boolean;
+  filterCategories: FilterCategory[];
   displayFullAttd: boolean;
 }
 
 export const initialAppState: AppState = {
+  sortKey: 'revenue',
+  sortAsc: false,
+  filterCategories: ['J1', 'J2', 'J3', 'others'],
   displayFullAttd: false,
 };
 
-export type Action = { type: 'TOGGLE_FULL_ATTD' } | { type: 'RESET' };
+export type Action =
+  | { type: 'TOGGLE_FULL_ATTD' }
+  | { type: 'CHANGE_SORTKEY'; sortKey: SortKey }
+  | { type: 'TOGGLE_SORTASC' }
+  | { type: 'TOGGLE_FILTERCATEGORY'; category: FilterCategory }
+  | { type: 'RESET' };
 
 export default function reducer(state: AppState, action: Action) {
   switch (action.type) {
@@ -14,6 +60,24 @@ export default function reducer(state: AppState, action: Action) {
       return {
         ...state,
         displayFullAttd: !state.displayFullAttd,
+      };
+    case 'CHANGE_SORTKEY':
+      return {
+        ...state,
+        sortKey: action.sortKey,
+        sortAsc: false,
+      };
+    case 'TOGGLE_SORTASC':
+      return {
+        ...state,
+        sortAsc: !state.sortAsc,
+      };
+    case 'TOGGLE_FILTERCATEGORY':
+      return {
+        ...state,
+        filterCategories: state.filterCategories.includes(action.category)
+          ? [...state.filterCategories, action.category]
+          : state.filterCategories.filter((category) => category !== action.category),
       };
     case 'RESET':
       return initialAppState;

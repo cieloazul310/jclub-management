@@ -5,12 +5,10 @@ import TemplateLayout from '../layout/TemplateLayout';
 import { YearTemplateQuery, SitePageContext } from '../../graphql-types';
 
 function YearTemplate(props: PageProps<YearTemplateQuery, SitePageContext>) {
-  console.log(props.data);
-  console.log(props.pageContext);
   const { yearsYaml } = props.data;
 
   return (
-    <TemplateLayout mode="year" title={yearsYaml?.year ?? '経営情報'} {...props}>
+    <TemplateLayout mode="year" title={`${yearsYaml?.year}年Jリーグ経営情報`} {...props}>
       <Typography>{yearsYaml?.year}</Typography>
     </TemplateLayout>
   );

@@ -5,11 +5,9 @@ import TemplateLayout from '../layout/TemplateLayout';
 import { ClubTemplateQuery, SitePageContext } from '../../graphql-types';
 
 function ClubTemplate(props: PageProps<ClubTemplateQuery, SitePageContext>) {
-  console.log(props.data);
-  console.log(props.pageContext);
   const { clubsYaml } = props.data;
   return (
-    <TemplateLayout mode="club" title={clubsYaml?.name ?? '経営情報'} {...props}>
+    <TemplateLayout mode="club" title={`${clubsYaml?.name}`} {...props}>
       <Typography>{clubsYaml?.name}</Typography>
     </TemplateLayout>
   );

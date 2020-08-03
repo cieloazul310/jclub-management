@@ -7,11 +7,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
 import Layout from '../layout';
 import TabPane from '../components/TabPane';
-import PLTable from '../components/tables/PLTable';
-import BSTable from '../components/tables/BSTable';
-import AttdTable from '../components/tables/AttdTable';
-import RevenueTable from '../components/tables/RevenueTable';
-import ExpenseTable from '../components/tables/ExpenseTable';
+import FinancialTable from '../components/tables/FinancialTable';
+import { Mode } from '../types';
 import { ClubTemplateQuery, YearTemplateQuery, SitePageContext } from '../../graphql-types';
 
 interface StylesProps {
@@ -35,7 +32,7 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) =>
 );
 
 interface Props {
-  mode: 'club' | 'year';
+  mode: Mode;
   title: string;
   data: ClubTemplateQuery | YearTemplateQuery;
   pageContext: SitePageContext;
@@ -59,6 +56,7 @@ function TemplateCore({ mode, data, title, children, pageContext }: Props) {
       sessionStorage.setItem('jclubTab', JSON.stringify(tab));
     }
   }, [tab]);
+  const { edges } = data.allDataset;
 
   return (
     <Layout title={title ?? '経営情報'}>
@@ -72,11 +70,11 @@ function TemplateCore({ mode, data, title, children, pageContext }: Props) {
         </Tabs>
       </div>
       <SwipeableViews index={tab} onChangeIndex={_handleChangeIndex}>
-        <TabPane table={<PLTable edges={data.allDataset.edges} mode={mode} />} article={<Typography>hoge</Typography>} />
-        <TabPane table={<BSTable edges={data.allDataset.edges} mode={mode} />} article={<Typography>hoge</Typography>} />
-        <TabPane table={<RevenueTable edges={data.allDataset.edges} mode={mode} />} article={<Typography>hoge</Typography>} />
-        <TabPane table={<ExpenseTable edges={data.allDataset.edges} mode={mode} />} article={<Typography>hoge</Typography>} />
-        <TabPane table={<AttdTable edges={data.allDataset.edges} mode={mode} />} article={<Typography>hoge</Typography>} />
+        <TabPane table={<FinancialTable edges={edges} mode={mode} tab="pl" />} article={<Typography>hoge</Typography>} />
+        <TabPane table={<FinancialTable edges={edges} mode={mode} tab="bs" />} article={<Typography>hoge</Typography>} />
+        <TabPane table={<FinancialTable edges={edges} mode={mode} tab="revenue" />} article={<Typography>hoge</Typography>} />
+        <TabPane table={<FinancialTable edges={edges} mode={mode} tab="expense" />} article={<Typography>hoge</Typography>} />
+        <TabPane table={<FinancialTable edges={edges} mode={mode} tab="attd" />} article={<Typography>hoge</Typography>} />
       </SwipeableViews>
       <footer>{children}</footer>
     </Layout>

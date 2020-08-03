@@ -2,6 +2,7 @@ import * as React from 'react';
 import Container from '@material-ui/core/Container';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import FooterLinks from './FooterLinks';
+import { AdInFooter } from '../../components/Ads';
 import Copyrights from './Copyrights';
 
 const useStyles = makeStyles((theme) =>
@@ -25,6 +26,9 @@ function Footer() {
       <Container maxWidth="lg">
         <div className={classes.item}>
           <FooterLinks />
+        </div>
+        <div className={classes.item}>
+          <AdInFooter />
         </div>
         <div className={classes.item}>
           <Copyrights />
