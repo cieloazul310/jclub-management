@@ -9,6 +9,7 @@
     "@material-ui/icons": "^4.9.1",
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
+    "@types/react-helmet": "^6.0.0",
     "@types/react-swipeable-views": "^0.13.0",
     "gatsby": "^2.23.12",
     "gatsby-plugin-eslint": "^2.0.8",
@@ -20,11 +21,13 @@
     "gatsby-plugin-react-helmet": "^3.3.6",
     "gatsby-plugin-sitemap": "^2.4.11",
     "gatsby-source-filesystem": "^2.3.14",
+    "gatsby-transformer-remark": "^2.8.27",
     "gatsby-transformer-yaml": "^2.4.10",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^6.1.0",
-    "react-swipeable-views": "^0.13.9"
+    "react-swipeable-views": "^0.13.9",
+    "rehype-react": "^6.1.0"
   },
   "devDependencies": {
     "@types/node": "^14.0.27",

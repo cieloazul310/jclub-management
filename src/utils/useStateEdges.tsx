@@ -33,9 +33,17 @@ export function useSortedEdges(edges: Edge[], mode: Mode) {
 }
 
 function getValue({ node }: Edge, sortKey: SortKey) {
-  return sortKey === 'unit_price'
+  return sortKey === 'rank'
+    ? getRank(node)
+    : sortKey === 'unit_price'
     ? (node.ticket ?? 1) / (node.all_attd ?? 1)
     : sortKey === 'average_attd'
     ? (node.league_attd ?? 1) / (node.league_games ?? 1)
     : node[sortKey] ?? 1;
+}
+
+function getRank(node: Edge['node']) {
+  const addition =
+    node.category === 'J2' ? 100 : node.category === 'J3' ? 200 : node.category === 'JFL' ? 300 : node.category === '地域' ? 400 : 0;
+  return addition + (node.rank ?? 0);
 }

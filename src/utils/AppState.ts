@@ -1,4 +1,5 @@
 export type SortKey =
+  | 'rank'
   | 'revenue'
   | 'sponsor'
   | 'ticket'
@@ -65,7 +66,7 @@ export default function reducer(state: AppState, action: Action) {
       return {
         ...state,
         sortKey: action.sortKey,
-        sortAsc: false,
+        sortAsc: action.sortKey === 'rank' ? true : false,
       };
     case 'TOGGLE_SORTASC':
       return {

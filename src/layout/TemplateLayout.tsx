@@ -4,7 +4,6 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-//import SwipeableViews from 'react-swipeable-views';
 import Layout from '../layout';
 import TabPane from '../components/TabPane';
 import FinancialTable from '../components/tables/FinancialTable';
@@ -35,12 +34,14 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) =>
 interface Props {
   mode: Mode;
   title: string;
+  headerTitle?: string;
+  description?: string;
   data: ClubTemplateQuery | YearTemplateQuery;
   pageContext: SitePageContext;
   children: JSX.Element | JSX.Element[] | (JSX.Element | JSX.Element[])[];
 }
 
-function TemplateCore({ mode, data, title, children, pageContext }: Props) {
+function TemplateCore({ mode, data, title, headerTitle, description, children, pageContext }: Props) {
   const trigger = useScrollTrigger();
   const classes = useStyles({ trigger });
   const storaged = typeof window === 'object' ? sessionStorage.getItem('jclubTab') : null;
@@ -49,11 +50,6 @@ function TemplateCore({ mode, data, title, children, pageContext }: Props) {
   const _handleChange = (_: React.ChangeEvent<unknown>, newValue: number) => {
     setTab(newValue);
   };
-  /*
-  const _handleChangeIndex = (newValue: number) => {
-    setTab(newValue);
-  };
-  */
   React.useEffect(() => {
     if (window && typeof window === 'object') {
       sessionStorage.setItem('jclubTab', JSON.stringify(tab));
@@ -62,7 +58,12 @@ function TemplateCore({ mode, data, title, children, pageContext }: Props) {
   const { edges } = data.allDataset;
 
   return (
-    <Layout title={title ?? '経営情報'} drawerContents={mode === 'year' ? <YearStateHandler /> : undefined}>
+    <Layout
+      title={title ?? '経営情報'}
+      headerTitle={headerTitle}
+      description={description}
+      drawerContents={mode === 'year' ? <YearStateHandler /> : undefined}
+    >
       <div className={classes.tabs}>
         <Tabs value={tab} onChange={_handleChange} indicatorColor="secondary" textColor="secondary" variant="fullWidth">
           <Tab label="損益計算書" />
@@ -99,7 +100,7 @@ function TemplateCore({ mode, data, title, children, pageContext }: Props) {
           article={<Typography>hoge</Typography>}
         />
       </div>
-      <footer>{children}</footer>
+      <div>{children}</div>
     </Layout>
   );
 }

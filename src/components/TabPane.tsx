@@ -22,7 +22,7 @@ function TabPane({ table, article, visibility }: Props) {
   return visibility ? (
     <div>
       <section>
-        <Container className={classes.content} maxWidth="lg">
+        <Container maxWidth="lg" disableGutters>
           {table}
         </Container>
       </section>

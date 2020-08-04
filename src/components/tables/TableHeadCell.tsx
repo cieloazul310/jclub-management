@@ -1,5 +1,5 @@
 import * as React from 'react';
-import TableCell from '@material-ui/core/TableCell';
+import TableCell, { TableCellProps } from '@material-ui/core/TableCell';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { useAppState, useDispatch } from '../../utils/AppStateContext';
 import { Mode } from '../../types';
@@ -28,13 +28,12 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) =>
   })
 );
 
-interface Props {
+interface Props extends TableCellProps {
   mode: Mode;
   sortableKey?: SortKey;
-  children: string;
 }
 
-function TableHeadCell({ sortableKey, mode, children }: Props) {
+function TableHeadCell({ sortableKey, mode, children, ...props }: Props) {
   const { sortKey } = useAppState();
   const selected = sortKey === sortableKey;
   const classes = useStyles({ mode, selected, sortable: !sortableKey ? false : true });
@@ -49,7 +48,7 @@ function TableHeadCell({ sortableKey, mode, children }: Props) {
   };
 
   return (
-    <TableCell className={classes.head} align="center" onClick={_onClick}>
+    <TableCell className={classes.head} align="center" onClick={_onClick} {...props}>
       {children}
     </TableCell>
   );

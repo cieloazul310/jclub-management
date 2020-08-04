@@ -7,11 +7,12 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import MenuIcon from '@material-ui/icons/Menu';
+import SEO from './SEO';
 import AppBarInner from './AppBarInner';
 import DrawerInner from './DrawerInner';
 import Footer from './Footer';
 
-const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+const iOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -37,9 +38,11 @@ interface Props {
   children: JSX.Element | JSX.Element[] | (JSX.Element | JSX.Element[])[];
   drawerContents?: JSX.Element | JSX.Element[] | (JSX.Element | JSX.Element[])[];
   title?: string;
+  description?: string;
+  headerTitle?: string;
 }
 
-function Layout({ children, drawerContents, title }: Props) {
+function Layout({ children, drawerContents, title, description, headerTitle }: Props) {
   const classes = useStyles();
   const trigger = useScrollTrigger();
   const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -52,9 +55,10 @@ function Layout({ children, drawerContents, title }: Props) {
 
   return (
     <div>
+      <SEO title={title} description={description} />
       <Slide appear={false} direction="down" in={!trigger}>
         <AppBar className={classes.appbar}>
-          <AppBarInner title={title} onLeftButtonClick={_toggleDrawer} />
+          <AppBarInner title={headerTitle || title} onLeftButtonClick={_toggleDrawer} />
         </AppBar>
       </Slide>
       <div className={classes.content}>

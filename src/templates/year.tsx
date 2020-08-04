@@ -8,7 +8,12 @@ function YearTemplate(props: PageProps<YearTemplateQuery, SitePageContext>) {
   const { yearsYaml } = props.data;
 
   return (
-    <TemplateLayout mode="year" title={`${yearsYaml?.year}年Jリーグ経営情報`} {...props}>
+    <TemplateLayout
+      mode="year"
+      title={`${yearsYaml?.year}年Jクラブ経営情報`}
+      description={`${yearsYaml?.year}年のJクラブ経営情報一覧。各Jクラブの損益計算書・貸借対照表・営業収入・営業費用・入場者数を項目ごとに表示。`}
+      {...props}
+    >
       <Typography>{yearsYaml?.year}</Typography>
     </TemplateLayout>
   );

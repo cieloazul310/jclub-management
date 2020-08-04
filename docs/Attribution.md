@@ -1,0 +1,60 @@
+---
+id: data
+title: データについて
+---
+
+このサイトで使用しているデータは、Jリーグが発表している**Jクラブ個別経営情報**を基本に独自で入場者数などのデータを追加・加工したものです。追加・加工時にデータの欠損が起きている可能性があります。データ利用の際には念のため一次ソースを確認してください。
+
+## Jクラブ個別経営情報開示資料
+
+- [2005年度(平成17年度)](https://www.jleague.jp/docs/aboutj/club2006_02.pdf "2005年度(平成17年度) Jクラブ個別経営情報開示資料")
+- [2006年度(平成18年度)](https://www.jleague.jp/docs/aboutj/club2007_02.pdf "2006年度(平成18年度) Jクラブ個別経営情報開示資料")
+- [2007年度(平成19年度)](https://www.jleague.jp/docs/aboutj/club2008_02.pdf "2007年度(平成19年度) Jクラブ個別経営情報開示資料")
+- [2008年度(平成20年度)](https://www.jleague.jp/docs/aboutj/club2009_02.pdf "2008年度(平成20年度) Jクラブ個別経営情報開示資料")
+- [2009年度(平成21年度)](https://www.jleague.jp/docs/aboutj/club2010_02.pdf "2009年度(平成21年度) Jクラブ個別経営情報開示資料")
+- [2010年度(平成22年度)](https://www.jleague.jp/docs/aboutj/club2011_02.pdf "2010年度(平成22年度) Jクラブ個別経営情報開示資料")
+- [2011年度(平成23年度)](https://www.jleague.jp/docs/aboutj/club-h23kaiji.pdf "2011年度(平成23年度) Jクラブ個別経営情報開示資料")
+- [2012年度(平成24年度)](https://www.jleague.jp/docs/aboutj/club-h24kaiji.pdf "2012年度(平成24年度) Jクラブ個別経営情報開示資料")
+- [2013年度(平成25年度)](https://www.jleague.jp/docs/aboutj/club-h25kaiji.pdf "2013年度(平成25年度) Jクラブ個別経営情報開示資料")
+- [2014年度(平成26年度)](https://www.jleague.jp/docs/aboutj/club-h26kaiji.pdf "2014年度(平成26年度) Jクラブ個別経営情報開示資料")
+- [2015年度(平成27年度)](https://www.jleague.jp/docs/aboutj/club-h27kaiji.pdf "2015年度(平成27年度) Jクラブ個別経営情報開示資料")
+- [2016年度(平成28年度)](https://www.jleague.jp/docs/aboutj/club-h28kaiji.pdf "2016年度(平成28年度) Jクラブ個別経営情報開示資料")
+- [2017年度(平成29年度)](https://www.jleague.jp/docs/aboutj/club-h29kaiji.pdf "2017年度(平成29年度) Jクラブ個別経営情報開示資料")
+- [2018年度(平成30年度)](hhttps://www.jleague.jp/docs/aboutj/club-h30kaiji_3.pdf "2018年度(平成30年度) Jクラブ個別経営情報開示資料")
+- [2019年度(平成31年度)](https://www.jleague.jp/corporate/assets/pdf/club-h31kaiji_1_20200731.pdf "2019年度(平成31年度) Jクラブ個別経営情報開示資料")
+
+## その他のデータ
+
+- [Jリーグ.jp](https://www.jleague.jp/)
+- [J.LEAGUE Data Site](https://data.j-league.or.jp/SFTP01/)
+- [日本フットボールリーグオフィシャルWebサイト](http://www.jfl.or.jp/)  
+- [Wikipedia](https://ja.wikipedia.org/wiki/)  
+- [ガンバ大阪ACL観客数](http://datadata.zashiki.com/gamba/att/douinacl.htm)
+- 「サッカーJ+ vol.1」株式会社エンターブレイン発行 (横浜F・マリノスの2005年ACL観客数)
+- [ファジアーノ岡山 2013年度　経営状況についてのご報告](//www.fagiano-okayama.com/news/p1398334491.html)
+
+## 参照
+
+経営情報の解説のために参照したページ
+
+- [浦和レッズ 経営情報](https://www.urawa-reds.co.jp/club/managdata.html)
+- [コンサドーレ札幌 決算情報](https://www.consadole-sapporo.jp/club/settlement/)
+- [ファジアーノ岡山 2013年度　経営状況についてのご報告](https://www.fagiano-okayama.com/news/p1398334491.html)
+- [ファジアーノ岡山 2014年度　経営状況についてのご報告](https://www.fagiano-okayama.com/news/p1429706533.html)
+- [横浜F・マリノス 2013年度決算について](https://www.f-marinos.com/news/detail/2014-05-08/120000/113119)
+
+## 更新情報
+
+- 2020-08-06 新バージョンで公開
+
+Date: 2020-08-06
+Last Update: 2020-08-06
+
+## 制作
+
+@cieloazul310
+
+- [Twitter](https://twitter.com/cieloazul310 "@cieloazul310")
+- [Web](https://cieloazul310.github.io/ "水戸地図")
+
+データの誤りなどを見つけたらTwitter等で教えていただけるとありがたいです。

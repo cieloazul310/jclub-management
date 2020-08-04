@@ -1,14 +1,23 @@
 import * as React from 'react';
 import { graphql, PageProps } from 'gatsby';
-import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 import TemplateLayout from '../layout/TemplateLayout';
+import ClubInfo from '../components/ClubInfo';
 import { ClubTemplateQuery, SitePageContext } from '../../graphql-types';
 
 function ClubTemplate(props: PageProps<ClubTemplateQuery, SitePageContext>) {
   const { clubsYaml } = props.data;
   return (
-    <TemplateLayout mode="club" title={`${clubsYaml?.name}`} {...props}>
-      <Typography>{clubsYaml?.name}</Typography>
+    <TemplateLayout
+      mode="club"
+      title={`${clubsYaml?.name}の経営情報`}
+      headerTitle={`${clubsYaml?.name}`}
+      description={`${clubsYaml?.fullname}の年度別経営情報一覧。損益計算書・貸借対照表・営業収入・営業費用・入場者数を項目ごとに時系列表示。`}
+      {...props}
+    >
+      <Container maxWidth="md">
+        <ClubInfo clubsYaml={clubsYaml} />
+      </Container>
     </TemplateLayout>
   );
 }

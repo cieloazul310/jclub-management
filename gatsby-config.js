@@ -1,8 +1,9 @@
+const blue = require('@material-ui/core/colors/blue').default;
+
 module.exports = {
   siteMetadata: {
     title: `Jクラブ経営情報2005-2019`,
     description: `Jリーグクラブの経営情報をクラブ別・年別に閲覧できるページ`,
-    author: `@cieloazul310`,
     siteUrl: `https://cieloazul310.github.io/jclub-financial-table/`,
   },
   plugins: [
@@ -46,6 +47,13 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `./docs`,
+      },
+    },
+    `gatsby-transformer-remark`,
+    {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: 'UA-74683419-3',
@@ -73,12 +81,12 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `Jクラブ経営情報2005-2019`,
-        short_name: `starter`,
+        short_name: `Jクラブ経営情報`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: blue[600],
+        theme_color: blue[600],
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/310hub.png`, // This path is relative to the root of the site.
       },
     },
     `gatsby-plugin-sitemap`,

@@ -6,6 +6,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Hidden from '@material-ui/core/Hidden';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import { useTwitterShare } from '../../utils/useSocialShare';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -42,6 +44,7 @@ function AppBarInner({
   },
 }: Props) {
   const classes = useStyles();
+  const twitterShare = useTwitterShare(title);
   return (
     <Toolbar>
       <Tooltip title="メニュー">
@@ -56,6 +59,13 @@ function AppBarInner({
         <div className={classes.dummyIconOuter}>
           <div className={classes.dummyIconInner} />
         </div>
+      </Hidden>
+      <Hidden xsDown>
+        <Tooltip title="Twitterでシェア">
+          <IconButton edge="end" color="inherit" href={twitterShare} target="_blank">
+            <TwitterIcon />
+          </IconButton>
+        </Tooltip>
       </Hidden>
     </Toolbar>
   );

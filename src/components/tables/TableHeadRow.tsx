@@ -14,6 +14,10 @@ function TableHeadRow({ mode, tab }: Props) {
   return (
     <TableRow>
       <TableHeadLabel mode={mode} />
+      <TableHeadCell mode={mode}>所属</TableHeadCell>
+      <TableHeadCell mode={mode} sortableKey="rank">
+        順位
+      </TableHeadCell>
       {tab === 'pl' ? (
         <PLTableHeadRow mode={mode} />
       ) : tab === 'bs' ? (
@@ -36,7 +40,6 @@ type TableHeadRowProps = Pick<Props, 'mode'>;
 export function PLTableHeadRow({ mode }: TableHeadRowProps) {
   return (
     <>
-      <TableHeadCell mode={mode}>所属</TableHeadCell>
       <TableHeadCell mode={mode} sortableKey="revenue">
         営業収入
       </TableHeadCell>
@@ -76,7 +79,6 @@ export function PLTableHeadRow({ mode }: TableHeadRowProps) {
 export function BSTableHeadRow({ mode }: TableHeadRowProps) {
   return (
     <>
-      <TableHeadCell mode={mode}>所属</TableHeadCell>
       <TableHeadCell mode={mode} sortableKey="assets">
         総資産
       </TableHeadCell>
@@ -105,7 +107,6 @@ export function BSTableHeadRow({ mode }: TableHeadRowProps) {
 export function RevenueTableHeadRow({ mode }: TableHeadRowProps) {
   return (
     <>
-      <TableHeadCell mode={mode}>所属</TableHeadCell>
       <TableHeadCell mode={mode} sortableKey="revenue">
         営業収入
       </TableHeadCell>
@@ -137,7 +138,6 @@ export function RevenueTableHeadRow({ mode }: TableHeadRowProps) {
 export function ExpenseTableHeadRow({ mode }: TableHeadRowProps) {
   return (
     <>
-      <TableHeadCell mode={mode}>所属</TableHeadCell>
       <TableHeadCell mode={mode} sortableKey="expense">
         営業費用
       </TableHeadCell>
@@ -169,7 +169,6 @@ export function AttdTableHeadRow({ mode }: TableHeadRowProps) {
   const { displayFullAttd } = useAppState();
   return (
     <>
-      <TableHeadCell mode={mode}>所属</TableHeadCell>
       <TableHeadCell mode={mode} sortableKey="ticket">
         入場料収入
       </TableHeadCell>
