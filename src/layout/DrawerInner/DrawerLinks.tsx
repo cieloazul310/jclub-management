@@ -15,7 +15,7 @@ interface CategoryLinksProps {
   clubs: Clubs;
 }
 
-function CategoryLinks({ title, clubs }: CategoryLinksProps) {
+export function CategoryLinks({ title, clubs }: CategoryLinksProps) {
   const storaged = typeof window === 'object' ? sessionStorage.getItem(`${title}Open`) : null;
   const initialOpen = storaged ? (JSON.parse(storaged) as boolean) : false;
   const [open, setOpen] = React.useState(initialOpen);
@@ -45,7 +45,7 @@ function CategoryLinks({ title, clubs }: CategoryLinksProps) {
   );
 }
 
-function YearsLinks() {
+export function YearsLinks() {
   const years = useAllYears();
   const storaged = typeof window === 'object' ? sessionStorage.getItem('yearsOpen') : null;
   const initialOpen = storaged ? (JSON.parse(storaged) as boolean) : false;
@@ -60,7 +60,7 @@ function YearsLinks() {
   return (
     <>
       <ListItem button onClick={_toggleOpen}>
-        <ListItemText primary="年別" />
+        <ListItemText primary="年度別" />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>

@@ -3,9 +3,9 @@ id: data
 title: データについて
 ---
 
-このサイトで使用しているデータは、Jリーグが発表している**Jクラブ個別経営情報**を基本に独自で入場者数などのデータを追加・加工したものです。追加・加工時にデータの欠損が起きている可能性があります。データ利用の際には念のため一次ソースを確認してください。
+このサイトで使用しているデータは、Jリーグが発表している**Jクラブ個別経営情報開示資料**を基に独自で入場者数などのデータを追加・加工したものです。データは下記の**一次ソースを明記**した上で（「Jクラブ経営情報2005-2019」の記載は不要です）ご自由に利用ください。下記にデータ加工時に欠損が起きている可能性があります。データ利用の際には念のため一次ソースを確認してください。
 
-## Jクラブ個別経営情報開示資料
+### Jクラブ個別経営情報開示資料
 
 - [2005年度(平成17年度)](https://www.jleague.jp/docs/aboutj/club2006_02.pdf "2005年度(平成17年度) Jクラブ個別経営情報開示資料")
 - [2006年度(平成18年度)](https://www.jleague.jp/docs/aboutj/club2007_02.pdf "2006年度(平成18年度) Jクラブ個別経営情報開示資料")
@@ -23,38 +23,34 @@ title: データについて
 - [2018年度(平成30年度)](hhttps://www.jleague.jp/docs/aboutj/club-h30kaiji_3.pdf "2018年度(平成30年度) Jクラブ個別経営情報開示資料")
 - [2019年度(平成31年度)](https://www.jleague.jp/corporate/assets/pdf/club-h31kaiji_1_20200731.pdf "2019年度(平成31年度) Jクラブ個別経営情報開示資料")
 
-## その他のデータ
+### その他のデータソース
 
-- [Jリーグ.jp](https://www.jleague.jp/)
-- [J.LEAGUE Data Site](https://data.j-league.or.jp/SFTP01/)
-- [日本フットボールリーグオフィシャルWebサイト](http://www.jfl.or.jp/)  
-- [Wikipedia](https://ja.wikipedia.org/wiki/)  
-- [ガンバ大阪ACL観客数](http://datadata.zashiki.com/gamba/att/douinacl.htm)
-- 「サッカーJ+ vol.1」株式会社エンターブレイン発行 (横浜F・マリノスの2005年ACL観客数)
-- [ファジアーノ岡山 2013年度　経営状況についてのご報告](//www.fagiano-okayama.com/news/p1398334491.html)
+- [Jリーグ.jp](https://www.jleague.jp/): 順位、勝ち点など
+- [J.LEAGUE Data Site](https://data.j-league.or.jp/SFTP01/): 順位、観客数など
+- [日本フットボールリーグオフィシャルWebサイト](http://www.jfl.or.jp/): 順位。勝ち点など
+- [Wikipedia](https://ja.wikipedia.org/wiki/): ACL観客数、JFL観客数など
+- [ガンバ大阪ACL観客数](http://datadata.zashiki.com/gamba/att/douinacl.htm): ACL観客数
+- [ファジアーノ岡山 2013年度　経営状況についてのご報告](//www.fagiano-okayama.com/news/p1398334491.html): 岡山・地域リーグ、JFL時代の経営情報
+- [サッカーJ+ vol.1](https://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%83%E3%82%AB%E3%83%BCJ%2B): ACL観客数(2005横浜FM)
 
-## 参照
+### 参照
 
 経営情報の解説のために参照したページ
 
-- [浦和レッズ 経営情報](https://www.urawa-reds.co.jp/club/managdata.html)
+- [浦和レッズ 経営情報](https://www.urawa-reds.co.jp/club/managdata.php)
 - [コンサドーレ札幌 決算情報](https://www.consadole-sapporo.jp/club/settlement/)
 - [ファジアーノ岡山 2013年度　経営状況についてのご報告](https://www.fagiano-okayama.com/news/p1398334491.html)
 - [ファジアーノ岡山 2014年度　経営状況についてのご報告](https://www.fagiano-okayama.com/news/p1429706533.html)
-- [横浜F・マリノス 2013年度決算について](https://www.f-marinos.com/news/detail/2014-05-08/120000/113119)
+- [横浜F・マリノス 2013年度決算について](https://www.f-marinos.com/news/detail?id=1922)
 
-## 更新情報
+### 更新情報
 
 - 2020-08-06 新バージョンで公開
 
-Date: 2020-08-06
-Last Update: 2020-08-06
-
-## 制作
+### 制作
 
 @cieloazul310
 
-- [Twitter](https://twitter.com/cieloazul310 "@cieloazul310")
-- [Web](https://cieloazul310.github.io/ "水戸地図")
+[Twitter](https://twitter.com/cieloazul310 "@cieloazul310") [Web](https://cieloazul310.github.io/ "水戸地図")
 
-データの誤りなどを見つけたらTwitter等で教えていただけるとありがたいです。
+データの欠損を見つけたらTwitter等で教えていただけるとありがたいです。

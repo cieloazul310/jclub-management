@@ -276,6 +276,9 @@ export function AttdTableRow({ edge }: TableRowProps) {
         {node.ticket ?? '-'}
       </TableCell>
       <TableCell classes={{ root: classes.root }} align="right">
+        {node.league_games}
+      </TableCell>
+      <TableCell classes={{ root: classes.root }} align="right">
         {Math.round((node.league_attd ?? 1) / (node.league_games ?? 0))}
       </TableCell>
       <TableCell classes={{ root: classes.root }} align="right">
@@ -297,11 +300,11 @@ export function AttdTableRow({ edge }: TableRowProps) {
           </TableCell>
         </>
       ) : null}
-      <TableCell classes={{ root: classes.root }} className={classes.emphasized} align="right">
-        {node.all_attd}
-      </TableCell>
       <TableCell classes={{ root: classes.root }} align="right">
         {node.all_games}
+      </TableCell>
+      <TableCell classes={{ root: classes.root }} className={classes.emphasized} align="right">
+        {node.all_attd}
       </TableCell>
       <TableCell align="right">
         {node.ticket && node.all_attd ? (((node.ticket ?? 1) * 1000000) / (node.all_attd ?? 1)).toFixed(2) : '-'}

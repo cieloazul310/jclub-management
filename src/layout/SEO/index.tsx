@@ -24,6 +24,10 @@ function Seo({ title, description }: Props) {
           content: 'website',
         },
         {
+          name: 'og:image',
+          content: `${siteMetadata.siteUrl}icons/icon-512x512.png`,
+        },
+        {
           name: 'og:title',
           content: title || siteMetadata.title,
         },

@@ -61,7 +61,7 @@ function AppBarInner({
         </div>
       </Hidden>
       <Hidden xsDown>
-        <Tooltip title="Twitterでシェア">
+        <Tooltip title="Twitterで共有する">
           <IconButton edge="end" color="inherit" href={twitterShare} target="_blank">
             <TwitterIcon />
           </IconButton>

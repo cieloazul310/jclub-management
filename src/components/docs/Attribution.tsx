@@ -1,18 +1,30 @@
 import * as React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import Container from '@material-ui/core/Container';
-import { renderAst } from '../../utils/renderAst';
 import { MarkDownQuery } from '../../../graphql-types';
+import DocContainer from './DocContainer';
 
-function Attribution() {
+export function useAttribution() {
   const { markdownRemark } = useStaticQuery<MarkDownQuery>(graphql`
     query MarkDown {
       markdownRemark(frontmatter: { id: { eq: "data" } }) {
         htmlAst
+        frontmatter {
+          title
+        }
       }
     }
   `);
-  return markdownRemark?.htmlAst ? <Container maxWidth="md">{renderAst(markdownRemark.htmlAst)}</Container> : null;
+  return markdownRemark;
 }
 
-export default Attribution;
+export function AttributionDoc() {
+  const markdownRemark = useAttribution();
+  return markdownRemark ? (
+    <Container maxWidth="md">
+      <DocContainer markdownRemark={markdownRemark} />
+    </Container>
+  ) : null;
+}
+
+export default AttributionDoc;

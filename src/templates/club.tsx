@@ -36,6 +36,7 @@ export const query = graphql`
       company
       hometown
       area
+      settlement
       relatedCompanies
     }
     allDataset(filter: { slug: { eq: $slug } }, sort: { fields: year }) {

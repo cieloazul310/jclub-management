@@ -52,7 +52,7 @@ function YearsLinks() {
   return (
     <div>
       <Typography variant="subtitle1" gutterBottom>
-        年別
+        年度別
       </Typography>
       <Typography className={classes.ul} component="ul">
         {years.map(({ year, id }, index) => (

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useLocation } from '@reach/router';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCore from './TableCore';
@@ -16,10 +17,11 @@ interface Props {
 
 function FinancialTable({ edges, mode, tab }: Props) {
   const stateEdges = useStateEdges(edges, mode);
+  const { pathname } = useLocation();
   return (
     <div>
       <TableToolbar mode={mode} tab={tab} />
-      <TableCore mode={mode}>
+      <TableCore mode={mode} id={`${pathname.split('/').join('')}${tab}`}>
         <TableHead>
           <TableHeadRow mode={mode} tab={tab} />
         </TableHead>

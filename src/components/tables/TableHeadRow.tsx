@@ -172,6 +172,7 @@ export function AttdTableHeadRow({ mode }: TableHeadRowProps) {
       <TableHeadCell mode={mode} sortableKey="ticket">
         入場料収入
       </TableHeadCell>
+      <TableHeadCell mode={mode}>リーグホーム数</TableHeadCell>
       <TableHeadCell mode={mode} sortableKey="average_attd">
         リーグ戦平均
       </TableHeadCell>
@@ -186,10 +187,10 @@ export function AttdTableHeadRow({ mode }: TableHeadRowProps) {
           <TableHeadCell mode={mode}>セカンド入場者数</TableHeadCell>
         </>
       ) : null}
+      <TableHeadCell mode={mode}>ホーム試合数</TableHeadCell>
       <TableHeadCell mode={mode} sortableKey="all_attd">
         年間入場者数
       </TableHeadCell>
-      <TableHeadCell mode={mode}>ホーム試合数</TableHeadCell>
       <TableHeadCell mode={mode} sortableKey="unit_price">
         客単価
       </TableHeadCell>

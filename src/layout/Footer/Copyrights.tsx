@@ -2,6 +2,8 @@ import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import MuiLink from '@material-ui/core/Link';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+import AppLink from '../../components/AppLink';
+import { useSiteMetadata } from '../../utils/graphql-hooks';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -13,10 +15,13 @@ const useStyles = makeStyles((theme) =>
 
 function Copyrights() {
   const classes = useStyles();
+  const { title } = useSiteMetadata();
   return (
     <div className={classes.root}>
       <Typography variant="body1" gutterBottom>
-        Jクラブ経営情報2005-2019
+        <AppLink to="/" color="inherit">
+          {title}
+        </AppLink>
       </Typography>
       <Typography variant="body2">
         © {new Date().getFullYear()} cieloazul310 All rights reserved. Built with

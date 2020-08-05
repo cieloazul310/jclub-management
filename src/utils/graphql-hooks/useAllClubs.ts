@@ -17,6 +17,7 @@ export function useAllClubs() {
             hometown
             area
             relatedCompanies
+            settlement
           }
         }
       }

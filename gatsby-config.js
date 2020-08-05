@@ -3,7 +3,7 @@ const blue = require('@material-ui/core/colors/blue').default;
 module.exports = {
   siteMetadata: {
     title: `Jクラブ経営情報2005-2019`,
-    description: `Jリーグクラブの経営情報をクラブ別・年別に閲覧できるページ`,
+    description: `Jリーグが毎年公開している「Jクラブ個別経営情報開示資料」の15年分のデータをクラブ別、年度別に表示したサイトです。`,
     siteUrl: `https://cieloazul310.github.io/jclub-financial-table/`,
   },
   plugins: [

@@ -22,7 +22,7 @@ function ThemeHandler() {
   const _toggleUseSystem = useToggleUseSystem();
 
   return (
-    <List subheader={<ListSubheader>表示設定</ListSubheader>}>
+    <List subheader={<ListSubheader>表示</ListSubheader>}>
       <ListItem disabled={useSystemTheme}>
         <ListItemIcon>{darkMode ? <Brightness2Icon /> : <Brightness5Icon />}</ListItemIcon>
         <ListItemText primary="ダークモード" />

@@ -1,13 +1,15 @@
 import * as React from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import SwipeableViews from 'react-swipeable-views';
 import Layout from '../layout';
+import { AdInArticle } from '../components/Ads';
 import TabPane from '../components/TabPane';
 import FinancialTable from '../components/tables/FinancialTable';
 import YearStateHandler from '../components/YearStateHandler';
+import { PLDoc, BSDoc, RevenueDoc, ExpenseDoc, AttdDoc, AttributionDoc } from '../components/docs';
 import { Mode } from '../types';
 import { ClubTemplateQuery, YearTemplateQuery, SitePageContext } from '../../graphql-types';
 
@@ -27,6 +29,9 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) =>
       [theme.breakpoints.only('xs')]: {
         top: ({ trigger }) => (trigger ? 0 : 56),
       },
+    },
+    section: {
+      padding: theme.spacing(4, 0),
     },
   })
 );
@@ -49,6 +54,9 @@ function TemplateCore({ mode, data, title, headerTitle, description, children, p
   const [tab, setTab] = React.useState(initialTab);
   const _handleChange = (_: React.ChangeEvent<unknown>, newValue: number) => {
     setTab(newValue);
+  };
+  const _handleChangeIndex = (index: number) => {
+    setTab(index);
   };
   React.useEffect(() => {
     if (window && typeof window === 'object') {
@@ -74,33 +82,58 @@ function TemplateCore({ mode, data, title, headerTitle, description, children, p
         </Tabs>
       </div>
       <div>
-        <TabPane
-          visibility={tab === 0}
-          table={<FinancialTable edges={edges} mode={mode} tab="pl" />}
-          article={<Typography>hoge</Typography>}
-        />
-        <TabPane
-          visibility={tab === 1}
-          table={<FinancialTable edges={edges} mode={mode} tab="bs" />}
-          article={<Typography>hoge</Typography>}
-        />
-        <TabPane
-          visibility={tab === 2}
-          table={<FinancialTable edges={edges} mode={mode} tab="revenue" />}
-          article={<Typography>hoge</Typography>}
-        />
-        <TabPane
-          visibility={tab === 3}
-          table={<FinancialTable edges={edges} mode={mode} tab="expense" />}
-          article={<Typography>hoge</Typography>}
-        />
-        <TabPane
-          visibility={tab === 4}
-          table={<FinancialTable edges={edges} mode={mode} tab="attd" />}
-          article={<Typography>hoge</Typography>}
-        />
+        <TabPane index={0} value={tab} maxWidth="lg" disableGutters>
+          <FinancialTable edges={edges} mode={mode} tab="pl" />
+        </TabPane>
+        <TabPane index={1} value={tab} maxWidth="lg" disableGutters>
+          <FinancialTable edges={edges} mode={mode} tab="bs" />
+        </TabPane>
+        <TabPane index={2} value={tab} maxWidth="lg" disableGutters>
+          <FinancialTable edges={edges} mode={mode} tab="revenue" />
+        </TabPane>
+        <TabPane index={3} value={tab} maxWidth="lg" disableGutters>
+          <FinancialTable edges={edges} mode={mode} tab="expense" />
+        </TabPane>
+        <TabPane index={4} value={tab} maxWidth="lg" disableGutters>
+          <FinancialTable edges={edges} mode={mode} tab="attd" />
+        </TabPane>
       </div>
-      <div>{children}</div>
+      <article>
+        <section>
+          <div className={classes.section}>{children}</div>
+        </section>
+        <section>
+          <div className={classes.section}>
+            <SwipeableViews resistance index={tab} onChangeIndex={_handleChangeIndex}>
+              <TabPane index={0} value={tab} maxWidth="md">
+                <PLDoc />
+              </TabPane>
+              <TabPane index={1} value={tab} maxWidth="md">
+                <BSDoc />
+              </TabPane>
+              <TabPane index={2} value={tab} maxWidth="md">
+                <RevenueDoc />
+              </TabPane>
+              <TabPane index={3} value={tab} maxWidth="md">
+                <ExpenseDoc />
+              </TabPane>
+              <TabPane index={4} value={tab} maxWidth="md">
+                <AttdDoc />
+              </TabPane>
+            </SwipeableViews>
+          </div>
+        </section>
+        <div className={classes.section}>
+          <AdInArticle />
+        </div>
+        <section>
+          <div className={classes.section}>
+            <footer>
+              <AttributionDoc />
+            </footer>
+          </div>
+        </section>
+      </article>
     </Layout>
   );
 }
