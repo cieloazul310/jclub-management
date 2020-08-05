@@ -4,8 +4,9 @@ module.exports = {
   siteMetadata: {
     title: `Jクラブ経営情報2005-2019`,
     description: `Jリーグが毎年公開している「Jクラブ個別経営情報開示資料」の15年分のデータをクラブ別、年度別に表示したサイトです。`,
-    siteUrl: `https://cieloazul310.github.io/jclub-financial-table/`,
+    siteUrl: `https://cieloazul310.github.io/jclub-management`,
   },
+  pathPreix: '/jclub-management',
   plugins: [
     {
       resolve: 'gatsby-plugin-top-layout',
