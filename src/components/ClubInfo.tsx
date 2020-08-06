@@ -1,25 +1,16 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import MuiLink from '@material-ui/core/Link';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { ContentBasis } from './Basis';
 import { ClubTemplateQuery } from '../../graphql-types';
-
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    root: {
-      padding: theme.spacing(2, 0),
-    },
-  })
-);
 
 interface Props {
   clubsYaml: ClubTemplateQuery['clubsYaml'];
 }
 
 function ClubInfo({ clubsYaml }: Props) {
-  const classes = useStyles();
   return (
-    <div className={classes.root}>
+    <ContentBasis>
       <Typography variant="h6" component="h2" gutterBottom>
         {clubsYaml?.name}
       </Typography>
@@ -39,7 +30,7 @@ function ClubInfo({ clubsYaml }: Props) {
         ) : null}
         {clubsYaml?.relatedCompanies ? <li>関連する法人: {clubsYaml.relatedCompanies.join(', ')}</li> : null}
       </Typography>
-    </div>
+    </ContentBasis>
   );
 }
 

@@ -16,25 +16,25 @@ function YearStateHandler() {
   };
   return (
     <List subheader={<ListSubheader>年別フィルタ</ListSubheader>}>
-      <ListItem button>
+      <ListItem button onClick={_toggleCategory('J1')}>
         <ListItemText primary="J1" />
         <ListItemSecondaryAction>
           <Checkbox checked={filterCategories.includes('J1')} onClick={_toggleCategory('J1')} />
         </ListItemSecondaryAction>
       </ListItem>
-      <ListItem button>
+      <ListItem button onClick={_toggleCategory('J2')}>
         <ListItemText primary="J2" />
         <ListItemSecondaryAction>
           <Checkbox checked={filterCategories.includes('J2')} onClick={_toggleCategory('J2')} />
         </ListItemSecondaryAction>
       </ListItem>
-      <ListItem button>
+      <ListItem button onClick={_toggleCategory('J3')}>
         <ListItemText primary="J3" />
         <ListItemSecondaryAction>
           <Checkbox checked={filterCategories.includes('J3')} onClick={_toggleCategory('J3')} />
         </ListItemSecondaryAction>
       </ListItem>
-      <ListItem button>
+      <ListItem button onClick={_toggleCategory('others')}>
         <ListItemText primary="その他" />
         <ListItemSecondaryAction>
           <Checkbox checked={filterCategories.includes('others')} onClick={_toggleCategory('others')} />

@@ -1,12 +1,18 @@
 import * as React from 'react';
 import { graphql, PageProps } from 'gatsby';
 import Container from '@material-ui/core/Container';
+import Divider from '@material-ui/core/Divider';
 import TemplateLayout from '../layout/TemplateLayout';
+import { ContentBasis } from '../components/Basis';
 import ClubInfo from '../components/ClubInfo';
+import { CategoryLink } from '../components/links';
+import PageNavigation from '../components/PageNavigation';
 import { ClubTemplateQuery, SitePageContext } from '../../graphql-types';
 
 function ClubTemplate(props: PageProps<ClubTemplateQuery, SitePageContext>) {
   const { clubsYaml } = props.data;
+  const { previous, next } = props.pageContext;
+
   return (
     <TemplateLayout
       mode="club"
@@ -15,9 +21,18 @@ function ClubTemplate(props: PageProps<ClubTemplateQuery, SitePageContext>) {
       description={`${clubsYaml?.fullname}の年度別経営情報一覧。損益計算書・貸借対照表・営業収入・営業費用・入場者数を項目ごとに時系列表示。`}
       {...props}
     >
-      <Container maxWidth="md">
-        <ClubInfo clubsYaml={clubsYaml} />
-      </Container>
+      <ContentBasis>
+        <Container maxWidth="md">
+          <ContentBasis>
+            <ClubInfo clubsYaml={clubsYaml} />
+          </ContentBasis>
+          <Divider />
+          <ContentBasis>
+            {clubsYaml?.category ? <CategoryLink category={clubsYaml?.category} /> : null}
+            <PageNavigation mode="club" previous={previous} next={next} />
+          </ContentBasis>
+        </Container>
+      </ContentBasis>
     </TemplateLayout>
   );
 }

@@ -25,7 +25,7 @@ function Seo({ title, description }: Props) {
         },
         {
           name: 'og:image',
-          content: `${siteMetadata.siteUrl}icons/icon-512x512.png`,
+          content: `${siteMetadata.siteUrl}/icons/icon-512x512.png`,
         },
         {
           name: 'og:title',

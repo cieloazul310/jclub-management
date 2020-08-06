@@ -29,7 +29,7 @@ function CategoryLinks({ title, clubs }: CategoryLinksProps) {
 
   return (
     <div>
-      <Typography variant="subtitle1" gutterBottom>
+      <Typography variant="subtitle1" component="p" gutterBottom>
         {title}
       </Typography>
       <Typography className={classes.ul} component="ul">
@@ -51,7 +51,7 @@ function YearsLinks() {
 
   return (
     <div>
-      <Typography variant="subtitle1" gutterBottom>
+      <Typography variant="subtitle1" component="p" gutterBottom>
         年度別
       </Typography>
       <Typography className={classes.ul} component="ul">

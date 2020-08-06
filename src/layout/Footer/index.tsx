@@ -2,8 +2,9 @@ import * as React from 'react';
 import Container from '@material-ui/core/Container';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import FooterLinks from './FooterLinks';
-import { AdInFooter } from '../../components/Ads';
 import Copyrights from './Copyrights';
+import { ContentBasis } from '../../components/Basis';
+import { AdInFooter } from '../../components/Ads';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -11,9 +12,6 @@ const useStyles = makeStyles((theme) =>
       padding: theme.spacing(4, 0),
       background: theme.palette.grey[900],
       color: theme.palette.grey[200],
-    },
-    item: {
-      padding: theme.spacing(2, 0),
     },
   })
 );
@@ -24,15 +22,15 @@ function Footer() {
   return (
     <div className={classes.root}>
       <Container maxWidth="lg">
-        <div className={classes.item}>
+        <ContentBasis>
           <FooterLinks />
-        </div>
-        <div className={classes.item}>
+        </ContentBasis>
+        <ContentBasis>
           <AdInFooter />
-        </div>
-        <div className={classes.item}>
+        </ContentBasis>
+        <ContentBasis>
           <Copyrights />
-        </div>
+        </ContentBasis>
       </Container>
     </div>
   );

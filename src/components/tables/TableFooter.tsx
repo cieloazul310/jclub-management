@@ -1,16 +1,24 @@
 import * as React from 'react';
+import { Link as GatsbyLink } from 'gatsby';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Snackbar from '@material-ui/core/Snackbar';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { Mode } from '../../types';
+import { SitePageContextNext, SitePageContextPrevious } from '../../../graphql-types';
 
 interface Props {
   tableId: string;
+  mode: Mode;
+  next?: SitePageContextNext | null;
+  previous?: SitePageContextPrevious | null;
 }
 
-function TableToolbar({ tableId }: Props) {
+function TableToolbar({ tableId, next, previous, mode }: Props) {
   const [open, setOpen] = React.useState(false);
   const _handleClose = () => {
     setOpen(false);
@@ -39,8 +47,33 @@ function TableToolbar({ tableId }: Props) {
   return (
     <div>
       <Toolbar>
+        <Tooltip title={mode === 'club' ? '前のクラブへ' : '前年度へ'}>
+          <span>
+            <IconButton
+              component={GatsbyLink}
+              edge="start"
+              to={mode === 'club' ? `/club/${previous?.slug}` : `/year/${previous?.year}`}
+              disabled={!previous}
+              style={!previous ? { pointerEvents: 'none' } : {}}
+            >
+              <ArrowBackIcon />
+            </IconButton>
+          </span>
+        </Tooltip>
+        <Tooltip title={mode === 'club' ? '次のクラブへ' : '次年度へ'}>
+          <span>
+            <IconButton
+              component={GatsbyLink}
+              to={mode === 'club' ? `/club/${next?.slug}` : `/year/${next?.year}`}
+              disabled={!next}
+              style={!next ? { pointerEvents: 'none' } : {}}
+            >
+              <ArrowForwardIcon />
+            </IconButton>
+          </span>
+        </Tooltip>
         <Tooltip title="クリップボードにコピー">
-          <IconButton edge="start" onClick={_onCopy}>
+          <IconButton onClick={_onCopy}>
             <FileCopyIcon />
           </IconButton>
         </Tooltip>

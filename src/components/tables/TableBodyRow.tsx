@@ -28,12 +28,13 @@ interface Props {
   edge: Edge;
   mode: Mode;
   index: number;
+  selected?: boolean;
 }
 
-function TableBodyRow({ tab, index, mode, edge }: Props) {
+function TableBodyRow({ tab, index, mode, edge, selected = false }: Props) {
   const classes = useStyles();
   return (
-    <TableRow>
+    <TableRow selected={selected}>
       <TableBodyLabel mode={mode} edge={edge} index={index} />
       <TableCell className={classes.rowInfo} align="center" padding="none">
         {edge.node.category}

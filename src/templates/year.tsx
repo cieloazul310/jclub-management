@@ -1,11 +1,17 @@
 import * as React from 'react';
 import { graphql, PageProps } from 'gatsby';
-import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import Divider from '@material-ui/core/Divider';
 import TemplateLayout from '../layout/TemplateLayout';
+import { ContentBasis } from '../components/Basis';
+import YearInfo from '../components/YearInfo';
+import { YearsLink } from '../components/links';
+import PageNavigation from '../components/PageNavigation';
 import { YearTemplateQuery, SitePageContext } from '../../graphql-types';
 
 function YearTemplate(props: PageProps<YearTemplateQuery, SitePageContext>) {
-  const { yearsYaml } = props.data;
+  const { yearsYaml, allDataset } = props.data;
+  const { previous, next } = props.pageContext;
 
   return (
     <TemplateLayout
@@ -14,7 +20,16 @@ function YearTemplate(props: PageProps<YearTemplateQuery, SitePageContext>) {
       description={`${yearsYaml?.year}年のJクラブ経営情報一覧。各Jクラブの損益計算書・貸借対照表・営業収入・営業費用・入場者数を項目ごとに表示。`}
       {...props}
     >
-      <Typography>{yearsYaml?.year}</Typography>
+      <ContentBasis>
+        <Container maxWidth="md">
+          <YearInfo yearYaml={yearsYaml} edges={allDataset.edges} />
+          <Divider />
+          <ContentBasis>
+            <YearsLink />
+            <PageNavigation mode="year" previous={previous} next={next} />
+          </ContentBasis>
+        </Container>
+      </ContentBasis>
     </TemplateLayout>
   );
 }

@@ -57,6 +57,7 @@
     "build": "gatsby clean && gatsby build --prefix-paths",
     "develop": "gatsby develop -o -H 0.0.0.0",
     "serve": "gatsby serve -o -H 0.0.0.0 --prefix-paths",
+    "deploy": "gh-pages -d public",
     "clean": "gatsby clean",
     "lint": "eslint --ignore-path .gitignore . --ext .ts,.tsx,.js,.jsx --fix",
     "format": "prettier --parser typescript --trailing-comma es5 --single-quote --write \"src/**/*.ts*\"",

@@ -5,6 +5,7 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
 import Layout from '../layout';
+import { ContentBasisLarge } from '../components/Basis';
 import { AdInArticle } from '../components/Ads';
 import TabPane from '../components/TabPane';
 import FinancialTable from '../components/tables/FinancialTable';
@@ -29,9 +30,6 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) =>
       [theme.breakpoints.only('xs')]: {
         top: ({ trigger }) => (trigger ? 0 : 56),
       },
-    },
-    section: {
-      padding: theme.spacing(4, 0),
     },
   })
 );
@@ -73,7 +71,7 @@ function TemplateCore({ mode, data, title, headerTitle, description, children, p
       drawerContents={mode === 'year' ? <YearStateHandler /> : undefined}
     >
       <div className={classes.tabs}>
-        <Tabs value={tab} onChange={_handleChange} indicatorColor="secondary" textColor="secondary" variant="fullWidth">
+        <Tabs value={tab} onChange={_handleChange} indicatorColor="secondary" textColor="secondary" variant="scrollable">
           <Tab label="損益計算書" />
           <Tab label="貸借対照表" />
           <Tab label="営業収入" />
@@ -83,24 +81,24 @@ function TemplateCore({ mode, data, title, headerTitle, description, children, p
       </div>
       <div>
         <TabPane index={0} value={tab} maxWidth="lg" disableGutters>
-          <FinancialTable edges={edges} mode={mode} tab="pl" />
+          <FinancialTable edges={edges} mode={mode} tab="pl" previous={pageContext.previous} next={pageContext.next} />
         </TabPane>
         <TabPane index={1} value={tab} maxWidth="lg" disableGutters>
-          <FinancialTable edges={edges} mode={mode} tab="bs" />
+          <FinancialTable edges={edges} mode={mode} tab="bs" previous={pageContext.previous} next={pageContext.next} />
         </TabPane>
         <TabPane index={2} value={tab} maxWidth="lg" disableGutters>
-          <FinancialTable edges={edges} mode={mode} tab="revenue" />
+          <FinancialTable edges={edges} mode={mode} tab="revenue" previous={pageContext.previous} next={pageContext.next} />
         </TabPane>
         <TabPane index={3} value={tab} maxWidth="lg" disableGutters>
-          <FinancialTable edges={edges} mode={mode} tab="expense" />
+          <FinancialTable edges={edges} mode={mode} tab="expense" previous={pageContext.previous} next={pageContext.next} />
         </TabPane>
         <TabPane index={4} value={tab} maxWidth="lg" disableGutters>
-          <FinancialTable edges={edges} mode={mode} tab="attd" />
+          <FinancialTable edges={edges} mode={mode} tab="attd" previous={pageContext.previous} next={pageContext.next} />
         </TabPane>
       </div>
       <article>
         <section>
-          <div className={classes.section}>{children}</div>
+          <ContentBasisLarge>{children}</ContentBasisLarge>
         </section>
         <section>
           <div className={classes.section}>
@@ -123,15 +121,15 @@ function TemplateCore({ mode, data, title, headerTitle, description, children, p
             </SwipeableViews>
           </div>
         </section>
-        <div className={classes.section}>
+        <ContentBasisLarge>
           <AdInArticle />
-        </div>
+        </ContentBasisLarge>
         <section>
-          <div className={classes.section}>
+          <ContentBasisLarge>
             <footer>
               <AttributionDoc />
             </footer>
-          </div>
+          </ContentBasisLarge>
         </section>
       </article>
     </Layout>

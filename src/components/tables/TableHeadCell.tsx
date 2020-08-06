@@ -17,6 +17,7 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) =>
       fontWeight: 'bold',
       fontSize: theme.typography.caption.fontSize,
       padding: theme.spacing(1, 0.5),
+      lineHeight: 1.2,
       minWidth: '6em',
       color: ({ mode, sortable, selected }) =>
         mode === 'club' || !sortable ? theme.palette.text.secondary : !selected ? theme.palette.text.primary : theme.palette.primary.main,
