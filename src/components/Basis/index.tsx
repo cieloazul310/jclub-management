@@ -13,7 +13,7 @@ export const useBasisStyles = makeStyles((theme) =>
 );
 
 interface Props {
-  children: JSX.Element | string | null | (JSX.Element | JSX.Element[] | string | null)[];
+  children: React.ReactNode;
 }
 
 export function ContentBasis({ children }: Props) {

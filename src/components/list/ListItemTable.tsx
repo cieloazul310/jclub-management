@@ -44,17 +44,17 @@ function PLTable({ edge }: Pick<Props, 'edge'>) {
   const [spOpen, _toggleSpOpen] = useCollapsable(false);
   return (
     <TableBody>
-      <DataTableRow label="営業収入" value={<strong>{node.revenue}</strong>} selected />
+      <DataTableRow label="営業収入" value={<strong>{node.revenue}</strong>} />
       <DataTableRow label="営業費用" value={node.expense} />
       <DataTableRow label="営業利益" value={node.op_profit} />
-      <DataTableRow label="経常利益" value={node.revenue} open={noOpen} toggleOpen={_toggleNoOpen} />
+      <DataTableRow label="経常利益" value={node.ordinary_profit} open={noOpen} toggleOpen={_toggleNoOpen} />
       {noOpen ? (
         <>
           <DataTableRow label="営業外収入" value={node.no_rev} inset />
           <DataTableRow label="営業外費用" value={node.no_exp} inset />
         </>
       ) : null}
-      <DataTableRow label="当期純利益" value={node.profit} open={spOpen} toggleOpen={_toggleSpOpen} />
+      <DataTableRow label="当期純利益" value={node.profit} open={spOpen} toggleOpen={_toggleSpOpen} selected />
       {spOpen ? (
         <>
           <DataTableRow label="特別利益" value={node.sp_rev} inset />
@@ -62,7 +62,7 @@ function PLTable({ edge }: Pick<Props, 'edge'>) {
           <DataTableRow label="法人税など" value={node.tax} inset />
         </>
       ) : null}
-      {(node.year ?? 0) > 2017 ? <DataTableRow label="関連する法人の営業収益" value={node.retained_earnings ?? '-'} /> : null}
+      {(node.year ?? 0) > 2017 ? <DataTableRow label="関連する法人の営業収益" value={node.related_revenue || '-'} /> : null}
     </TableBody>
   );
 }
@@ -183,7 +183,8 @@ interface DataTableRowStyles {
 const useDataTableRowStyles = makeStyles<Theme, DataTableRowStyles>((theme) =>
   createStyles({
     root: {
-      background: ({ selected }) => (selected ? theme.palette.grey[200] : undefined),
+      background: ({ selected }) =>
+        selected ? (theme.palette.type === 'dark' ? theme.palette.background.paper : theme.palette.grey[200]) : undefined,
     },
     label: {
       paddingLeft: ({ inset }) => (inset ? theme.spacing(5) : undefined),

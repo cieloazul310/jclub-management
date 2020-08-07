@@ -14,10 +14,9 @@ const useStyles = makeStyles((theme) =>
     title: {
       display: 'flex',
       flexGrow: 1,
-      paddingLeft: theme.spacing(1),
+      padding: theme.spacing(0, 1),
       [theme.breakpoints.only('xs')]: {
         justifyContent: 'center',
-        paddingLeft: 0,
       },
     },
     dummyIconOuter: {

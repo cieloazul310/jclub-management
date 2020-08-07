@@ -2,6 +2,7 @@ import * as React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 import Tooltip from '@material-ui/core/Tooltip';
+import Hidden from '@material-ui/core/Hidden';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import ClearIcon from '@material-ui/icons/Clear';
 import DrawerMenu from './DrawerMenu';
@@ -45,9 +46,11 @@ function DrawerInner({ drawerContents, onCloseIconClick }: Props) {
       <DrawerMenu />
       <Divider />
       <DrawerLinks />
-      <Divider />
-      <StateHandler />
-      <ThemeHandler />
+      <Hidden only="xs">
+        <Divider />
+        <StateHandler />
+        <ThemeHandler />
+      </Hidden>
     </div>
   );
 }

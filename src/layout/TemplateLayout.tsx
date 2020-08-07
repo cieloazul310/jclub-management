@@ -8,7 +8,7 @@ import Layout from '../layout';
 import { ContentBasisLarge } from '../components/Basis';
 import { AdInArticle } from '../components/Ads';
 import TabPane from '../components/TabPane';
-import FinancialTable from '../components/tables/FinancialTable';
+import FinancialTable from '../components/tables';
 import YearStateHandler from '../components/YearStateHandler';
 import { PLDoc, BSDoc, RevenueDoc, ExpenseDoc, AttdDoc, AttributionDoc } from '../components/docs';
 import { Mode } from '../types';

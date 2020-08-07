@@ -1,3 +1,6 @@
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import useTheme from '@material-ui/core/styles/useTheme';
+
 export type SortKey =
   | 'rank'
   | 'revenue'
@@ -39,6 +42,7 @@ export interface AppState {
   sortAsc: boolean;
   filterCategories: FilterCategory[];
   displayFullAttd: boolean;
+  listMode: boolean;
 }
 
 export const initialAppState: AppState = {
@@ -46,13 +50,21 @@ export const initialAppState: AppState = {
   sortAsc: false,
   filterCategories: ['J1', 'J2', 'J3', 'others'],
   displayFullAttd: false,
+  listMode: false,
 };
+
+export function useInitialAppState(): AppState {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.only('xs'));
+  return { ...initialAppState, listMode: isMobile };
+}
 
 export type Action =
   | { type: 'TOGGLE_FULL_ATTD' }
   | { type: 'CHANGE_SORTKEY'; sortKey: SortKey }
   | { type: 'TOGGLE_SORTASC' }
   | { type: 'TOGGLE_FILTERCATEGORY'; category: FilterCategory }
+  | { type: 'TOGGLE_LISTMODE' }
   | { type: 'RESET' };
 
 export default function reducer(state: AppState, action: Action) {
@@ -79,6 +91,11 @@ export default function reducer(state: AppState, action: Action) {
         filterCategories: state.filterCategories.includes(action.category)
           ? state.filterCategories.filter((category) => category !== action.category)
           : [...state.filterCategories, action.category],
+      };
+    case 'TOGGLE_LISTMODE':
+      return {
+        ...state,
+        listMode: !state.listMode,
       };
     case 'RESET':
       return initialAppState;

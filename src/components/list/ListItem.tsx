@@ -49,7 +49,7 @@ function ListItem({ edge, mode, tab, index }: Props) {
       <div className={classes.content}>
         <div className={classes.label}>
           <Typography component="h3">
-            <strong>{mode === 'club' ? `${node.year}年` : `${index}. ${node.name}`}</strong>
+            <strong>{mode === 'club' ? `${node.year}年` : `${index + 1}. ${node.name}`}</strong>
           </Typography>
         </div>
         <div>

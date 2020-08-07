@@ -1,8 +1,9 @@
 import * as React from 'react';
+import Paper from '@material-ui/core/Paper';
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
-import { Mode } from '../../types';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { Mode } from '../../types';
 
 interface StylesProps {
   mode: Mode;
@@ -11,7 +12,7 @@ interface StylesProps {
 const useStyles = makeStyles<Theme, StylesProps>((theme) =>
   createStyles({
     container: {
-      maxHeight: ({ mode }) => (mode === 'year' ? 'calc(100vh - 240px)' : undefined),
+      flexGrow: 1,
     },
     table: {
       minWidth: 1000,
@@ -30,7 +31,7 @@ function TableCore({ id, children, mode }: Props) {
   const classes = useStyles({ mode });
 
   return (
-    <TableContainer className={classes.container}>
+    <TableContainer className={classes.container} component={Paper}>
       <Table id={id} className={classes.table} size="small" stickyHeader>
         {children}
       </Table>

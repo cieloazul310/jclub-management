@@ -8,7 +8,22 @@ import ClubInfo from '../components/ClubInfo';
 import { CategoryLink } from '../components/links';
 import PageNavigation from '../components/PageNavigation';
 import { ClubTemplateQuery, SitePageContext } from '../../graphql-types';
+import ExperimentalLayout from '../layout/Experimental';
 
+function ClubTemplate(props: PageProps<ClubTemplateQuery, SitePageContext>) {
+  const { clubsYaml } = props.data;
+  const { previous, next } = props.pageContext;
+  return (
+    <ExperimentalLayout
+      mode="club"
+      title={`${clubsYaml?.name}の経営情報`}
+      headerTitle={`${clubsYaml?.name}`}
+      description={`${clubsYaml?.fullname}の年度別経営情報一覧。損益計算書・貸借対照表・営業収入・営業費用・入場者数を項目ごとに時系列表示。`}
+      {...props}
+    />
+  );
+}
+/*
 function ClubTemplate(props: PageProps<ClubTemplateQuery, SitePageContext>) {
   const { clubsYaml } = props.data;
   const { previous, next } = props.pageContext;
@@ -36,6 +51,7 @@ function ClubTemplate(props: PageProps<ClubTemplateQuery, SitePageContext>) {
     </TemplateLayout>
   );
 }
+*/
 
 export default ClubTemplate;
 
