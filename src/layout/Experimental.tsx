@@ -107,7 +107,8 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [mobileTab, setMobileTab] = React.useState<MobileTab>(initialTabs.mobileTab ?? 'figure');
   const [tab, setTab] = React.useState<Tab>(initialTabs.tab ?? 'pl');
-  const classes = useStyles(/*{ trigger }*/);
+  const classes = useStyles();
+  const { previous, next } = pageContext;
 
   React.useEffect(() => {
     if (typeof window === 'object') {
@@ -142,12 +143,7 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
       <SEO title={title} description={description} />
       <Slide appear={false} direction="down" in={!trigger}>
         <AppBar className={classes.appBar}>
-          <AppBarInner
-            title={headerTitle ?? title}
-            onLeftButtonClick={_handleDrawer()}
-            previous={pageContext.previous}
-            next={pageContext.next}
-          />
+          <AppBarInner title={headerTitle ?? title} onLeftButtonClick={_handleDrawer()} previous={previous} next={next} />
         </AppBar>
       </Slide>
       <Slide appear={false} direction="down" in={!isMobile || mobileTab === 'figure' || mobileTab === 'article'}>
@@ -164,12 +160,12 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
       <main>
         <div className={classes.mobileTabContainer}>
           <FigureTabPane mobileTab={mobileTab} data={data} mode={mode} tab={tab} />
-          <SummaryTabPane mobileTab={mobileTab} mode={mode} data={data} previous={pageContext.previous} next={pageContext.next} />
+          <SummaryTabPane mobileTab={mobileTab} mode={mode} data={data} previous={previous} next={next} />
           <ArticleTabPane data={data} mobileTab={mobileTab} tab={tab} mode={mode} onChangeTabIndex={_onChangeTabIndex} />
           <SettingsTabPane mobileTab={mobileTab} />
         </div>
       </main>
-      <Hidden only="xs" implementation="css">
+      <Hidden only="xs">
         <Footer />
       </Hidden>
       <Hidden smUp implementation="css">
@@ -185,7 +181,7 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
         </Tooltip>
       </div>
       <SwipeableDrawer open={drawerOpen} onClose={_handleDrawer(false)} onOpen={_handleDrawer(true)}>
-        <DrawerInner onCloseIconClick={_handleDrawer(false)} />
+        <DrawerInner title={headerTitle} previous={previous} next={next} onCloseIconClick={_handleDrawer(false)} />
       </SwipeableDrawer>
     </div>
   );

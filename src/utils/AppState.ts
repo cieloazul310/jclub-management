@@ -50,6 +50,13 @@ export const initialAppState: AppState = {
   listMode: false,
 };
 
+export function useInitialAppState(isMobile: boolean) {
+  return {
+    ...initialAppState,
+    listMode: isMobile,
+  };
+}
+
 export type Action =
   | { type: 'TOGGLE_FULL_ATTD' }
   | { type: 'CHANGE_SORTKEY'; sortKey: SortKey }
@@ -89,7 +96,11 @@ export default function reducer(state: AppState, action: Action) {
         listMode: !state.listMode,
       };
     case 'RESET':
-      return initialAppState;
+      const isMobile = window.matchMedia('(max-width: 600px)').matches;
+      return {
+        ...initialAppState,
+        listMode: isMobile,
+      };
     default:
       throw new Error();
   }

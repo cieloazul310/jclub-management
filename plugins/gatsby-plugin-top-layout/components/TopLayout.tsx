@@ -14,9 +14,10 @@ interface Props {
     paletteType: PaletteType;
     useSystemTheme: boolean;
   } | null;
+  isMobile?: boolean | null;
 }
 
-export default function TopLayout({ children, storedItem, siteId }: Props) {
+export default function TopLayout({ children, storedItem, siteId, isMobile }: Props) {
   const defaultPaletteType = initialTheme.palette.type;
   const storedPaletteType = storedItem?.paletteType ?? defaultPaletteType;
   const storedUseSystemTheme = storedItem?.useSystemTheme ?? false;
@@ -50,7 +51,7 @@ export default function TopLayout({ children, storedItem, siteId }: Props) {
   return (
     <TopThemeProvider paletteType={paletteType}>
       <ThemeDispatchContext.Provider value={{ state: themeState, dispatch: themeDispatch }}>
-        <AppStateProvider>{children}</AppStateProvider>
+        <AppStateProvider isMobile={isMobile ?? false}>{children}</AppStateProvider>
       </ThemeDispatchContext.Provider>
     </TopThemeProvider>
   );

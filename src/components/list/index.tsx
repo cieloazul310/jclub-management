@@ -16,11 +16,6 @@ const useStyles = makeStyles((theme) =>
     root: {
       flexGrow: 1,
     },
-    container: {
-      [theme.breakpoints.only('xs')]: {
-        paddingBottom: theme.spacing(12),
-      },
-    },
   })
 );
 
@@ -29,7 +24,7 @@ function FinancialList({ edges, mode, tab }: Props) {
   const stateEdges = useStateEdges(edges, mode);
   return (
     <div className={classes.root}>
-      <Container className={classes.container} maxWidth="sm" disableGutters>
+      <Container maxWidth="sm" disableGutters>
         {stateEdges.map((edge, index) => (
           <ListItem key={edge.node.id ?? index} edge={edge} mode={mode} tab={tab} index={index} />
         ))}

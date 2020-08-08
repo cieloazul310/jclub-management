@@ -48,9 +48,6 @@ function MainTab({ tab, data, mode, onChangeTabIndex, ...props }: Props) {
                           <AttributionDoc />
                         </ContentBasisLarge>
                       </section>
-                      <ContentBasisLarge>
-                        <AdInArticle />
-                      </ContentBasisLarge>
                     </article>
                   </Container>
                 </ContentBasis>
@@ -58,6 +55,9 @@ function MainTab({ tab, data, mode, onChangeTabIndex, ...props }: Props) {
             </div>
           ))}
         </SwipeableViews>
+        <ContentBasisLarge>
+          <AdInArticle />
+        </ContentBasisLarge>
       </ContentBasisLarge>
     </MobileTabPane>
   );

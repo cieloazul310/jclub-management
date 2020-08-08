@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import Container from '@material-ui/core/Container';
 import { MarkDownQuery } from '../../../graphql-types';
 import DocContainer from './DocContainer';
 
@@ -20,11 +19,7 @@ export function useAttribution() {
 
 export function AttributionDoc() {
   const markdownRemark = useAttribution();
-  return markdownRemark ? (
-    <Container maxWidth="md">
-      <DocContainer markdownRemark={markdownRemark} />
-    </Container>
-  ) : null;
+  return markdownRemark ? <DocContainer markdownRemark={markdownRemark} /> : null;
 }
 
 export default AttributionDoc;
