@@ -3,8 +3,7 @@ export { SortKey, FilterCategory } from '../utils/AppState';
 
 export type Tab = 'pl' | 'bs' | 'revenue' | 'expense' | 'attd';
 export type Mode = 'club' | 'year';
-export type MobileTab = 'summary' | 'main' | 'settings';
-export type ContentTab = 'figure' | 'article';
+export type MobileTab = 'summary' | 'figure' | 'article' | 'settings';
 export const tabs: Tab[] = ['pl', 'bs', 'revenue', 'expense', 'attd'];
 
 export type Edges = ClubTemplateQuery['allDataset']['edges'];

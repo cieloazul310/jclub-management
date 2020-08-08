@@ -5,12 +5,12 @@ import MobileTabPane, { MobileTabPaneProps } from './index';
 import { ContentBasisLarge } from '../../components/Basis';
 import ClubInfo from '../../components/ClubInfo';
 import YearInfo from '../../components/YearInfo';
-import AttributionDoc from '../../components/docs/Attribution';
 import { Mode } from '../../types';
+import { ClubTemplateQuery, YearTemplateQuery } from '../../../graphql-types';
 
 type Props = {
   mode: Mode;
-  data: any;
+  data: ClubTemplateQuery | YearTemplateQuery;
 } & Omit<MobileTabPaneProps, 'children' | 'value'>;
 
 function SummaryTabPane({ mode, data, ...props }: Props) {
@@ -21,12 +21,7 @@ function SummaryTabPane({ mode, data, ...props }: Props) {
           <Typography variant="h3" component="h2" gutterBottom>
             概要
           </Typography>
-          {mode === 'club' ? <ClubInfo clubsYaml={data.clubsYaml} /> : <YearInfo edges={data.edges} yearYaml={data.yearYaml} />}
-        </Container>
-      </ContentBasisLarge>
-      <ContentBasisLarge>
-        <Container maxWidth="md">
-          <AttributionDoc />
+          {mode === 'club' ? <ClubInfo clubsYaml={data.clubsYaml} /> : <YearInfo edges={data.allDataset.edges} yearYaml={data.yearsYaml} />}
         </Container>
       </ContentBasisLarge>
     </MobileTabPane>

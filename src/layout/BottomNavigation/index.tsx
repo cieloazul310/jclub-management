@@ -2,10 +2,10 @@ import * as React from 'react';
 import MuiBottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { SummaryIcon, SettingsIcon, FigureIcon, ArticleIcon } from '../../icons';
-import { MobileTab, ContentTab } from '../../types';
+import { MobileTab } from '../../types';
 
 interface Props {
-  value: MobileTab | ContentTab;
+  value: MobileTab;
   onChange: (event: React.ChangeEvent<unknown>, newValue: string) => void;
 }
 

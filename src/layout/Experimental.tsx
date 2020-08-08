@@ -15,13 +15,14 @@ import SEO from './SEO';
 import AppBarInner from './AppBarInner';
 import DrawerInner from './DrawerInner';
 import SummaryTabPane from './MobileTabPane/Summary';
-import MainTabPane from './MobileTabPane/Main';
+import FigureTabPane from './MobileTabPane/Figure';
+import ArticleTabPane from './MobileTabPane/Article';
 import SettingsTabPane from './MobileTabPane/Settings';
 import Footer from './Footer';
 import BottomNavigation from './BottomNavigation';
 
 import useIsMobile from '../utils/useIsMobile';
-import { Mode, MobileTab, Tab, ContentTab, tabs } from '../types';
+import { Mode, MobileTab, Tab, tabs } from '../types';
 import { ClubTemplateQuery, YearTemplateQuery, SitePageContext } from '../../graphql-types';
 
 interface StylesProps {
@@ -53,8 +54,7 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) =>
       },
     },
     mobileTabContainer: {
-      display: 'flex',
-      flexDirection: 'column-reverse',
+      //display: 'flex',
     },
     bottomNavigation: {
       position: 'fixed',
@@ -100,9 +100,8 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
   const isMobile = useIsMobile();
   const trigger = useScrollTriger();
   const [drawerOpen, setDrawerOpen] = React.useState(false);
-  const [mobileTab, setMobileTab] = React.useState<MobileTab>(initialTabs.mobileTab ?? 'main');
+  const [mobileTab, setMobileTab] = React.useState<MobileTab>(initialTabs.mobileTab ?? 'figure');
   const [tab, setTab] = React.useState<Tab>(initialTabs.tab ?? 'pl');
-  const [contentTab, setContentTab] = React.useState<ContentTab>(initialTabs.contentTab ?? 'figure');
   const classes = useStyles({ trigger });
 
   React.useMemo(() => {
@@ -112,11 +111,10 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
         JSON.stringify({
           tab,
           mobileTab,
-          contentTab,
         })
       );
     }
-  }, [mobileTab, tab, contentTab]);
+  }, [mobileTab, tab]);
 
   const _handleDrawer = (newValue: boolean | undefined = undefined) => {
     return () => setDrawerOpen(newValue ?? !drawerOpen);
@@ -126,10 +124,7 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
     setTab(newValue);
   };
   const _handleMobileTab = (_: React.ChangeEvent<unknown>, newValue: string) => {
-    if (newValue === 'article' || newValue === 'figure') {
-      setMobileTab('main');
-      setContentTab(newValue);
-    } else if (newValue === 'summary' || newValue === 'settings') {
+    if (newValue === 'summary' || newValue === 'figure' || newValue === 'article' || newValue === 'settings') {
       setMobileTab(newValue);
     }
   };
@@ -145,7 +140,7 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
           <AppBarInner title={headerTitle ?? title} onLeftButtonClick={_handleDrawer()} />
         </AppBar>
       </Slide>
-      <Slide appear={false} direction="down" in={!isMobile || mobileTab === 'main'}>
+      <Slide appear={false} direction="down" in={!isMobile || mobileTab === 'figure' || mobileTab === 'article'}>
         <nav className={classes.tabs}>
           <Tabs value={tab} variant="scrollable" indicatorColor="secondary" textColor="secondary" onChange={_handleTab}>
             <MuiTab label="損益計算書" value="pl" wrapped />
@@ -157,16 +152,9 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
         </nav>
       </Slide>
       <div className={classes.mobileTabContainer}>
+        <FigureTabPane mobileTab={mobileTab} data={data} mode={mode} tab={tab} />
         <SummaryTabPane mobileTab={mobileTab} mode={mode} data={data} />
-        <MainTabPane
-          data={data}
-          mobileTab={mobileTab}
-          tab={tab}
-          mode={mode}
-          contentTab={contentTab}
-          setContentTab={setContentTab}
-          onChangeTabIndex={_onChangeTabIndex}
-        />
+        <ArticleTabPane data={data} mobileTab={mobileTab} tab={tab} mode={mode} onChangeTabIndex={_onChangeTabIndex} />
         <SettingsTabPane mobileTab={mobileTab} />
       </div>
       <Hidden only="xs" implementation="css">
@@ -174,7 +162,7 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
       </Hidden>
       <Hidden smUp implementation="css">
         <nav className={classes.bottomNavigation}>
-          <BottomNavigation value={mobileTab === 'main' ? contentTab : mobileTab} onChange={_handleMobileTab} />
+          <BottomNavigation value={mobileTab} onChange={_handleMobileTab} />
         </nav>
       </Hidden>
       <div className={classes.fab}>
