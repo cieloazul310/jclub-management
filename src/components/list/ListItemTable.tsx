@@ -40,26 +40,21 @@ export default ListItemTable;
 
 function PLTable({ edge }: Pick<Props, 'edge'>) {
   const { node } = edge;
-  const [noOpen, _toggleNoOpen] = useCollapsable(false);
-  const [spOpen, _toggleSpOpen] = useCollapsable(false);
+  const [open, _toggleOpen] = useCollapsable(false);
   return (
     <TableBody>
       <DataTableRow label="営業収入" value={<strong>{node.revenue}</strong>} />
       <DataTableRow label="営業費用" value={node.expense} />
       <DataTableRow label="営業利益" value={node.op_profit} />
-      <DataTableRow label="経常利益" value={node.ordinary_profit} open={noOpen} toggleOpen={_toggleNoOpen} />
-      {noOpen ? (
+      <DataTableRow label="当期純利益" value={node.profit} open={open} toggleOpen={_toggleOpen} selected />
+      {open ? (
         <>
           <DataTableRow label="営業外収入" value={node.no_rev} inset />
           <DataTableRow label="営業外費用" value={node.no_exp} inset />
-        </>
-      ) : null}
-      <DataTableRow label="当期純利益" value={node.profit} open={spOpen} toggleOpen={_toggleSpOpen} selected />
-      {spOpen ? (
-        <>
+          <DataTableRow label="経常利益" value={node.ordinary_profit} inset selected />
           <DataTableRow label="特別利益" value={node.sp_rev} inset />
           <DataTableRow label="特別損失" value={node.sp_exp} inset />
-          <DataTableRow label="法人税など" value={node.tax} inset />
+          <DataTableRow label="法人税および住民税等" value={node.tax} inset />
         </>
       ) : null}
       {(node.year ?? 0) > 2017 ? <DataTableRow label="関連する法人の営業収益" value={node.related_revenue || '-'} /> : null}
@@ -75,21 +70,27 @@ function BSTable({ edge }: Pick<Props, 'edge'>) {
 
   return (
     <TableBody>
-      <DataTableRow label="総資産" value={node.assets} open={assetsOpen} toggleOpen={toggleAssetsOpen} />
+      <DataTableRow label="資産の部 (総資産)" value={node.assets} open={assetsOpen} toggleOpen={toggleAssetsOpen} />
       {assetsOpen ? (
         <>
           <DataTableRow label="流動資産" value={node.curr_assets} inset />
           <DataTableRow label="固定資産等" value={node.fixed_assets} inset />
         </>
       ) : null}
-      <DataTableRow label="総負債" value={node.assets} open={liabilitiesOpen} toggleOpen={toggleLiabilitiesOpen} />
+      <DataTableRow label="負債の部 (総負債)" value={node.assets} open={liabilitiesOpen} toggleOpen={toggleLiabilitiesOpen} />
       {liabilitiesOpen ? (
         <>
           <DataTableRow label="流動負債" value={node.curr_liabilities} inset />
           <DataTableRow label="固定負債" value={node.fixed_liabilities} inset />
         </>
       ) : null}
-      <DataTableRow label="純資産" value={<strong>{node.net_worth}</strong>} selected open={worthOpen} toggleOpen={toggleWorthOpen} />
+      <DataTableRow
+        label="資本の部 (純資産)"
+        value={<strong>{node.net_worth}</strong>}
+        selected
+        open={worthOpen}
+        toggleOpen={toggleWorthOpen}
+      />
       <DataTableRow label="資本金" value={node.capital_stock} inset />
       {worthOpen ? (
         <>

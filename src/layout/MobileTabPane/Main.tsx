@@ -1,12 +1,17 @@
 import * as React from 'react';
+import Container from '@material-ui/core/Container';
 import SwipeableViews from 'react-swipeable-views';
 import MobileTabPane, { MobileTabPaneProps } from './index';
-import TabContent from '../TabContent';
+import { ContentBasisLarge, ContentBasis } from '../../components/Basis';
+import Figure from '../../components/figure';
+import { PLDoc, BSDoc, RevenueDoc, ExpenseDoc, AttdDoc } from '../../components/docs';
+import useIsMobile from '../../utils/useIsMobile';
 import { Mode, Tab, ContentTab, tabs } from '../../types';
+import { ClubTemplateQuery, YearTemplateQuery } from '../../../graphql-types';
 
 type Props = {
   tab: Tab;
-  data: any;
+  data: ClubTemplateQuery | YearTemplateQuery;
   mode: Mode;
   contentTab: ContentTab;
   setContentTab: (contentTab: ContentTab) => void;
@@ -14,21 +19,41 @@ type Props = {
 } & Omit<MobileTabPaneProps, 'children' | 'value'>;
 
 function MainTab({ tab, data, mode, contentTab, setContentTab, onChangeTabIndex, ...props }: Props) {
+  const isMobile = useIsMobile();
   return (
     <MobileTabPane value="main" {...props}>
-      <SwipeableViews index={tabs.indexOf(tab)} onChangeIndex={onChangeTabIndex}>
-        {tabs.map((tabContent) => (
-          <TabContent
-            key={tabContent}
-            edges={data.allDataset.edges}
-            mode={mode}
-            value={tabContent}
-            content={tab}
-            contentTab={contentTab}
-            setContentTab={setContentTab}
-          />
-        ))}
-      </SwipeableViews>
+      <div hidden={isMobile && contentTab !== 'figure'} role="tabpanel">
+        {!isMobile || contentTab === 'figure' ? <Figure edges={data.allDataset.edges} mode={mode} tab={tab} /> : null}
+      </div>
+      <div hidden={isMobile && contentTab !== 'article'} role="tabpanel">
+        {!isMobile || contentTab === 'article' ? (
+          <ContentBasisLarge>
+            <SwipeableViews index={tabs.indexOf(tab)} onChangeIndex={onChangeTabIndex}>
+              {tabs.map((t) => (
+                <div key={t} role="tabpanel" hidden={t !== tab}>
+                  {t === tab ? (
+                    <ContentBasis>
+                      <Container maxWidth="md">
+                        {t === 'pl' ? (
+                          <PLDoc />
+                        ) : t === 'bs' ? (
+                          <BSDoc />
+                        ) : t === 'revenue' ? (
+                          <RevenueDoc />
+                        ) : t === 'expense' ? (
+                          <ExpenseDoc />
+                        ) : (
+                          <AttdDoc />
+                        )}
+                      </Container>
+                    </ContentBasis>
+                  ) : null}
+                </div>
+              ))}
+            </SwipeableViews>
+          </ContentBasisLarge>
+        ) : null}
+      </div>
     </MobileTabPane>
   );
 }

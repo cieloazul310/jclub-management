@@ -1,6 +1,3 @@
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import useTheme from '@material-ui/core/styles/useTheme';
-
 export type SortKey =
   | 'rank'
   | 'revenue'
@@ -52,12 +49,6 @@ export const initialAppState: AppState = {
   displayFullAttd: false,
   listMode: false,
 };
-
-export function useInitialAppState(): AppState {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.only('xs'));
-  return { ...initialAppState, listMode: isMobile };
-}
 
 export type Action =
   | { type: 'TOGGLE_FULL_ATTD' }

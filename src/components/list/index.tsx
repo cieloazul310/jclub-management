@@ -27,7 +27,7 @@ function FinancialList({ edges, mode, tab, next, previous }: Props) {
   const stateEdges = useStateEdges(edges, mode);
   return (
     <div className={classes.root}>
-      <Container maxWidth="md">
+      <Container maxWidth="sm" disableGutters>
         {stateEdges.map((edge, index) => (
           <ListItem key={edge.node.id ?? index} edge={edge} mode={mode} tab={tab} index={index} />
         ))}

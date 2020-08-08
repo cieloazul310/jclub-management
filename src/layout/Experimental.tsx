@@ -4,13 +4,14 @@ import Tabs from '@material-ui/core/Tabs';
 import MuiTab from '@material-ui/core/Tab';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Fab from '@material-ui/core/Fab';
+import Tooltip from '@material-ui/core/Tooltip';
 import Hidden from '@material-ui/core/Hidden';
 import Slide from '@material-ui/core/Slide';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import useScrollTriger from '@material-ui/core/useScrollTrigger';
-import { makeStyles, createStyles, useTheme, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 
+import SEO from './SEO';
 import AppBarInner from './AppBarInner';
 import DrawerInner from './DrawerInner';
 import SummaryTabPane from './MobileTabPane/Summary';
@@ -19,6 +20,7 @@ import SettingsTabPane from './MobileTabPane/Settings';
 import Footer from './Footer';
 import BottomNavigation from './BottomNavigation';
 
+import useIsMobile from '../utils/useIsMobile';
 import { Mode, MobileTab, Tab, ContentTab, tabs } from '../types';
 import { ClubTemplateQuery, YearTemplateQuery, SitePageContext } from '../../graphql-types';
 
@@ -91,15 +93,30 @@ interface Props {
 }
 
 function Experimental({ mode, title, headerTitle, description, data, pageContext }: Props) {
-  console.log(data);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.only('xs'));
+  const storaged = typeof window === 'object' ? sessionStorage.getItem('jclubTab-experimental') : null;
+  const initialTabs = storaged ? JSON.parse(storaged) : {};
+  //const initialTab = storaged ? (JSON.parse(storaged) as number) : 0;
+
+  const isMobile = useIsMobile();
   const trigger = useScrollTriger();
   const [drawerOpen, setDrawerOpen] = React.useState(false);
-  const [mobileTab, setMobileTab] = React.useState<MobileTab>('summary');
-  const [tab, setTab] = React.useState<Tab>('pl');
-  const [contentTab, setContentTab] = React.useState<ContentTab>('figure');
+  const [mobileTab, setMobileTab] = React.useState<MobileTab>(initialTabs.mobileTab ?? 'main');
+  const [tab, setTab] = React.useState<Tab>(initialTabs.tab ?? 'pl');
+  const [contentTab, setContentTab] = React.useState<ContentTab>(initialTabs.contentTab ?? 'figure');
   const classes = useStyles({ trigger });
+
+  React.useMemo(() => {
+    if (typeof window === 'object') {
+      sessionStorage.setItem(
+        'jclubTab-experimental',
+        JSON.stringify({
+          tab,
+          mobileTab,
+          contentTab,
+        })
+      );
+    }
+  }, [mobileTab, tab, contentTab]);
 
   const _handleDrawer = (newValue: boolean | undefined = undefined) => {
     return () => setDrawerOpen(newValue ?? !drawerOpen);
@@ -122,6 +139,7 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
 
   return (
     <div className={classes.root}>
+      <SEO title={title} description={description} />
       <Slide appear={false} direction="down" in={!trigger}>
         <AppBar className={classes.appBar}>
           <AppBarInner title={headerTitle ?? title} onLeftButtonClick={_handleDrawer()} />
@@ -151,18 +169,20 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
         />
         <SettingsTabPane mobileTab={mobileTab} />
       </div>
-      <Hidden only="xs">
+      <Hidden only="xs" implementation="css">
         <Footer />
       </Hidden>
-      <Hidden smUp>
+      <Hidden smUp implementation="css">
         <nav className={classes.bottomNavigation}>
           <BottomNavigation value={mobileTab === 'main' ? contentTab : mobileTab} onChange={_handleMobileTab} />
         </nav>
       </Hidden>
       <div className={classes.fab}>
-        <Fab color="secondary" onClick={_handleDrawer()}>
-          <MenuIcon />
-        </Fab>
+        <Tooltip title="メニュー">
+          <Fab color="secondary" onClick={_handleDrawer()}>
+            <MenuIcon />
+          </Fab>
+        </Tooltip>
       </div>
       <SwipeableDrawer open={drawerOpen} onClose={_handleDrawer(false)} onOpen={_handleDrawer(true)}>
         <DrawerInner onCloseIconClick={_handleDrawer(false)} />

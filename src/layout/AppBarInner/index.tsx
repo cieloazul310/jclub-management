@@ -54,12 +54,12 @@ function AppBarInner({
       <Typography className={classes.title} variant="h6" component="h1">
         {title ?? 'Title'}
       </Typography>
-      <Hidden smUp>
+      <Hidden smUp implementation="css">
         <div className={classes.dummyIconOuter}>
           <div className={classes.dummyIconInner} />
         </div>
       </Hidden>
-      <Hidden xsDown>
+      <Hidden xsDown implementation="css">
         <Tooltip title="Twitterで共有する">
           <IconButton edge="end" color="inherit" href={twitterShare} target="_blank">
             <TwitterIcon />

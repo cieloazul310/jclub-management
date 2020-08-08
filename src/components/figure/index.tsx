@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Container from '@material-ui/core/Container';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import FigureToolbar from './Toolbar';
 import FinancialTable from '../tables';
@@ -40,12 +41,12 @@ function Figure({ edges, mode, tab }: Props) {
   const classes = useStyles({ mode });
 
   return (
-    <div className={classes.root}>
-      <FigureToolbar />
+    <Container maxWidth="lg" disableGutters className={classes.root}>
+      <FigureToolbar tab={tab} mode={mode} />
       <div className={classes.main}>
         {listMode ? <FinancialList edges={edges} mode={mode} tab={tab} /> : <FinancialTable edges={edges} mode={mode} tab={tab} />}
       </div>
-    </div>
+    </Container>
   );
 }
 
