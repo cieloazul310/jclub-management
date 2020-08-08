@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[13],{"1ybC":function(e,t,a){"use strict";a.r(t),a.d(t,"query",(function(){return i}));var n=a("q1tI"),r=a("+qDd");t.default=function(e){var t=e.data,a=t.yearsYaml,i=(t.allDataset,e.pageContext);return i.previous,i.next,n.createElement(r.a,Object.assign({mode:"year",title:(null==a?void 0:a.year)+"年Jクラブ経営情報",description:(null==a?void 0:a.year)+"年のJクラブ経営情報一覧。各Jクラブの損益計算書・貸借対照表・営業収入・営業費用・入場者数を項目ごとに表示。"},e))};var i="3830696898"}}]);
+//# sourceMappingURL=component---src-templates-year-tsx-b0cf70a42d9af746c720.js.map
