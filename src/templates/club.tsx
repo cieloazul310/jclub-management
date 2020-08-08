@@ -1,18 +1,10 @@
 import * as React from 'react';
 import { graphql, PageProps } from 'gatsby';
-import Container from '@material-ui/core/Container';
-import Divider from '@material-ui/core/Divider';
-import TemplateLayout from '../layout/TemplateLayout';
-import { ContentBasis } from '../components/Basis';
-import ClubInfo from '../components/ClubInfo';
-import { CategoryLink } from '../components/links';
-import PageNavigation from '../components/PageNavigation';
 import { ClubTemplateQuery, SitePageContext } from '../../graphql-types';
 import ExperimentalLayout from '../layout/Experimental';
 
 function ClubTemplate(props: PageProps<ClubTemplateQuery, SitePageContext>) {
   const { clubsYaml } = props.data;
-  const { previous, next } = props.pageContext;
   return (
     <ExperimentalLayout
       mode="club"

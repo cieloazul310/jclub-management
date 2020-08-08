@@ -50,7 +50,7 @@ export function AdInArticle() {
       window.adsbygoogle.push({});
     }
   }, [pathname]);
-  return (
+  return typeof window === 'object' ? (
     <div className={classes.root} key={pathname}>
       <ins
         className="adsbygoogle"
@@ -61,7 +61,7 @@ export function AdInArticle() {
         data-ad-slot="9174058264"
       />
     </div>
-  );
+  ) : null;
 }
 
 export function AdInFooter() {
@@ -73,7 +73,7 @@ export function AdInFooter() {
       window.adsbygoogle.push({});
     }
   }, [pathname]);
-  return (
+  return typeof window === 'object' ? (
     <div className={classes.root} key={pathname}>
       <ins
         className="adsbygoogle"
@@ -84,5 +84,5 @@ export function AdInFooter() {
         data-full-width-responsive="true"
       />
     </div>
-  );
+  ) : null;
 }

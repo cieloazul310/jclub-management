@@ -1,4 +1,5 @@
 import * as React from 'react';
+import clsx from 'clsx';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import MuiTab from '@material-ui/core/Tab';
@@ -25,13 +26,10 @@ import useIsMobile from '../utils/useIsMobile';
 import { Mode, MobileTab, Tab, tabs } from '../types';
 import { ClubTemplateQuery, YearTemplateQuery, SitePageContext } from '../../graphql-types';
 
-interface StylesProps {
-  trigger: boolean;
-}
-
-const useStyles = makeStyles<Theme, StylesProps>((theme) =>
+const useStyles = makeStyles<Theme>((theme) =>
   createStyles({
     root: {
+      flexGrow: 1,
       paddingTop: 64,
       [theme.breakpoints.only('xs')]: {
         paddingTop: 56,
@@ -44,17 +42,25 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) =>
     },
     tabs: {
       position: 'sticky',
-      top: ({ trigger }) => (trigger ? 0 : 64),
+      top: 64,
       background: theme.palette.background.paper,
       zIndex: theme.zIndex.appBar - 1,
       boxShadow: theme.shadows[1],
       transition: theme.transitions.create('top'),
       [theme.breakpoints.only('xs')]: {
-        top: ({ trigger }) => (trigger ? 0 : 56),
+        top: 56,
+      },
+    },
+    tabsTriggered: {
+      top: 0,
+      [theme.breakpoints.only('xs')]: {
+        top: 0,
       },
     },
     mobileTabContainer: {
-      //display: 'flex',
+      display: 'flex',
+      flexDirection: 'column',
+      flexGrow: 1,
     },
     bottomNavigation: {
       position: 'fixed',
@@ -95,16 +101,15 @@ interface Props {
 function Experimental({ mode, title, headerTitle, description, data, pageContext }: Props) {
   const storaged = typeof window === 'object' ? sessionStorage.getItem('jclubTab-experimental') : null;
   const initialTabs = storaged ? JSON.parse(storaged) : {};
-  //const initialTab = storaged ? (JSON.parse(storaged) as number) : 0;
 
   const isMobile = useIsMobile();
   const trigger = useScrollTriger();
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [mobileTab, setMobileTab] = React.useState<MobileTab>(initialTabs.mobileTab ?? 'figure');
   const [tab, setTab] = React.useState<Tab>(initialTabs.tab ?? 'pl');
-  const classes = useStyles({ trigger });
+  const classes = useStyles(/*{ trigger }*/);
 
-  React.useMemo(() => {
+  React.useEffect(() => {
     if (typeof window === 'object') {
       sessionStorage.setItem(
         'jclubTab-experimental',
@@ -137,11 +142,16 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
       <SEO title={title} description={description} />
       <Slide appear={false} direction="down" in={!trigger}>
         <AppBar className={classes.appBar}>
-          <AppBarInner title={headerTitle ?? title} onLeftButtonClick={_handleDrawer()} />
+          <AppBarInner
+            title={headerTitle ?? title}
+            onLeftButtonClick={_handleDrawer()}
+            previous={pageContext.previous}
+            next={pageContext.next}
+          />
         </AppBar>
       </Slide>
       <Slide appear={false} direction="down" in={!isMobile || mobileTab === 'figure' || mobileTab === 'article'}>
-        <nav className={classes.tabs}>
+        <nav className={clsx(classes.tabs, { [classes.tabsTriggered]: trigger })}>
           <Tabs value={tab} variant="scrollable" indicatorColor="secondary" textColor="secondary" onChange={_handleTab}>
             <MuiTab label="損益計算書" value="pl" wrapped />
             <MuiTab label="貸借対照表" value="bs" wrapped />
@@ -151,12 +161,14 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
           </Tabs>
         </nav>
       </Slide>
-      <div className={classes.mobileTabContainer}>
-        <FigureTabPane mobileTab={mobileTab} data={data} mode={mode} tab={tab} />
-        <SummaryTabPane mobileTab={mobileTab} mode={mode} data={data} />
-        <ArticleTabPane data={data} mobileTab={mobileTab} tab={tab} mode={mode} onChangeTabIndex={_onChangeTabIndex} />
-        <SettingsTabPane mobileTab={mobileTab} />
-      </div>
+      <main>
+        <div className={classes.mobileTabContainer}>
+          <FigureTabPane mobileTab={mobileTab} data={data} mode={mode} tab={tab} />
+          <SummaryTabPane mobileTab={mobileTab} mode={mode} data={data} previous={pageContext.previous} next={pageContext.next} />
+          <ArticleTabPane data={data} mobileTab={mobileTab} tab={tab} mode={mode} onChangeTabIndex={_onChangeTabIndex} />
+          <SettingsTabPane mobileTab={mobileTab} />
+        </div>
+      </main>
       <Hidden only="xs" implementation="css">
         <Footer />
       </Hidden>

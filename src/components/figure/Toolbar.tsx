@@ -4,16 +4,17 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import CopyButton from './CopyButton';
+import FilterButton from './FilterButton';
 import { useAppState, useDispatch } from '../../utils/AppStateContext';
 import useUnitString from '../../utils/useUnitString';
-import useStateString from '../../utils/useStateString';
+import { useSortStateString } from '../../utils/useStateString';
 import { TableIcon, ListIcon } from '../../icons';
 import { Tab, Mode } from '../../types';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
-      height: 48,
+      height: 56,
       padding: theme.spacing(0, 3),
       display: 'flex',
       flexDirection: 'row',
@@ -26,6 +27,12 @@ const useStyles = makeStyles((theme) =>
       display: 'flex',
       flexGrow: 1,
       alignItems: 'center',
+    },
+    right: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+      justifyContent: 'flex-end',
     },
   })
 );
@@ -40,7 +47,7 @@ function FigureToolbar({ tab, mode }: Props) {
   const { listMode } = useAppState();
   const dispatch = useDispatch();
   const unitString = useUnitString(tab);
-  const { sortString } = useStateString();
+  const { field, sortType } = useSortStateString();
   const _toggleListMode = () => {
     dispatch({ type: 'TOGGLE_LISTMODE' });
   };
@@ -49,25 +56,26 @@ function FigureToolbar({ tab, mode }: Props) {
       <div className={classes.left}>
         <Tooltip title={`テーブル表示${!listMode ? '中' : ''}`}>
           <span>
-            <IconButton edge="start" onClick={_toggleListMode} disabled={!listMode}>
+            <IconButton edge="start" color="inherit" onClick={_toggleListMode} disabled={!listMode}>
               <TableIcon />
             </IconButton>
           </span>
         </Tooltip>
         <Tooltip title={`リスト表示${listMode ? '中' : ''}`}>
           <span>
-            <IconButton onClick={_toggleListMode} disabled={listMode}>
+            <IconButton onClick={_toggleListMode} color="inherit" disabled={listMode}>
               <ListIcon />
             </IconButton>
           </span>
         </Tooltip>
-        {!listMode ? <CopyButton tab={tab} /> : null}
+        <FilterButton disabled={mode === 'club'} />
+        <CopyButton tab={tab} disabled={listMode} />
       </div>
-      <div>
+      <div className={classes.right}>
         {mode === 'year' ? (
-          <div className={classes.left}>
-            <Typography variant="caption">{sortString}</Typography>
-          </div>
+          <Typography variant="caption">
+            <strong>{field}</strong> {sortType}
+          </Typography>
         ) : null}
         <Typography variant="caption">{unitString}</Typography>
       </div>

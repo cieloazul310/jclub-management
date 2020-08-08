@@ -6,7 +6,7 @@ import Icon from '@material-ui/core/Icon';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import { Mode } from '../types';
+import useNeighbor from '../utils/useNeighbor';
 import { SitePageContextPrevious, SitePageContextNext } from '../../graphql-types';
 
 const useStyles = makeStyles((theme) =>
@@ -28,16 +28,17 @@ const useStyles = makeStyles((theme) =>
 );
 
 interface Props {
-  mode: Mode;
   previous?: SitePageContextPrevious | null;
   next?: SitePageContextNext | null;
 }
 
-function PageNavigation({ mode, previous, next }: Props) {
+function PageNavigation({ previous, next }: Props) {
   const classes = useStyles();
+  const prev = useNeighbor(previous);
+  const nxt = useNeighbor(next);
   return (
     <div className={classes.root}>
-      {previous ? (
+      {prev ? (
         <div className={classes.buttonContainer}>
           <Button
             color="secondary"
@@ -47,13 +48,13 @@ function PageNavigation({ mode, previous, next }: Props) {
                 <ArrowBackIosIcon />
               </Icon>
             }
-            to={mode === 'club' ? `/club/${previous.slug}` : `/year/${previous.year}`}
+            to={prev.to}
           >
-            {previous.name || `${previous.year}年`}
+            {prev.title}
           </Button>
         </div>
       ) : null}
-      {next ? (
+      {nxt ? (
         <div className={clsx(classes.buttonContainer, classes.buttonRight)}>
           <Button
             color="secondary"
@@ -63,9 +64,9 @@ function PageNavigation({ mode, previous, next }: Props) {
                 <ArrowForwardIosIcon />
               </Icon>
             }
-            to={mode === 'club' ? `/club/${next.slug}` : `/year/${next.year}`}
+            to={nxt.to}
           >
-            {next.name || `${next.year}年`}
+            {nxt.title}
           </Button>
         </div>
       ) : null}

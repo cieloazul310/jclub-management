@@ -4,6 +4,7 @@ import SwipeableViews from 'react-swipeable-views';
 import MobileTabPane, { MobileTabPaneProps } from './index';
 import { ContentBasisLarge, ContentBasis } from '../../components/Basis';
 import { PLDoc, BSDoc, RevenueDoc, ExpenseDoc, AttdDoc, AttributionDoc } from '../../components/docs';
+import { AdInArticle } from '../../components/Ads';
 import { Mode, Tab, tabs } from '../../types';
 import { ClubTemplateQuery, YearTemplateQuery } from '../../../graphql-types';
 
@@ -47,6 +48,9 @@ function MainTab({ tab, data, mode, onChangeTabIndex, ...props }: Props) {
                           <AttributionDoc />
                         </ContentBasisLarge>
                       </section>
+                      <ContentBasisLarge>
+                        <AdInArticle />
+                      </ContentBasisLarge>
                     </article>
                   </Container>
                 </ContentBasis>

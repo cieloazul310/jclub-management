@@ -1,18 +1,10 @@
 import * as React from 'react';
 import { graphql, PageProps } from 'gatsby';
-import Container from '@material-ui/core/Container';
-import Divider from '@material-ui/core/Divider';
-import TemplateLayout from '../layout/TemplateLayout';
-import { ContentBasis } from '../components/Basis';
-import YearInfo from '../components/YearInfo';
-import { YearsLink } from '../components/links';
-import PageNavigation from '../components/PageNavigation';
 import { YearTemplateQuery, SitePageContext } from '../../graphql-types';
 import ExperimentalLayout from '../layout/Experimental';
 
 function YearTemplate(props: PageProps<YearTemplateQuery, SitePageContext>) {
-  const { yearsYaml, allDataset } = props.data;
-  const { previous, next } = props.pageContext;
+  const { yearsYaml } = props.data;
 
   return (
     <ExperimentalLayout

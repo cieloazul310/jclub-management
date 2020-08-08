@@ -17,9 +17,9 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) =>
       display: 'flex',
       flexDirection: 'column',
       overflowY: 'auto',
-      height: ({ mode }) => (mode === 'year' ? 'calc(100vh - 102px)' : undefined),
+      height: ({ mode }) => (mode === 'year' ? 'calc(100vh - 106px)' : undefined),
       [theme.breakpoints.only('xs')]: {
-        height: ({ mode }) => (mode === 'year' ? 'calc(100vh - 154px)' : undefined),
+        height: ({ mode }) => (mode === 'year' ? 'calc(100vh - 158px)' : undefined),
       },
     },
     main: {

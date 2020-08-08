@@ -9,9 +9,10 @@ import { Tab } from '../../types';
 
 interface Props {
   tab: Tab;
+  disabled: boolean;
 }
 
-function CopyButton({ tab }: Props) {
+function CopyButton({ tab, disabled }: Props) {
   const tableId = useTableId(tab);
   const [open, setOpen] = React.useState(false);
   const _handleClose = () => {
@@ -42,9 +43,11 @@ function CopyButton({ tab }: Props) {
   return (
     <>
       <Tooltip title="表をクリップボードにコピー">
-        <IconButton onClick={_onClick}>
-          <FileCopyIcon />
-        </IconButton>
+        <span>
+          <IconButton onClick={_onClick} disabled={disabled}>
+            <FileCopyIcon />
+          </IconButton>
+        </span>
       </Tooltip>
       <Snackbar
         open={open}

@@ -13,6 +13,9 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) =>
   createStyles({
     container: {
       flexGrow: 1,
+      [theme.breakpoints.only('xs')]: {
+        paddingBottom: 56,
+      },
     },
     table: {
       minWidth: 1000,

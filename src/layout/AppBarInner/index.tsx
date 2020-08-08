@@ -6,8 +6,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Hidden from '@material-ui/core/Hidden';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import { useTwitterShare } from '../../utils/useSocialShare';
+import AppBarNavigation from './AppBarNavigation';
+import { SitePageContextNext, SitePageContextPrevious } from '../../../graphql-types';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -33,17 +33,20 @@ const useStyles = makeStyles((theme) =>
 
 interface Props {
   title?: string;
+  previous?: SitePageContextPrevious | null;
+  next?: SitePageContextNext | null;
   onLeftButtonClick?: () => void;
 }
 
 function AppBarInner({
   title,
+  previous,
+  next,
   onLeftButtonClick = () => {
     // do nothing
   },
 }: Props) {
   const classes = useStyles();
-  const twitterShare = useTwitterShare(title);
   return (
     <Toolbar>
       <Tooltip title="メニュー">
@@ -60,11 +63,7 @@ function AppBarInner({
         </div>
       </Hidden>
       <Hidden xsDown implementation="css">
-        <Tooltip title="Twitterで共有する">
-          <IconButton edge="end" color="inherit" href={twitterShare} target="_blank">
-            <TwitterIcon />
-          </IconButton>
-        </Tooltip>
+        <AppBarNavigation previous={previous} next={next} />
       </Hidden>
     </Toolbar>
   );

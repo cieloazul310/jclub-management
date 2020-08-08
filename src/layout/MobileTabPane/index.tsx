@@ -1,7 +1,15 @@
 import * as React from 'react';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+import useIsMobile from '../../utils/useIsMobile';
 import { MobileTab } from '../../types';
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+    },
+  })
+);
 
 export interface MobileTabPaneProps {
   mobileOnly?: boolean;
@@ -11,11 +19,11 @@ export interface MobileTabPaneProps {
 }
 
 function MobileTabPane({ value, mobileTab, children, mobileOnly = false }: MobileTabPaneProps) {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.only('xs'));
+  const classes = useStyles();
+  const isMobile = useIsMobile();
   return !mobileOnly || isMobile ? (
-    <div role="tabpanel" hidden={isMobile && value !== mobileTab}>
-      {!isMobile || value === mobileTab ? children : null}
+    <div className={classes.root} role="tabpanel" hidden={isMobile && value !== mobileTab}>
+      <section>{!isMobile || value === mobileTab ? children : null}</section>
     </div>
   ) : null;
 }

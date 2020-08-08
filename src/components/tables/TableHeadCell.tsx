@@ -1,4 +1,5 @@
 import * as React from 'react';
+import clsx from 'clsx';
 import TableCell, { TableCellProps } from '@material-ui/core/TableCell';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { useAppState, useDispatch } from '../../utils/AppStateContext';
@@ -7,8 +8,6 @@ import { SortKey } from '../../utils/AppState';
 
 interface StylesProps {
   mode: Mode;
-  sortable: boolean;
-  selected: boolean;
 }
 
 const useStyles = makeStyles<Theme, StylesProps>((theme) =>
@@ -19,12 +18,17 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) =>
       padding: theme.spacing(1, 0.5),
       lineHeight: 1.2,
       minWidth: '6em',
-      color: ({ mode, sortable, selected }) =>
-        mode === 'club' || !sortable ? theme.palette.text.secondary : !selected ? theme.palette.text.primary : theme.palette.primary.main,
-      cursor: ({ mode, sortable }) => (mode === 'year' && sortable ? 'pointer' : undefined),
+      color: theme.palette.text.secondary,
+    },
+    sortable: {
+      color: ({ mode }) => (mode === 'club' ? undefined : theme.palette.text.primary),
+      cursor: ({ mode }) => (mode === 'club' ? undefined : 'pointer'),
       '&:hover': {
-        color: ({ mode, sortable }) => (mode === 'club' || !sortable ? theme.palette.text.secondary : theme.palette.primary.light),
+        textDecoration: ({ mode }) => (mode === 'club' ? undefined : 'underline'),
       },
+    },
+    selected: {
+      color: ({ mode }) => (mode === 'club' ? undefined : theme.palette.primary.main),
     },
   })
 );
@@ -37,7 +41,7 @@ interface Props extends TableCellProps {
 function TableHeadCell({ sortableKey, mode, children, ...props }: Props) {
   const { sortKey } = useAppState();
   const selected = sortKey === sortableKey;
-  const classes = useStyles({ mode, selected, sortable: !sortableKey ? false : true });
+  const classes = useStyles({ mode });
   const dispatch = useDispatch();
   const _onClick = () => {
     if (mode === 'club' || !sortableKey) return;
@@ -49,7 +53,12 @@ function TableHeadCell({ sortableKey, mode, children, ...props }: Props) {
   };
 
   return (
-    <TableCell className={classes.head} align="center" onClick={_onClick} {...props}>
+    <TableCell
+      className={clsx(classes.head, { [classes.sortable]: !!sortableKey }, { [classes.selected]: selected })}
+      align="center"
+      onClick={_onClick}
+      {...props}
+    >
       {children}
     </TableCell>
   );

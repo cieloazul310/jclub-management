@@ -6,7 +6,11 @@ export function useSortStateString() {
   const dictionary = useDictionary();
   const field = sortKey === 'average_attd' ? '平均入場者数' : sortKey === 'unit_price' ? '客単価' : dictionary ? dictionary[sortKey] : '';
 
-  return `ソート: ${field} ${sortAsc ? '昇順' : '降順'}`;
+  return {
+    field,
+    sortKey,
+    sortType: sortAsc ? '昇順' : '降順',
+  };
 }
 
 export function useFilterStateString() {
