@@ -2,14 +2,10 @@ import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Mode } from '../../types';
 
-interface StylesProps {
-  mode: Mode;
-}
-
-const useStyles = makeStyles<Theme, StylesProps>((theme) =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     container: {
       flexGrow: 1,
@@ -28,7 +24,7 @@ interface Props {
 }
 
 function TableCore({ id, children, mode }: Props) {
-  const classes = useStyles({ mode });
+  const classes = useStyles();
 
   return (
     <TableContainer className={classes.container} component={Paper}>

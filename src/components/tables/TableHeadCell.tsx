@@ -1,16 +1,12 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import TableCell, { TableCellProps } from '@material-ui/core/TableCell';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { useAppState, useDispatch } from '../../utils/AppStateContext';
 import { Mode } from '../../types';
 import { SortKey } from '../../utils/AppState';
 
-interface StylesProps {
-  mode: Mode;
-}
-
-const useStyles = makeStyles<Theme, StylesProps>((theme) =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     head: {
       fontWeight: 'bold',
@@ -21,14 +17,14 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) =>
       color: theme.palette.text.secondary,
     },
     sortable: {
-      color: ({ mode }) => (mode === 'club' ? undefined : theme.palette.text.primary),
-      cursor: ({ mode }) => (mode === 'club' ? undefined : 'pointer'),
+      color: theme.palette.text.primary,
+      cursor: 'pointer',
       '&:hover': {
-        textDecoration: ({ mode }) => (mode === 'club' ? undefined : 'underline'),
+        textDecoration: 'underline',
       },
     },
     selected: {
-      color: ({ mode }) => (mode === 'club' ? undefined : theme.palette.primary.main),
+      color: theme.palette.secondary.main,
     },
   })
 );
@@ -41,7 +37,7 @@ interface Props extends TableCellProps {
 function TableHeadCell({ sortableKey, mode, children, ...props }: Props) {
   const { sortKey } = useAppState();
   const selected = sortKey === sortableKey;
-  const classes = useStyles({ mode });
+  const classes = useStyles();
   const dispatch = useDispatch();
   const _onClick = () => {
     if (mode === 'club' || !sortableKey) return;
@@ -54,7 +50,11 @@ function TableHeadCell({ sortableKey, mode, children, ...props }: Props) {
 
   return (
     <TableCell
-      className={clsx(classes.head, { [classes.sortable]: !!sortableKey }, { [classes.selected]: selected })}
+      className={clsx(
+        classes.head,
+        { [classes.sortable]: mode === 'year' && !!sortableKey },
+        { [classes.selected]: mode === 'year' && selected }
+      )}
       align="center"
       onClick={_onClick}
       {...props}

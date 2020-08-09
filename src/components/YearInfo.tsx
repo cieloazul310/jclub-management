@@ -14,7 +14,7 @@ interface Props {
 function YearInfo({ edges, yearYaml }: Props) {
   return (
     <ContentBasis>
-      <Typography variant="h5" component="h2" gutterBottom>
+      <Typography variant="h6" component="h2" gutterBottom>
         {yearYaml?.year}年
       </Typography>
       <Grid container>
@@ -42,10 +42,10 @@ function CategoryInfo({ edges, category }: CategoryInfoProps) {
   return category && stat ? (
     <Grid item xs={12} sm={4}>
       <ContentBasis>
-        <Typography variant="h6" component="h3" gutterBottom>
+        <Typography variant="body1" component="h3" gutterBottom>
           {category} {stat.n}クラブ
         </Typography>
-        <Typography variant="body1" component="ul" gutterBottom>
+        <Typography variant="body2" component="ul" gutterBottom>
           <Typography component="li">総営業収入: {(stat.sum / 100).toFixed(2)}億円</Typography>
           <Typography component="li">営業収入平均: {(stat.average / 100).toFixed(2)}億円</Typography>
           <Typography component="li">

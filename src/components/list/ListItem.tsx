@@ -1,8 +1,9 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+import CategoryAvatar from '../CategoryAvatar';
 import ListItemTable from './ListItemTable';
+import { useSortedValue } from '../../utils/useStateEdges';
 import { Edge, Mode, Tab } from '../../types';
 
 const useStyles = makeStyles((theme) =>
@@ -25,7 +26,14 @@ const useStyles = makeStyles((theme) =>
       flexDirection: 'column',
     },
     label: {
+      display: 'flex',
+      alignItems: 'flex-end',
+      justifyContent: 'space-between',
       padding: theme.spacing(1, 2),
+    },
+    value: {
+      fontSize: theme.typography.h5.fontSize,
+      fontWeight: theme.typography.fontWeightBold,
     },
   })
 );
@@ -39,11 +47,12 @@ interface Props {
 
 function ListItem({ edge, mode, tab, index }: Props) {
   const classes = useStyles();
+  const value = useSortedValue(edge);
   const { node } = edge;
   return (
     <div className={classes.root}>
       <div className={classes.avatarWrapper}>
-        <Avatar>{node.category}</Avatar>
+        <CategoryAvatar category={node.category ?? ''} />
         <Typography variant="caption">{node.rank}位</Typography>
       </div>
       <div className={classes.content}>
@@ -51,6 +60,7 @@ function ListItem({ edge, mode, tab, index }: Props) {
           <Typography component="h3">
             <strong>{mode === 'club' ? `${node.year}年` : `${index + 1}. ${node.name}`}</strong>
           </Typography>
+          {mode === 'year' ? <Typography className={classes.value}>{value}</Typography> : null}
         </div>
         <div>
           <ListItemTable edge={edge} mode={mode} tab={tab} />

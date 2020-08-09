@@ -3,6 +3,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TableBodyLabel } from './TableLabel';
+import { CategoryLabel } from '../CategoryAvatar';
 import { useAppState } from '../../utils/AppStateContext';
 import { Tab, Mode, Edge } from '../../types';
 
@@ -37,7 +38,7 @@ function TableBodyRow({ tab, index, mode, edge, selected = false }: Props) {
     <TableRow selected={selected}>
       <TableBodyLabel mode={mode} edge={edge} index={index} />
       <TableCell className={classes.rowInfo} align="center" padding="none">
-        {edge.node.category}
+        <CategoryLabel category={edge.node.category ?? ''} />
       </TableCell>
       <TableCell className={classes.rowInfo} align="center" padding="none">
         {edge.node.rank}

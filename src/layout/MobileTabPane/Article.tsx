@@ -19,7 +19,7 @@ function MainTab({ tab, data, mode, onChangeTabIndex, ...props }: Props) {
   return (
     <MobileTabPane value="article" {...props}>
       <ContentBasisLarge>
-        <SwipeableViews index={tabs.indexOf(tab)} onChangeIndex={onChangeTabIndex}>
+        <SwipeableViews resistance index={tabs.indexOf(tab)} onChangeIndex={onChangeTabIndex}>
           {tabs.map((t) => (
             <div key={t} role="tabpanel" hidden={t !== tab}>
               {t === tab ? (

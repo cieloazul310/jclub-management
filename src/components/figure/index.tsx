@@ -1,4 +1,5 @@
 import * as React from 'react';
+import clsx from 'clsx';
 import Container from '@material-ui/core/Container';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import FigureToolbar from './Toolbar';
@@ -7,19 +8,17 @@ import FinancialList from '../list';
 import { useAppState } from '../../utils/AppStateContext';
 import { Mode, Edge, Tab } from '../../types';
 
-interface StylesProps {
-  mode: Mode;
-}
-
-const useStyles = makeStyles<Theme, StylesProps>((theme) =>
+const useStyles = makeStyles<Theme>((theme) =>
   createStyles({
     root: {
       display: 'flex',
       flexDirection: 'column',
       overflowY: 'auto',
-      height: ({ mode }) => (mode === 'year' ? 'calc(100vh - 106px)' : undefined),
+    },
+    rootYearTable: {
+      height: 'calc(100vh - 106px)',
       [theme.breakpoints.only('xs')]: {
-        height: ({ mode }) => (mode === 'year' ? 'calc(100vh - 158px)' : undefined),
+        height: 'calc(100vh - 158px)',
       },
     },
     main: {
@@ -38,10 +37,10 @@ interface Props {
 
 function Figure({ edges, mode, tab }: Props) {
   const { listMode } = useAppState();
-  const classes = useStyles({ mode });
+  const classes = useStyles();
 
   return (
-    <Container maxWidth="lg" disableGutters className={classes.root}>
+    <Container maxWidth="lg" disableGutters className={clsx(classes.root, { [classes.rootYearTable]: mode === 'year' && !listMode })}>
       <FigureToolbar tab={tab} mode={mode} />
       <div className={classes.main}>
         {listMode ? <FinancialList edges={edges} mode={mode} tab={tab} /> : <FinancialTable edges={edges} mode={mode} tab={tab} />}

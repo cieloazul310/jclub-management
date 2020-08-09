@@ -32,7 +32,7 @@ export function useSortedEdges(edges: Edge[], mode: Mode) {
   );
 }
 
-function getValue({ node }: Edge, sortKey: SortKey) {
+export function getValue({ node }: Edge, sortKey: SortKey) {
   return sortKey === 'rank'
     ? getRank(node)
     : sortKey === 'unit_price'
@@ -42,8 +42,29 @@ function getValue({ node }: Edge, sortKey: SortKey) {
     : node[sortKey] ?? 1;
 }
 
-function getRank(node: Edge['node']) {
+export function getRank(node: Edge['node']) {
   const addition =
     node.category === 'J2' ? 100 : node.category === 'J3' ? 200 : node.category === 'JFL' ? 300 : node.category === '地域' ? 400 : 0;
   return addition + (node.rank ?? 0);
 }
+
+export function useSortedValue({ node }: Edge): string {
+  const { sortKey } = useAppState();
+  if (sortKey === 'unit_price') {
+    return node.ticket && node.all_attd ? `${Math.round(node.ticket / node.all_attd)}円` : '-';
+  } else if (sortKey === 'average_attd') {
+    return node.league_attd && node.league_games ? `${Math.round(node.league_attd / node.league_games)}人` : '-';
+  }
+  return sortKey === 'rank' && node.category && node.rank
+    ? `${node.category} ${node.rank}位`
+    : sortKey === 'league_attd' || sortKey === 'all_attd'
+    ? `${node[sortKey]}人`
+    : node[sortKey]
+    ? `${((node[sortKey] ?? 1) / 100).toFixed(2)}億円`
+    : '-';
+}
+
+/*
+  | 'league_attd'
+  | 'all_attd';
+*/

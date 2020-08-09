@@ -23,6 +23,7 @@ import Footer from './Footer';
 import BottomNavigation from './BottomNavigation';
 
 import useIsMobile from '../utils/useIsMobile';
+import useUpdateOnClient from '../utils/useUpdateOnClient';
 import { Mode, MobileTab, Tab, tabs } from '../types';
 import { ClubTemplateQuery, YearTemplateQuery, SitePageContext } from '../../graphql-types';
 
@@ -99,6 +100,7 @@ interface Props {
 }
 
 function Experimental({ mode, title, headerTitle, description, data, pageContext }: Props) {
+  const isClient = useUpdateOnClient();
   const storaged = typeof window === 'object' ? sessionStorage.getItem('jclubTab-experimental') : null;
   const initialTabs = storaged ? JSON.parse(storaged) : {};
 
@@ -139,7 +141,7 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
   };
 
   return (
-    <div className={classes.root}>
+    <div key={isClient} className={classes.root}>
       <SEO title={title} description={description} />
       <Slide appear={false} direction="down" in={!trigger}>
         <AppBar className={classes.appBar}>
@@ -159,7 +161,7 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
       </Slide>
       <main>
         <div className={classes.mobileTabContainer}>
-          <FigureTabPane mobileTab={mobileTab} data={data} mode={mode} tab={tab} />
+          <FigureTabPane mobileTab={mobileTab} data={data} mode={mode} tab={tab} onChangeTabIndex={_onChangeTabIndex} />
           <SummaryTabPane mobileTab={mobileTab} mode={mode} data={data} previous={previous} next={next} />
           <ArticleTabPane data={data} mobileTab={mobileTab} tab={tab} mode={mode} onChangeTabIndex={_onChangeTabIndex} />
           <SettingsTabPane mobileTab={mobileTab} />

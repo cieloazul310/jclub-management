@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) =>
       alignItems: 'center',
     },
     right: {
+      paddingBottom: 2,
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'flex-end',
@@ -73,7 +74,7 @@ function FigureToolbar({ tab, mode }: Props) {
       </div>
       <div className={classes.right}>
         {mode === 'year' ? (
-          <Typography variant="caption">
+          <Typography variant="body2">
             <strong>{field}</strong> {sortType}
           </Typography>
         ) : null}

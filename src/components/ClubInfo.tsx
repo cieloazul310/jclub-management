@@ -14,7 +14,7 @@ function ClubInfo({ clubsYaml }: Props) {
       <Typography variant="h6" component="h2" gutterBottom>
         {clubsYaml?.name}
       </Typography>
-      <Typography variant="body1" component="ul">
+      <Typography variant="body2" component="ul">
         <li>正式名称: {clubsYaml?.fullname}</li>
         <li>法人名: {clubsYaml?.company}</li>
         <li>所属カテゴリ: {clubsYaml?.category}</li>
