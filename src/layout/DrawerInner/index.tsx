@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) =>
       overflow: 'auto',
     },
     titleContainer: {
-      padding: theme.spacing(2),
+      padding: theme.spacing(2, 2, 0, 2),
     },
     toolbar: {
       ...theme.mixins.toolbar,
@@ -61,7 +61,7 @@ function DrawerInner({ title, next, previous, drawerContents, onCloseIconClick }
         </div>
         <Divider />
         <div className={classes.titleContainer}>
-          <Typography variant="body1" gutterBottom>
+          <Typography variant="body1">
             <AppLink to="/" color="inherit">
               <strong>{title ?? siteTitle}</strong>
             </AppLink>

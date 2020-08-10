@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+import AppLink from '../AppLink';
 import CategoryAvatar from '../CategoryAvatar';
 import ListItemTable from './ListItemTable';
 import { useSortedValue } from '../../utils/useStateEdges';
@@ -58,7 +59,9 @@ function ListItem({ edge, mode, tab, index }: Props) {
       <div className={classes.content}>
         <div className={classes.label}>
           <Typography component="h3">
-            <strong>{mode === 'club' ? `${node.year}年` : `${index + 1}. ${node.name}`}</strong>
+            <AppLink to={mode === 'year' ? `/club/${node.slug}` : `/year/${node.year}`} color="inherit">
+              <strong>{mode === 'club' ? `${node.year}年` : `${index + 1}. ${node.name}`}</strong>
+            </AppLink>
           </Typography>
           {mode === 'year' ? <Typography className={classes.value}>{value}</Typography> : null}
         </div>

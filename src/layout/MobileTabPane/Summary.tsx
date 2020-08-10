@@ -27,11 +27,7 @@ function SummaryTabPane({ mode, data, previous, next, ...props }: Props) {
             <Typography variant="h3" component="h2" gutterBottom>
               概要
             </Typography>
-            {mode === 'club' ? (
-              <ClubInfo clubsYaml={data.clubsYaml} />
-            ) : (
-              <YearInfo edges={data.allDataset.edges} yearYaml={data.yearsYaml} />
-            )}
+            {mode === 'club' ? <ClubInfo data={data} /> : <YearInfo data={data} />}
           </ContentBasis>
           <ContentBasis>{mode === 'club' ? <CategoryLink category={data.clubsYaml.category} /> : <YearsLink />}</ContentBasis>
           <ContentBasis>

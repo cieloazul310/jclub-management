@@ -7,19 +7,21 @@ import { Edge } from '../types';
 import { YearTemplateQuery } from '../../graphql-types';
 
 interface Props {
-  edges: Edge[];
-  yearYaml: YearTemplateQuery['yearsYaml'];
+  data: YearTemplateQuery;
 }
 
-function YearInfo({ edges, yearYaml }: Props) {
+function YearInfo({ data }: Props) {
+  const { yearsYaml, allDataset } = data;
   return (
     <ContentBasis>
       <Typography variant="h6" component="h2" gutterBottom>
-        {yearYaml?.year}年
+        {yearsYaml?.year}年
       </Typography>
       <Grid container>
-        {yearYaml?.categories
-          ? yearYaml.categories.map((category, index) => <CategoryInfo key={category ?? index} edges={edges} category={category} />)
+        {yearsYaml?.categories
+          ? yearsYaml.categories.map((category, index) => (
+              <CategoryInfo key={category ?? index} edges={allDataset.edges} category={category} />
+            ))
           : null}
       </Grid>
     </ContentBasis>

@@ -7,17 +7,14 @@ import TableBodyRow from './TableBodyRow';
 import useStateEdges from '../../utils/useStateEdges';
 import useTableId from '../../utils/useTableId';
 import { Tab, Mode, Edge } from '../../types';
-import { SitePageContextNext, SitePageContextPrevious } from '../../../graphql-types';
 
 interface Props {
   edges: Edge[];
   mode: Mode;
   tab: Tab;
-  next?: SitePageContextNext | null;
-  previous?: SitePageContextPrevious | null;
 }
 
-function FinancialTable({ edges, mode, tab, next, previous }: Props) {
+function FinancialTable({ edges, mode, tab }: Props) {
   const stateEdges = useStateEdges(edges, mode);
   const id = useTableId(tab);
   return (

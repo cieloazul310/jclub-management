@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { graphql, PageProps } from 'gatsby';
 import { ClubTemplateQuery, SitePageContext } from '../../graphql-types';
-import ExperimentalLayout from '../layout/Experimental';
+import TemplateLayout from '../layout/TemplateLayout';
 
 function ClubTemplate(props: PageProps<ClubTemplateQuery, SitePageContext>) {
   const { clubsYaml } = props.data;
   return (
-    <ExperimentalLayout
+    <TemplateLayout
       mode="club"
       title={`${clubsYaml?.name}の経営情報`}
       headerTitle={`${clubsYaml?.name}`}

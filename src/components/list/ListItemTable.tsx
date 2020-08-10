@@ -91,7 +91,7 @@ function BSTable({ edge, mode }: Pick<Props, 'edge' | 'mode'>) {
       ) : null}
       <DataTableRow
         label="負債の部 (総負債)"
-        value={node.assets}
+        value={node.liabilities}
         open={liabilitiesOpen}
         toggleOpen={toggleLiabilitiesOpen}
         mode={mode}
