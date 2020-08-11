@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "gatsby-financial-report",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "description": "Jリーグが毎年公開している「Jクラブ個別経営情報開示資料」の15年分のデータをクラブ別、年度別に表示したページ。",
+  "version": "1.0.0",
+  "author": "cieloazul310",
   "dependencies": {
     "@devexpress/dx-react-chart": "^2.7.0",
     "@devexpress/dx-react-chart-material-ui": "^2.7.0",
@@ -71,9 +71,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/cieloazul310/jclub-financial-table"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/cieloazul310/jclub-financial-table/issues"
   }
 }
