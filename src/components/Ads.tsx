@@ -50,18 +50,20 @@ export function AdInArticle() {
       window.adsbygoogle.push({});
     }
   }, [pathname]);
-  return typeof window === 'object' ? (
+  return (
     <div className={classes.root} key={pathname}>
-      <ins
-        className="adsbygoogle"
-        style={{ display: 'block', textAlign: 'center' }}
-        data-ad-layout="in-article"
-        data-ad-format="fluid"
-        data-ad-client="ca-pub-7323207940463794"
-        data-ad-slot="9174058264"
-      />
+      {typeof window === 'object' ? (
+        <ins
+          className="adsbygoogle"
+          style={{ display: 'block', textAlign: 'center' }}
+          data-ad-layout="in-article"
+          data-ad-format="fluid"
+          data-ad-client="ca-pub-7323207940463794"
+          data-ad-slot="9174058264"
+        />
+      ) : null}
     </div>
-  ) : null;
+  );
 }
 
 export function AdInFooter() {
@@ -73,16 +75,38 @@ export function AdInFooter() {
       window.adsbygoogle.push({});
     }
   }, [pathname]);
-  return typeof window === 'object' ? (
+  return (
     <div className={classes.root} key={pathname}>
-      <ins
-        className="adsbygoogle"
-        style={{ display: 'block' }}
-        data-ad-client="ca-pub-7323207940463794"
-        data-ad-slot="3332658358"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      />
+      {typeof window === 'object' ? (
+        <ins
+          className="adsbygoogle"
+          style={{ display: 'block' }}
+          data-ad-client="ca-pub-7323207940463794"
+          data-ad-slot="3332658358"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        />
+      ) : null}
     </div>
-  ) : null;
+  );
+}
+
+export function AdInListFooter() {
+  const classes = useStyles();
+  const { pathname } = useLocation();
+
+  return (
+    <div className={classes.root} key={pathname}>
+      {typeof window === 'object' ? (
+        <ins
+          className="adsbygoogle"
+          style={{ display: 'block' }}
+          data-ad-client="ca-pub-7323207940463794"
+          data-ad-slot="6963353890"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        />
+      ) : null}
+    </div>
+  );
 }

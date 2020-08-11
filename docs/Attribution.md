@@ -48,17 +48,13 @@ title: データについて
 
 ### 更新情報
 
-- 2020-08-06 新バージョンで公開
-
-### 構想
-
-- データダウンロードページ
-- 項目別の
+- 2020-08-11 新バージョンで公開
 
 ### 制作
 
 @cieloazul310
 
-[Twitter](https://twitter.com/cieloazul310 "@cieloazul310") [Web](https://cieloazul310.github.io/ "水戸地図")
+- [Twitter](https://twitter.com/cieloazul310 "@cieloazul310")
+- [Web](https://cieloazul310.github.io/ "水戸地図")
 
 データの欠損を見つけたらTwitter等で教えていただけるとありがたいです。

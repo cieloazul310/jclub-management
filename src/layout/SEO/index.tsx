@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { useSiteMetadata } from '../../utils/graphql-hooks';
 import ogImage from '../../images/og_image.png';
+import ogTwitter from '../../images/og_twitter.png';
 
 interface Props {
   title?: string;
@@ -26,7 +27,7 @@ function Seo({ title, description }: Props) {
         },
         {
           name: 'og:image',
-          content: `${siteMetadata.siteUrl}${ogImage}`,
+          content: `https://cieloazul310.github.io${ogImage}`,
         },
         {
           name: 'og:title',
@@ -48,6 +49,10 @@ function Seo({ title, description }: Props) {
         {
           name: 'twitter:description',
           content: description || siteMetadata.description,
+        },
+        {
+          name: 'twitter:image',
+          content: `https://cieloazul310.github.io${ogTwitter}`,
         },
       ]}
     />

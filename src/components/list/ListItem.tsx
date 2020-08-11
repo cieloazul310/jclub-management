@@ -67,7 +67,7 @@ function ListItem({ edge, mode, tab, index }: Props) {
       <div>
         <div className={clsx(classes.avatarWrapper, { [classes.avatarWrapperYear]: mode === 'year' })} onClick={_rankSort}>
           <CategoryAvatar category={node.category ?? ''} />
-          <Typography variant="body2" color={sortKey === 'rank' ? 'secondary' : 'inherit'}>
+          <Typography variant="body2" color={mode === 'year' && sortKey === 'rank' ? 'secondary' : 'inherit'}>
             {node.rank}位
           </Typography>
           {node.elevation ? <Typography variant="caption">{node.elevation}</Typography> : null}

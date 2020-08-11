@@ -84,7 +84,7 @@ export function PLTableRow({ edge }: TableRowProps) {
   return (
     <>
       <TableCell classes={{ root: classes.root }} align="right">
-        {node.revenue}
+        <strong>{node.revenue}</strong>
       </TableCell>
       <TableCell classes={{ root: classes.root }} align="right">
         {node.expense}

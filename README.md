@@ -1,99 +1,63 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby's default starter
-</h1>
+# Jクラブ経営情報 2005-2019
 
-Kick off your project with this default boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
+<https://cieloazlu310.github.io/jclub-financial-table/>
 
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.org/docs/gatsby-starters/)._
+Jリーグが毎年公開している「Jクラブ個別経営情報開示資料」の15年分のデータをクラブ別、年度別に表示したページ。損益計算書、貸借対照表、営業収入、営業費用、入場者数の項目別に表と解説を掲載。
 
-## 🚀 Quick start
+## about
 
-1.  **Create a Gatsby site.**
+このサイトで使用しているデータは、Jリーグが発表している**Jクラブ個別経営情報開示資料**を基に独自で入場者数などのデータを追加・加工したものです。データは下記の**一次ソースを明記**した上で（このページ、つまり「Jクラブ経営情報2005-2019」の記載は不要です）ご自由に利用ください。データ加工時に欠損が発生している可能性があります。データ利用の際には念のため一次ソースを確認してください。
 
-    Use the Gatsby CLI to create a new site, specifying the default starter.
+数値の単位はJリーグ発表と同様に「百万円」としています。「100」は1億円を表します。
 
-    ```shell
-    # create a new Gatsby site using the default starter
-    gatsby new my-default-starter https://github.com/gatsbyjs/gatsby-starter-default
-    ```
+### Jクラブ個別経営情報開示資料
 
-1.  **Start developing.**
+- [2005年度(平成17年度)](https://www.jleague.jp/docs/aboutj/club2006_02.pdf "2005年度(平成17年度) Jクラブ個別経営情報開示資料")
+- [2006年度(平成18年度)](https://www.jleague.jp/docs/aboutj/club2007_02.pdf "2006年度(平成18年度) Jクラブ個別経営情報開示資料")
+- [2007年度(平成19年度)](https://www.jleague.jp/docs/aboutj/club2008_02.pdf "2007年度(平成19年度) Jクラブ個別経営情報開示資料")
+- [2008年度(平成20年度)](https://www.jleague.jp/docs/aboutj/club2009_02.pdf "2008年度(平成20年度) Jクラブ個別経営情報開示資料")
+- [2009年度(平成21年度)](https://www.jleague.jp/docs/aboutj/club2010_02.pdf "2009年度(平成21年度) Jクラブ個別経営情報開示資料")
+- [2010年度(平成22年度)](https://www.jleague.jp/docs/aboutj/club2011_02.pdf "2010年度(平成22年度) Jクラブ個別経営情報開示資料")
+- [2011年度(平成23年度)](https://www.jleague.jp/docs/aboutj/club-h23kaiji.pdf "2011年度(平成23年度) Jクラブ個別経営情報開示資料")
+- [2012年度(平成24年度)](https://www.jleague.jp/docs/aboutj/club-h24kaiji.pdf "2012年度(平成24年度) Jクラブ個別経営情報開示資料")
+- [2013年度(平成25年度)](https://www.jleague.jp/docs/aboutj/club-h25kaiji.pdf "2013年度(平成25年度) Jクラブ個別経営情報開示資料")
+- [2014年度(平成26年度)](https://www.jleague.jp/docs/aboutj/club-h26kaiji.pdf "2014年度(平成26年度) Jクラブ個別経営情報開示資料")
+- [2015年度(平成27年度)](https://www.jleague.jp/docs/aboutj/club-h27kaiji.pdf "2015年度(平成27年度) Jクラブ個別経営情報開示資料")
+- [2016年度(平成28年度)](https://www.jleague.jp/docs/aboutj/club-h28kaiji.pdf "2016年度(平成28年度) Jクラブ個別経営情報開示資料")
+- [2017年度(平成29年度)](https://www.jleague.jp/docs/aboutj/club-h29kaiji.pdf "2017年度(平成29年度) Jクラブ個別経営情報開示資料")
+- [2018年度(平成30年度)](https://www.jleague.jp/docs/aboutj/club-h30kaiji_3.pdf "2018年度(平成30年度) Jクラブ個別経営情報開示資料")
+- [2019年度(平成31年度)](https://www.jleague.jp/corporate/assets/pdf/club-h31kaiji_1_20200731.pdf "2019年度(平成31年度) Jクラブ個別経営情報開示資料")
 
-    Navigate into your new site’s directory and start it up.
+### その他のデータソース
 
-    ```shell
-    cd my-default-starter/
-    gatsby develop
-    ```
+- [Jリーグ.jp](https://www.jleague.jp/): 順位、勝ち点など
+- [J.LEAGUE Data Site](https://data.j-league.or.jp/SFTP01/): 順位、観客数など
+- [日本フットボールリーグオフィシャルWebサイト](http://www.jfl.or.jp/): 順位。勝ち点など
+- [Wikipedia](https://ja.wikipedia.org/wiki/): ACL観客数、JFL観客数など
+- [ガンバ大阪ACL観客数](http://datadata.zashiki.com/gamba/att/douinacl.htm): ACL観客数
+- [ファジアーノ岡山 2013年度　経営状況についてのご報告](https://www.fagiano-okayama.com/news/p1398334491.html): 岡山の地域リーグ、JFL時代の経営情報
+- [ロアッソ熊本 クラブ概要](https://roasso-k.com/top_team/club_outline): 熊本の地域リーグ、JFL時代の経営情報
+- [サッカーJ+ vol.1](https://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%83%E3%82%AB%E3%83%BCJ%2B): ACL観客数(2005横浜FM)
 
-1.  **Open the source code and start editing!**
+### 参照
 
-    Your site is now running at `http://localhost:8000`!
+経営情報の解説のために参照したページ
 
-    _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
+- [浦和レッズ 経営情報](https://www.urawa-reds.co.jp/club/managdata.php)
+- [コンサドーレ札幌 決算情報](https://www.consadole-sapporo.jp/club/settlement/)
+- [ファジアーノ岡山 2013年度　経営状況についてのご報告](https://www.fagiano-okayama.com/news/p1398334491.html)
+- [ファジアーノ岡山 2014年度　経営状況についてのご報告](https://www.fagiano-okayama.com/news/p1429706533.html)
+- [横浜F・マリノス 2013年度決算について](https://www.f-marinos.com/news/detail?id=1922)
 
-    Open the `my-default-starter` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
+### 更新情報
 
-## 🧐 What's inside?
+- 2020-08-11 新バージョンで公開
 
-A quick look at the top-level files and directories you'll see in a Gatsby project.
+### 制作
 
-    .
-    ├── node_modules
-    ├── src
-    ├── .gitignore
-    ├── .prettierrc
-    ├── gatsby-browser.js
-    ├── gatsby-config.js
-    ├── gatsby-node.js
-    ├── gatsby-ssr.js
-    ├── LICENSE
-    ├── package-lock.json
-    ├── package.json
-    └── README.md
+@cieloazul310
 
-1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
+- [Twitter](https://twitter.com/cieloazul310 "@cieloazul310")
+- [Web](https://cieloazul310.github.io/ "水戸地図")
 
-2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
-
-3.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
-
-4.  **`.prettierrc`**: This is a configuration file for [Prettier](https://prettier.io/). Prettier is a tool to help keep the formatting of your code consistent.
-
-5.  **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.org/docs/browser-apis/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
-
-6.  **`gatsby-config.js`**: This is the main configuration file for a Gatsby site. This is where you can specify information about your site (metadata) like the site title and description, which Gatsby plugins you’d like to include, etc. (Check out the [config docs](https://www.gatsbyjs.org/docs/gatsby-config/) for more detail).
-
-7.  **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.org/docs/node-apis/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
-
-8.  **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.org/docs/ssr-apis/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
-
-9.  **`LICENSE`**: This Gatsby starter is licensed under the 0BSD license. This means that you can see this file as a placeholder and replace it with your own license.
-
-10. **`package-lock.json`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
-
-11. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
-
-12. **`README.md`**: A text file containing useful reference information about your project.
-
-## 🎓 Learning Gatsby
-
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.org/). Here are some places to start:
-
-- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.org/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
-
-- **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.org/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
-
-## 💫 Deploy
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-default)
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/gatsbyjs/gatsby-starter-default)
-
-<!-- AUTO-GENERATED-CONTENT:END -->
+データの欠損を見つけたらTwitter等で教えていただけるとありがたいです。
