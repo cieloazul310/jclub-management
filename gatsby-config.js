@@ -4,9 +4,9 @@ module.exports = {
   siteMetadata: {
     title: `Jクラブ経営情報2005-2019`,
     description: `Jリーグが毎年公開している「Jクラブ個別経営情報開示資料」の15年分のデータをクラブ別、年度別に表示したページ。損益計算書、貸借対照表、営業収入、営業費用、入場者数の項目別に表と解説を掲載。`,
-    siteUrl: `https://cieloazul310.github.io/jclub-management`,
+    siteUrl: `https://cieloazul310.github.io/jclub-financial-table`,
   },
-  pathPrefix: '/jclub-management',
+  pathPrefix: '/jclub-financial-table',
   plugins: [
     {
       resolve: 'gatsby-plugin-top-layout',
@@ -87,7 +87,7 @@ module.exports = {
         background_color: blue[600],
         theme_color: blue[600],
         display: `minimal-ui`,
-        icon: `src/images/310hub.png`, // This path is relative to the root of the site.
+        icon: `src/images/og_twitter.png`, // This path is relative to the root of the site.
       },
     },
     `gatsby-plugin-sitemap`,
