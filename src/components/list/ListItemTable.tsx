@@ -234,6 +234,7 @@ const useDataTableRowStyles = makeStyles((theme) =>
     },
     current: {
       color: theme.palette.secondary.main,
+      fontWeight: theme.typography.fontWeightBold,
     },
   })
 );

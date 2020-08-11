@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { useSiteMetadata } from '../../utils/graphql-hooks';
+import ogImage from '../../images/og_image.png';
 
 interface Props {
   title?: string;
@@ -25,7 +26,7 @@ function Seo({ title, description }: Props) {
         },
         {
           name: 'og:image',
-          content: `${siteMetadata.siteUrl}/icons/icon-512x512.png`,
+          content: `${siteMetadata.siteUrl}${ogImage}`,
         },
         {
           name: 'og:title',

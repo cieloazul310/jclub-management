@@ -25,10 +25,11 @@ const useCategoryStyles = makeStyles((theme) =>
     label: {
       padding: theme.spacing(0, 1),
       borderRadius: 4,
-      fontWeight: 'bold',
+      fontWeight: theme.typography.fontWeightBold,
     },
     textSmall: {
-      fontSize: theme.typography.body2.fontSize,
+      fontSize: theme.typography.caption.fontSize,
+      fontWeight: theme.typography.fontWeightBold,
     },
   })
 );
@@ -40,7 +41,11 @@ interface Props {
 function CategoryAvatar({ category }: Props) {
   const filterCategory = category === 'J1' || category === 'J2' || category === 'J3' ? category : 'others';
   const classes = useCategoryStyles();
-  return <Avatar className={clsx(classes[filterCategory], { [classes.textSmall]: category === '地域' })}>{category}</Avatar>;
+  return (
+    <Avatar className={clsx(classes[filterCategory], { [classes.textSmall]: !['J1', 'J2', 'J3', 'JFL'].includes(category) })}>
+      {category}
+    </Avatar>
+  );
 }
 
 export default CategoryAvatar;

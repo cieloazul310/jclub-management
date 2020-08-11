@@ -15,35 +15,6 @@ function ClubTemplate(props: PageProps<ClubTemplateQuery, SitePageContext>) {
     />
   );
 }
-/*
-function ClubTemplate(props: PageProps<ClubTemplateQuery, SitePageContext>) {
-  const { clubsYaml } = props.data;
-  const { previous, next } = props.pageContext;
-
-  return (
-    <TemplateLayout
-      mode="club"
-      title={`${clubsYaml?.name}の経営情報`}
-      headerTitle={`${clubsYaml?.name}`}
-      description={`${clubsYaml?.fullname}の年度別経営情報一覧。損益計算書・貸借対照表・営業収入・営業費用・入場者数を項目ごとに時系列表示。`}
-      {...props}
-    >
-      <ContentBasis>
-        <Container maxWidth="md">
-          <ContentBasis>
-            <ClubInfo clubsYaml={clubsYaml} />
-          </ContentBasis>
-          <Divider />
-          <ContentBasis>
-            {clubsYaml?.category ? <CategoryLink category={clubsYaml?.category} /> : null}
-            <PageNavigation mode="club" previous={previous} next={next} />
-          </ContentBasis>
-        </Container>
-      </ContentBasis>
-    </TemplateLayout>
-  );
-}
-*/
 
 export default ClubTemplate;
 
@@ -78,6 +49,7 @@ export const query = graphql`
           category
           curr_assets
           curr_liabilities
+          elevation
           expense
           fixed_assets
           fixed_liabilities

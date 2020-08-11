@@ -40,6 +40,7 @@ export const query = graphql`
           category
           curr_assets
           curr_liabilities
+          elevation
           expense
           fixed_assets
           fixed_liabilities

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
+import MuiLink from '@material-ui/core/Link';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -10,7 +11,7 @@ import DrawerNavigation from './DrawerNavigation';
 import DrawerLinks from './DrawerLinks';
 import StateHandler from './StateHandler';
 import ThemeHandler from './ThemeHandler';
-import AppLink from '../../components/AppLink';
+import DrawerShare from './DrawerShare';
 import { useSiteMetadata } from '../../utils/graphql-hooks';
 import { SitePageContextNext, SitePageContextPrevious } from '../../../graphql-types';
 
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) =>
       overflow: 'auto',
     },
     titleContainer: {
-      padding: theme.spacing(2, 2, 0, 2),
+      padding: theme.spacing(2, 2, 1, 2),
     },
     toolbar: {
       ...theme.mixins.toolbar,
@@ -34,6 +35,11 @@ const useStyles = makeStyles((theme) =>
     items: {
       flexGrow: 1,
       overflowY: 'auto',
+    },
+    footer: {
+      padding: theme.spacing(8, 2),
+      color: theme.palette.text.secondary,
+      fontSize: theme.typography.caption.fontSize,
     },
   })
 );
@@ -62,9 +68,7 @@ function DrawerInner({ title, next, previous, drawerContents, onCloseIconClick }
         <Divider />
         <div className={classes.titleContainer}>
           <Typography variant="body1">
-            <AppLink to="/" color="inherit">
-              <strong>{title ?? siteTitle}</strong>
-            </AppLink>
+            <strong>{title ?? siteTitle}</strong>
           </Typography>
         </div>
         <DrawerNavigation next={next} previous={previous} />
@@ -80,6 +84,19 @@ function DrawerInner({ title, next, previous, drawerContents, onCloseIconClick }
           <StateHandler />
           <ThemeHandler />
         </Hidden>
+        <DrawerShare title={title} />
+        <div className={classes.footer}>
+          <footer>
+            <strong>Jクラブ経営情報2005-2019</strong>
+            <p>
+              © {new Date().getFullYear()} cieloazul310 All rights reserved. Built with
+              {` `}
+              <MuiLink color="inherit" href="https://www.gatsbyjs.org" target="_blank" rel="noopener noreferrer">
+                Gatsby
+              </MuiLink>
+            </p>
+          </footer>
+        </div>
       </div>
     </div>
   );

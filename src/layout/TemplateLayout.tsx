@@ -184,7 +184,7 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
         </Tooltip>
       </div>
       <SwipeableDrawer open={drawerOpen} onClose={_handleDrawer(false)} onOpen={_handleDrawer(true)}>
-        <DrawerInner title={headerTitle} previous={previous} next={next} onCloseIconClick={_handleDrawer(false)} />
+        <DrawerInner title={headerTitle ?? title} previous={previous} next={next} onCloseIconClick={_handleDrawer(false)} />
       </SwipeableDrawer>
     </div>
   );

@@ -44,7 +44,7 @@ export function getValue({ node }: Edge, sortKey: SortKey) {
 
 export function getRank(node: Edge['node']) {
   const addition =
-    node.category === 'J2' ? 100 : node.category === 'J3' ? 200 : node.category === 'JFL' ? 300 : node.category === '地域' ? 400 : 0;
+    node.category === 'J1' ? 0 : node.category === 'J2' ? 100 : node.category === 'J3' ? 200 : node.category === 'JFL' ? 300 : 400;
   return addition + (node.rank ?? 0);
 }
 
@@ -63,8 +63,3 @@ export function useSortedValue({ node }: Edge): string {
     ? `${((node[sortKey] ?? 1) / 100).toFixed(2)}億円`
     : '-';
 }
-
-/*
-  | 'league_attd'
-  | 'all_attd';
-*/

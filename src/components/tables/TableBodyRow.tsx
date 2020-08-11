@@ -1,4 +1,5 @@
 import * as React from 'react';
+import clsx from 'clsx';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
@@ -13,13 +14,20 @@ const useStyles = makeStyles((theme) =>
       borderRight: `1px solid ${theme.palette.divider}`,
     },
     emphasized: {
-      fontWeight: 'bold',
+      fontWeight: theme.typography.fontWeightBold,
       background: theme.palette.background.default,
     },
     rowInfo: {
-      fontWeight: 'bold',
-      fontSize: theme.typography.caption.fontSize,
+      fontSize: theme.typography.body2.fontSize,
       color: theme.palette.text.secondary,
+    },
+    promoted: {
+      fontWeight: theme.typography.fontWeightBold,
+      color: theme.palette.type === 'light' ? theme.palette.success.main : theme.palette.success.light,
+    },
+    relegated: {
+      fontWeight: theme.typography.fontWeightBold,
+      color: theme.palette.type === 'light' ? theme.palette.error.main : theme.palette.error.light,
     },
   })
 );
@@ -40,7 +48,15 @@ function TableBodyRow({ tab, index, mode, edge, selected = false }: Props) {
       <TableCell className={classes.rowInfo} align="center" padding="none">
         <CategoryLabel category={edge.node.category ?? ''} />
       </TableCell>
-      <TableCell className={classes.rowInfo} align="center" padding="none">
+      <TableCell
+        className={clsx(
+          classes.rowInfo,
+          { [classes.promoted]: edge.node.elevation === '昇格' },
+          { [classes.relegated]: edge.node.elevation === '降格' }
+        )}
+        align="center"
+        padding="none"
+      >
         {edge.node.rank}
       </TableCell>
       {tab === 'pl' ? (

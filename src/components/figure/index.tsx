@@ -12,22 +12,12 @@ import { tabs, Mode, Edge, Tab } from '../../types';
 const useStyles = makeStyles<Theme>((theme) =>
   createStyles({
     root: {
-      //display: 'flex',
-      //flexDirection: 'column',
       overflowY: 'auto',
     },
-    rootYearTable: {
-      //height: 'calc(100vh - 106px)',
+    rootYear: {
       [theme.breakpoints.up('sm')]: {
         height: 'calc(100vh - 106px)',
       },
-      [theme.breakpoints.only('xs')]: {
-        //height: 'calc(100vh - 158px)',
-      },
-    },
-    main: {
-      //position: 'sticky',
-      //top: 0,
     },
   })
 );
@@ -44,7 +34,7 @@ function Figure({ edges, mode, tab, onChangeTabIndex }: Props) {
   const classes = useStyles();
 
   return (
-    <Container maxWidth="lg" disableGutters className={clsx(classes.root, { [classes.rootYearTable]: mode === 'year' && !listMode })}>
+    <Container maxWidth="lg" disableGutters className={clsx(classes.root, { [classes.rootYear]: mode === 'year' })}>
       <FigureToolbar tab={tab} mode={mode} />
       <div className={classes.main}>
         <SwipeableViews resistance disabled={!listMode} index={tabs.indexOf(tab)} onChangeIndex={onChangeTabIndex}>
