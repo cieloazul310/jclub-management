@@ -17,6 +17,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import GetAppIcon from '@material-ui/icons/GetApp';
+import { csvFormat } from 'd3-dsv';
 import Layout from '../layout';
 import FieldFilter from '../components/download/FieldFilter';
 import { DownloadQuery } from '../../graphql-types';
@@ -40,7 +41,6 @@ function DownloadPage({ data }: PageProps<DownloadQuery>) {
   );
   const allCategories = ['J1', 'J2', 'J3', 'その他'];
   const allFields = Object.keys(dictYaml ?? {});
-  console.log(allFields);
 
   const [dataFormat, setDataFormat] = React.useState<string>('json');
   const [clubsFilter, setClubsFilter] = React.useState(allClubs);
@@ -83,7 +83,7 @@ function DownloadPage({ data }: PageProps<DownloadQuery>) {
       .filter(({ node }) => yearsFilter.includes(node.year ?? 0))
       .filter(({ node }) => categoriesFilter.includes(getNodeCategory(node.category ?? '')))
       .map(({ node }) => {
-        const obj = {};
+        const obj = { クラブ: node.name, 年: node.year, 所属: node.category };
         for (const key in node) {
           if (fields.includes(key)) {
             obj[dictYaml[key]] = node[key];
@@ -92,6 +92,7 @@ function DownloadPage({ data }: PageProps<DownloadQuery>) {
         return obj;
       });
     console.log(dataset);
+    console.log(csvFormat(dataset));
     const blob = new Blob([JSON.stringify(dataset)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
 
@@ -250,7 +251,7 @@ function getNodeCategory(category: string) {
 
 export const query = graphql`
   query Download {
-    allDataset(sort: { fields: year }, filter: { year: { eq: 2019 } }) {
+    allDataset(sort: { fields: year }) {
       edges {
         node {
           academy_exp
