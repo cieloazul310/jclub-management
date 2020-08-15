@@ -10,25 +10,44 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Radio from '@material-ui/core/Radio';
 import Checkbox from '@material-ui/core/Checkbox';
 import Collapse from '@material-ui/core/Collapse';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import Layout from '../layout';
+import FieldFilter from '../components/download/FieldFilter';
 import { DownloadQuery } from '../../graphql-types';
 
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    buttonContainer: {
+      padding: theme.spacing(8, 0),
+      textAlign: 'center',
+    },
+  })
+);
+
 function DownloadPage({ data }: PageProps<DownloadQuery>) {
-  const { allDataset, allDictYaml, allYearsYaml, allClubsYaml } = data;
+  const classes = useStyles();
+  const { allDataset, dictYaml, allYearsYaml, allClubsYaml } = data;
   const allYears = allYearsYaml.edges.map(({ node }) => node.year ?? 0);
   const allClubs = allClubsYaml.group.reduce<string[]>(
     (accum, { edges }) => (edges ? [...accum, ...edges.map(({ node }) => node.slug ?? '')] : accum),
     []
   );
+  const allCategories = ['J1', 'J2', 'J3', 'その他'];
+  const allFields = Object.keys(dictYaml ?? {});
+  console.log(allFields);
 
   const [dataFormat, setDataFormat] = React.useState<string>('json');
   const [clubsFilter, setClubsFilter] = React.useState(allClubs);
-  const [yearsFilter, setYearsFilter] = React.useState<number[]>(allYears);
+  const [yearsFilter, setYearsFilter] = React.useState(allYears);
+  const [categoriesFilter, setCategoriesFilter] = React.useState(allCategories);
+  const [fields, setFields] = React.useState(allFields);
+
   const _setAllClubs = () => {
     setClubsFilter(allClubs);
   };
@@ -44,11 +63,36 @@ function DownloadPage({ data }: PageProps<DownloadQuery>) {
   const _clearAllYears = () => {
     setYearsFilter([]);
   };
+  const _toggleCategory = (item: string) => () => {
+    setCategoriesFilter(
+      categoriesFilter.includes(item) ? categoriesFilter.filter((category) => category !== item) : [...categoriesFilter, item]
+    );
+  };
+  const _setAllCategories = () => {
+    setCategoriesFilter(allCategories);
+  };
+  const _clearAllCategories = () => {
+    setCategoriesFilter([]);
+  };
   const _handleChangeDataFormat = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDataFormat(event.target.name);
   };
   const _download = () => {
-    const blob = new Blob([JSON.stringify(allDataset)], { type: 'application/json' });
+    const dataset = allDataset.edges
+      .filter(({ node }) => clubsFilter.includes(node.slug ?? ''))
+      .filter(({ node }) => yearsFilter.includes(node.year ?? 0))
+      .filter(({ node }) => categoriesFilter.includes(getNodeCategory(node.category ?? '')))
+      .map(({ node }) => {
+        const obj = {};
+        for (const key in node) {
+          if (fields.includes(key)) {
+            obj[dictYaml[key]] = node[key];
+          }
+        }
+        return obj;
+      });
+    console.log(dataset);
+    const blob = new Blob([JSON.stringify(dataset)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
 
     console.log(url);
@@ -58,7 +102,7 @@ function DownloadPage({ data }: PageProps<DownloadQuery>) {
     <Layout title="データダウンロード">
       <Container maxWidth="md">
         <div>
-          <div>
+          <div className={classes.buttonContainer}>
             <Button variant="contained" color="primary" size="large" startIcon={<GetAppIcon />} onClick={_download}>
               ダウンロード
             </Button>
@@ -66,11 +110,11 @@ function DownloadPage({ data }: PageProps<DownloadQuery>) {
           <div>
             <FormGroup row>
               <FormControlLabel
-                control={<Checkbox checked={dataFormat === 'json'} name="json" onChange={_handleChangeDataFormat} />}
+                control={<Radio checked={dataFormat === 'json'} name="json" onChange={_handleChangeDataFormat} />}
                 label="json"
               />
               <FormControlLabel
-                control={<Checkbox checked={dataFormat === 'csv'} name="csv" onChange={_handleChangeDataFormat} />}
+                control={<Radio checked={dataFormat === 'csv'} name="csv" onChange={_handleChangeDataFormat} />}
                 label="csv"
               />
             </FormGroup>
@@ -101,7 +145,7 @@ function DownloadPage({ data }: PageProps<DownloadQuery>) {
               {allYears.map((year, index) => (
                 <ListItem key={year ?? index} button onClick={_toggleYear(year)}>
                   <ListItemIcon>
-                    <Checkbox checked={yearsFilter.includes(year ?? 0)} />
+                    <Checkbox checked={yearsFilter.includes(year ?? 0)} edge="start" disableRipple />
                   </ListItemIcon>
                   <ListItemText primary={year} />
                 </ListItem>
@@ -110,38 +154,39 @@ function DownloadPage({ data }: PageProps<DownloadQuery>) {
           </Grid>
           <Grid item xs={12} sm={4}>
             <List subheader={<ListSubheader>カテゴリ</ListSubheader>}>
-              <ListItem button onClick={_setAllYears}>
+              <ListItem button onClick={_setAllCategories}>
                 <ListItemText primary="全て選択" />
               </ListItem>
-              <ListItem button onClick={_clearAllYears}>
+              <ListItem button onClick={_clearAllCategories}>
                 <ListItemText primary="全て解除" />
               </ListItem>
-              <ListItem button>
+              <ListItem button onClick={_toggleCategory('J1')}>
                 <ListItemIcon>
-                  <Checkbox checked={true} />
+                  <Checkbox checked={categoriesFilter.includes('J1')} edge="start" disableRipple />
                 </ListItemIcon>
                 <ListItemText primary="J1" />
               </ListItem>
-              <ListItem button>
+              <ListItem button onClick={_toggleCategory('J2')}>
                 <ListItemIcon>
-                  <Checkbox checked={true} />
+                  <Checkbox checked={categoriesFilter.includes('J2')} edge="start" disableRipple />
                 </ListItemIcon>
                 <ListItemText primary="J2" />
               </ListItem>
-              <ListItem button>
+              <ListItem button onClick={_toggleCategory('J3')}>
                 <ListItemIcon>
-                  <Checkbox checked={true} />
+                  <Checkbox checked={categoriesFilter.includes('J3')} edge="start" disableRipple />
                 </ListItemIcon>
                 <ListItemText primary="J3" />
               </ListItem>
-              <ListItem button>
+              <ListItem button onClick={_toggleCategory('その他')}>
                 <ListItemIcon>
-                  <Checkbox checked={true} />
+                  <Checkbox checked={categoriesFilter.includes('その他')} edge="start" disableRipple />
                 </ListItemIcon>
                 <ListItemText primary="その他" />
               </ListItem>
             </List>
           </Grid>
+          <FieldFilter fields={fields} setFields={setFields} dictYaml={dictYaml} />
         </Grid>
       </Container>
     </Layout>
@@ -189,7 +234,7 @@ function CategoryList({ group, clubsFilter, setClubsFilter }: CategoryListProps)
         {edges.map(({ node }, index) => (
           <ListItem key={node.slug ?? index} button onClick={_onClick(node.slug ?? '')}>
             <ListItemIcon>
-              <Checkbox checked={clubsFilter.includes(node.slug ?? '')} />
+              <Checkbox checked={clubsFilter.includes(node.slug ?? '')} edge="start" disableRipple />
             </ListItemIcon>
             <ListItemText primary={node.name} />
           </ListItem>
@@ -197,6 +242,10 @@ function CategoryList({ group, clubsFilter, setClubsFilter }: CategoryListProps)
       </Collapse>
     </>
   );
+}
+
+function getNodeCategory(category: string) {
+  return ['J1', 'J2', 'J3'].includes(category) ? category : 'その他';
 }
 
 export const query = graphql`
@@ -267,70 +316,66 @@ export const query = graphql`
         }
       }
     }
-    allDictYaml(filter: { year: { eq: "2019" } }) {
-      edges {
-        node {
-          academy_exp
-          academy_rev
-          acl_attd
-          acl_games
-          all_attd
-          all_games
-          assets
-          broadcast
-          capital_stock
-          capital_surplus
-          category
-          curr_assets
-          curr_liabilities
-          elevation
-          expense
-          fixed_assets
-          fixed_liabilities
-          fullname
-          game_exp
-          general_exp
-          goods_exp
-          goods_rev
-          id
-          league_attd
-          league_games
-          leaguecup_attd
-          leaguecup_games
-          liabilities
-          license
-          manage_exp
-          name
-          no_exp
-          net_worth
-          no_rev
-          op_profit
-          other_revs
-          ordinary_profit
-          po_attd
-          po_games
-          ppg
-          points
-          profit
-          profit_before_tax
-          rank
-          related_revenue
-          retained_earnings
-          revenue
-          salary
-          second_attd
-          sp_exp
-          sga
-          second_games
-          sp_rev
-          sponsor
-          tax
-          team_exp
-          ticket
-          women_exp
-          year
-        }
-      }
+    dictYaml {
+      academy_exp
+      academy_rev
+      acl_attd
+      acl_games
+      all_attd
+      all_games
+      assets
+      broadcast
+      capital_stock
+      capital_surplus
+      category
+      curr_assets
+      curr_liabilities
+      elevation
+      expense
+      fixed_assets
+      fixed_liabilities
+      fullname
+      game_exp
+      general_exp
+      goods_exp
+      goods_rev
+      id
+      league_attd
+      league_games
+      leaguecup_attd
+      leaguecup_games
+      liabilities
+      manage_exp
+      license
+      name
+      net_worth
+      no_exp
+      no_rev
+      op_profit
+      ordinary_profit
+      other_revs
+      po_attd
+      po_games
+      points
+      profit
+      ppg
+      profit_before_tax
+      rank
+      related_revenue
+      retained_earnings
+      revenue
+      salary
+      second_attd
+      second_games
+      sga
+      sp_exp
+      sp_rev
+      sponsor
+      tax
+      team_exp
+      ticket
+      women_exp
+      year
     }
     allClubsYaml {
       group(field: category) {
