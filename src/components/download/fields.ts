@@ -27,3 +27,6 @@ export const bsFields = [
 ];
 export const revenueFields = ['sponsor', 'ticket', 'broadcast', 'academy_rev', 'goods_rev', 'other_revs'];
 export const expenseFields = ['salary', 'game_exp', 'team_exp', 'academy_exp', 'women_exp', 'goods_exp', 'manage_exp', 'sga'];
+
+const allFields = [...generalFields, ...plFields, ...bsFields, ...revenueFields, ...expenseFields];
+export default allFields;

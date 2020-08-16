@@ -1,32 +1,44 @@
 import * as React from 'react';
 import { graphql, PageProps } from 'gatsby';
+import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Radio from '@material-ui/core/Radio';
 import Checkbox from '@material-ui/core/Checkbox';
+import Modal from '@material-ui/core/Modal';
 import Collapse from '@material-ui/core/Collapse';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import GetAppIcon from '@material-ui/icons/GetApp';
-import { csvFormat } from 'd3-dsv';
 import Layout from '../layout';
 import FieldFilter from '../components/download/FieldFilter';
+import ModalBody from '../components/download/ModalBody';
+import sortedFields from '../components/download/fields';
 import { DownloadQuery } from '../../graphql-types';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
-    buttonContainer: {
-      padding: theme.spacing(8, 0),
-      textAlign: 'center',
+    root: {
+      display: 'flex',
+      flexDirection: 'row',
+      [theme.breakpoints.only('xs')]: {
+        display: 'block',
+      },
+    },
+    tab: {
+      width: '50%',
+      overflowY: 'auto',
+      [theme.breakpoints.only('xs')]: {
+        width: '100%',
+      },
     },
   })
 );
@@ -41,13 +53,58 @@ function DownloadPage({ data }: PageProps<DownloadQuery>) {
   );
   const allCategories = ['J1', 'J2', 'J3', 'その他'];
   const allFields = Object.keys(dictYaml ?? {});
+  const dataset = React.useMemo(() => {
+    return allDataset.edges.map(({ node }) => node);
+  }, [allDataset]);
+  return (
+    <Layout title="データダウンロード">
+      <div className={classes.root}>
+        <div className={classes.tab}>
+          <Tabs value={0} indicatorColor="secondary" textColor="secondary">
+            <Tab label="クラブ・年" />
+            <Tab label="項目" />
+          </Tabs>
+          <Typography variant="h5" component="h3" gutterBottom>
+            データを選択
+          </Typography>
+        </div>
+        <div className={classes.tab}>
+          <Typography variant="h5" component="h3" gutterBottom>
+            プレビュー
+          </Typography>
+          <p>データ形式</p>
+          <textarea>{JSON.stringify(dataset, null, 2)}</textarea>
+          <div>
+            <Button variant="contained" color="primary">
+              ダウンロード
+            </Button>
+          </div>
+        </div>
+      </div>
+    </Layout>
+  );
+  /*
+  const { allDataset, dictYaml, allYearsYaml, allClubsYaml } = data;
+  const allYears = allYearsYaml.edges.map(({ node }) => node.year ?? 0);
+  const allClubs = allClubsYaml.group.reduce<string[]>(
+    (accum, { edges }) => (edges ? [...accum, ...edges.map(({ node }) => node.slug ?? '')] : accum),
+    []
+  );
+  const allCategories = ['J1', 'J2', 'J3', 'その他'];
+  const allFields = Object.keys(dictYaml ?? {});
 
-  const [dataFormat, setDataFormat] = React.useState<string>('json');
+  const [modalOpen, setModalOpen] = React.useState(false);
   const [clubsFilter, setClubsFilter] = React.useState(allClubs);
   const [yearsFilter, setYearsFilter] = React.useState(allYears);
   const [categoriesFilter, setCategoriesFilter] = React.useState(allCategories);
   const [fields, setFields] = React.useState(allFields);
 
+  const _handleModalOpen = () => {
+    setModalOpen(true);
+  };
+  const _handleModalClose = () => {
+    setModalOpen(false);
+  };
   const _setAllClubs = () => {
     setClubsFilter(allClubs);
   };
@@ -74,51 +131,30 @@ function DownloadPage({ data }: PageProps<DownloadQuery>) {
   const _clearAllCategories = () => {
     setCategoriesFilter([]);
   };
-  const _handleChangeDataFormat = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDataFormat(event.target.name);
-  };
-  const _download = () => {
-    const dataset = allDataset.edges
+  const dataset = React.useMemo(() => {
+    return allDataset.edges
       .filter(({ node }) => clubsFilter.includes(node.slug ?? ''))
       .filter(({ node }) => yearsFilter.includes(node.year ?? 0))
       .filter(({ node }) => categoriesFilter.includes(getNodeCategory(node.category ?? '')))
       .map(({ node }) => {
         const obj = { クラブ: node.name, 年: node.year, 所属: node.category };
-        for (const key in node) {
-          if (fields.includes(key)) {
-            obj[dictYaml[key]] = node[key];
-          }
+        const filteredFields = sortedFields.filter((field) => fields.includes(field));
+        for (let i = 0; i < filteredFields.length; i++) {
+          const key = filteredFields[i];
+          obj[dictYaml[key]] = node[key];
         }
         return obj;
       });
-    console.log(dataset);
-    console.log(csvFormat(dataset));
-    const blob = new Blob([JSON.stringify(dataset)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-
-    console.log(url);
-  };
+  }, [allDataset, clubsFilter, yearsFilter, categoriesFilter, dictYaml, sortedFields, fields]);
 
   return (
     <Layout title="データダウンロード">
       <Container maxWidth="md">
         <div>
           <div className={classes.buttonContainer}>
-            <Button variant="contained" color="primary" size="large" startIcon={<GetAppIcon />} onClick={_download}>
-              ダウンロード
+            <Button variant="contained" color="primary" size="large" startIcon={<GetAppIcon />} onClick={_handleModalOpen}>
+              プレビュー
             </Button>
-          </div>
-          <div>
-            <FormGroup row>
-              <FormControlLabel
-                control={<Radio checked={dataFormat === 'json'} name="json" onChange={_handleChangeDataFormat} />}
-                label="json"
-              />
-              <FormControlLabel
-                control={<Radio checked={dataFormat === 'csv'} name="csv" onChange={_handleChangeDataFormat} />}
-                label="csv"
-              />
-            </FormGroup>
           </div>
         </div>
         <Grid container>
@@ -190,8 +226,12 @@ function DownloadPage({ data }: PageProps<DownloadQuery>) {
           <FieldFilter fields={fields} setFields={setFields} dictYaml={dictYaml} />
         </Grid>
       </Container>
+      <Modal open={modalOpen} onClose={_handleModalClose} aria-labelledby="preview-modal">
+        <ModalBody dataset={dataset} onClose={_handleModalClose} />
+      </Modal>
     </Layout>
   );
+  */
 }
 
 export default DownloadPage;
@@ -233,7 +273,7 @@ function CategoryList({ group, clubsFilter, setClubsFilter }: CategoryListProps)
           <ListItemText primary="全て解除" />
         </ListItem>
         {edges.map(({ node }, index) => (
-          <ListItem key={node.slug ?? index} button onClick={_onClick(node.slug ?? '')}>
+          <ListItem key={node.slug ?? index} button dense onClick={_onClick(node.slug ?? '')}>
             <ListItemIcon>
               <Checkbox checked={clubsFilter.includes(node.slug ?? '')} edge="start" disableRipple />
             </ListItemIcon>

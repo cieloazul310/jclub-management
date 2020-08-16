@@ -9,7 +9,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-//import { generalFields, plFields, bsFields, revenueFields, expenseFields } from './fields';
+import { generalFields, plFields, bsFields, revenueFields, expenseFields } from './fields';
 import { DownloadQuery } from '../../../graphql-types';
 
 interface Props {
@@ -19,35 +19,11 @@ interface Props {
 }
 
 function FieldFilter({ dictYaml, fields, setFields }: Props) {
-  const general = pick('fullname', 'license', 'rank', 'ppg', 'elevation')(dictYaml);
-  const pl = pick(
-    'revenue',
-    'expense',
-    'op_profit',
-    'no_rev',
-    'no_exp',
-    'ordinary_profit',
-    'sp_rev',
-    'sp_exp',
-    'profit_before_tax',
-    'tax',
-    'profit',
-    'related_revenue'
-  )(dictYaml);
-  const bs = pick(
-    'assets',
-    'curr_assets',
-    'fixed_assets',
-    'liabilities',
-    'curr_liabilities',
-    'fixed_liabilities',
-    'net_worth',
-    'capital_stock',
-    'capital_surplus',
-    'retained_earnings'
-  )(dictYaml);
-  const revenue = pick('sponsor', 'ticket', 'broadcast', 'academy_rev', 'goods_rev', 'other_revs')(dictYaml);
-  const expense = pick('salary', 'game_exp', 'team_exp', 'academy_exp', 'women_exp', 'goods_exp', 'manage_exp', 'sga')(dictYaml);
+  const general = pick(...generalFields)(dictYaml);
+  const pl = pick(...plFields)(dictYaml);
+  const bs = pick(...bsFields)(dictYaml);
+  const revenue = pick(...revenueFields)(dictYaml);
+  const expense = pick(...expenseFields)(dictYaml);
 
   return (
     <>
