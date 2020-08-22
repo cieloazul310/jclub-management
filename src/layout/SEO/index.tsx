@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
+import { useLocation } from '@reach/router';
 import { useSiteMetadata } from '../../utils/graphql-hooks';
 import ogImage from '../../images/og_image.png';
 import ogTwitter from '../../images/og_twitter.png';
@@ -11,6 +12,7 @@ interface Props {
 
 function Seo({ title, description }: Props) {
   const siteMetadata = useSiteMetadata();
+  const { href } = useLocation();
   return (
     <Helmet
       htmlAttributes={{ lang: 'ja' }}
@@ -22,20 +24,24 @@ function Seo({ title, description }: Props) {
           content: description || siteMetadata.description,
         },
         {
-          name: 'og:type',
+          property: 'og:type',
           content: 'website',
         },
         {
-          name: 'og:image',
+          property: 'og:image',
           content: `https://cieloazul310.github.io${ogImage}`,
         },
         {
-          name: 'og:title',
+          property: 'og:title',
           content: title || siteMetadata.title,
         },
         {
-          name: 'og:description',
+          property: 'og:description',
           content: description || siteMetadata.description,
+        },
+        {
+          property: 'og:url',
+          content: href,
         },
         { name: 'twitter:card', content: 'summary' },
         {
