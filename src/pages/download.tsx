@@ -76,7 +76,7 @@ function DownloadPage({ data }: PageProps<DownloadQuery>) {
             クラブ: datum.name ?? '',
             年: datum.year ?? 0,
             所属: datum.category ?? '',
-            slug: datum.slug ?? '',
+            id: datum.slug ?? '',
           };
           const selectedFields = allFields.filter((field) => fields.includes(field));
           for (let i = 0; i < selectedFields.length; i++) {
@@ -95,13 +95,14 @@ function DownloadPage({ data }: PageProps<DownloadQuery>) {
           (a, b) =>
             a['年'] - b['年'] ||
             allCategories.indexOf(getCategory(a['所属'])) - allCategories.indexOf(getCategory(b['所属'])) ||
-            allClubs.indexOf(a.slug) - allClubs.indexOf(b.slug)
+            allClubs.indexOf(a.id) - allClubs.indexOf(b.id)
         ),
     [allDataset, clubsFilter, yearsFilter, categoriesFilter, fields, dict, allClubs, allCategories]
   );
   const ItemFilterTab = React.useMemo(
     () => (
       <Container maxWidth="md">
+        <Typography paragraph>データのアイテムを選択</Typography>
         <ItemFilter
           clubsFilter={clubsFilter}
           setClubsFilter={setClubsFilter}

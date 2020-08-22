@@ -246,6 +246,8 @@
   hometown: 草津町、前橋市を中心とする全県
   area: 群馬県
   settlement: https://www.thespa.co.jp/thespa/club_newsinfo/news/newsdesc.cgi?newsid=2020042401
+  relatedCompanies:
+    - NPO法人ザスパスポーツクラブ
 
 - id: "5"
   slug: ardija
@@ -334,6 +336,8 @@
   hometown: 金沢市、白山市、野々市市、かほく市、津幡町、内灘町を中心とする全県
   area: 石川県
   settlement: http://www.zweigen-kanazawa.jp/news/p3937.html
+  relatedCompanies:
+    - 一般社団法人石川ツエーゲンスポーツクラブ
 
 - id: "13"
   slug: jubilo
@@ -377,6 +381,8 @@
   hometown: 山口市、下関市、山陽小野田市、宇部市、防府市、周南市、美祢市、萩市、下松市、岩国市、光市、長門市、柳井市、周防大島町、和木町、上関町、田布施町、平生町、阿武町【山口県全県】
   area: 山口県
   settlement: https://www.renofa.com/archives/58873/
+  relatedCompanies:
+    - NPO法人レノファ山口スポーツクラブ
 
 - id: "35"
   slug: vortis
@@ -451,6 +457,8 @@
   category: J3
   hometown: 八戸市、十和田市、五戸町、階上町、田子町、南部町、おいらせ町、新郷村、三沢市、七戸町、六戸町、東北町、横浜町、野辺地町、六ケ所村
   area: 青森県
+  relatedCompanies:
+    - NPO法人クローバーズ・ネット
 
 - id: "41"
   slug: gurulla
@@ -481,6 +489,8 @@
   category: J3
   hometown: 福島市、会津若松市を中心とする全県
   area: 福島県
+  relatedCompanies:
+    - NPO法人福島ユナイテッドスポーツクラブ
 
 - id: "45"
   slug: yscc
@@ -501,6 +511,8 @@
   category: J3
   hometown: 相模原市、座間市、綾瀬市、愛川町
   area: 神奈川県
+  relatedCompanies:
+    - NPO法人スポーツクラブ相模原
 
 - id: "47"
   slug: parceiro
@@ -542,6 +554,8 @@
   category: J3
   hometown: 沼津市
   area: 静岡県
+  relatedCompanies:
+    - 一般社団法人アスルクラロスポーツクラブ
 
 - id: "30"
   slug: fcgifu
@@ -596,6 +610,8 @@
   hometown: 熊本市
   area: 熊本県
   settlement: https://roasso-k.com/top_team/club_outline
+  relatedCompanies:
+    - 一般社団法人ロアッソ熊本スポーツクラブ
 
 - id: "53"
   slug: kufc
@@ -607,3 +623,5 @@
   hometown: 鹿児島市
   area: 鹿児島県
   settlement: http://www.kufc.co.jp/club/mind/
+  relatedCompanies:
+    - 一般社団法人鹿児島プロスポーツプロジェクト

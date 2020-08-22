@@ -94,6 +94,12 @@ export function AdInFooter() {
 export function AdInListFooter() {
   const classes = useStyles();
   const { pathname } = useLocation();
+  React.useEffect(() => {
+    if (window) {
+      window.adsbygoogle = window.adsbygoogle || [];
+      window.adsbygoogle.push({});
+    }
+  }, [pathname]);
 
   return (
     <div className={classes.root} key={pathname}>

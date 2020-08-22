@@ -55,7 +55,7 @@ function Preview({ dataset }: Props) {
   };
   const output = React.useMemo(() => {
     if (dataFormat === 'csv') {
-      const csv = grouping === 'club' ? [...dataset].sort((a, b) => slugs.indexOf(a.slug) - slugs.indexOf(b.slug)) : dataset;
+      const csv = grouping === 'club' ? [...dataset].sort((a, b) => slugs.indexOf(a.id) - slugs.indexOf(b.id)) : dataset;
 
       return csvFormat(csv);
     }
@@ -64,16 +64,16 @@ function Preview({ dataset }: Props) {
         ? allYears
             .map(({ year }) => ({
               year,
-              item: dataset.filter((datum) => datum['年'] === year),
+              items: dataset.filter((datum) => datum['年'] === year),
             }))
-            .filter(({ item }) => item.length > 0)
+            .filter(({ items }) => items.length > 0)
         : grouping === 'club'
         ? allClubs
             .map(({ node }) => ({
               ...node,
-              item: dataset.filter((datum) => datum.slug === node.slug),
+              items: dataset.filter((datum) => datum.id === node.slug),
             }))
-            .filter(({ item }) => item.length > 0)
+            .filter(({ items }) => items.length > 0)
         : dataset;
 
     return JSON.stringify(json, null, 2);

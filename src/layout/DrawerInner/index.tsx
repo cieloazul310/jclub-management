@@ -8,6 +8,7 @@ import Hidden from '@material-ui/core/Hidden';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import ClearIcon from '@material-ui/icons/Clear';
 import DrawerNavigation from './DrawerNavigation';
+import DrawerMenu from './DrawerMenu';
 import DrawerLinks from './DrawerLinks';
 import StateHandler from './StateHandler';
 import ThemeHandler from './ThemeHandler';
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) =>
       overflow: 'auto',
     },
     titleContainer: {
-      padding: theme.spacing(2, 2, 1, 2),
+      padding: theme.spacing(2),
     },
     toolbar: {
       ...theme.mixins.toolbar,
@@ -79,6 +80,7 @@ function DrawerInner({ title, next, previous, drawerContents, onCloseIconClick }
         {drawerContents ? <Divider /> : null}
         <Divider />
         <DrawerLinks />
+        <DrawerMenu />
         <Hidden only="xs">
           <Divider />
           <StateHandler />

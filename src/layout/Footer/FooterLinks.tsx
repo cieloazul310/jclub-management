@@ -85,6 +85,13 @@ function FooterLinks() {
       <Grid item xs={12} sm={3}>
         <YearsLinks />
       </Grid>
+      <Grid item xs={12} sm={3}>
+        <Typography variant="subtitle1" component="p" gutterBottom>
+          <AppLink to="/download" color="inherit">
+            データダウンロード
+          </AppLink>
+        </Typography>
+      </Grid>
     </Grid>
   );
 }
