@@ -3,7 +3,7 @@ import { DictionaryQuery } from '../../../graphql-types';
 type AttdFields = 'league_average' | 'unit_price';
 export type Fields = keyof NonNullable<DictionaryQuery['dictYaml']> | AttdFields;
 
-export const generalFields: Fields[] = ['fullname', 'license', 'rank', 'ppg', 'elevation'];
+export const generalFields: Fields[] = ['fullname', 'license', 'rank', 'points', 'ppg', 'elevation'];
 export const plFields: Fields[] = [
   'revenue',
   'expense',
