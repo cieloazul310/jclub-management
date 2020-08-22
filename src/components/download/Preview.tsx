@@ -80,6 +80,7 @@ function Preview({ dataset }: Props) {
   }, [dataset, dataFormat, grouping, slugs, allClubs, allYears]);
 
   const href = React.useMemo(() => {
+    if (typeof window !== 'object') return '#';
     const blob = new Blob([output], { type: dataFormat === 'csv' ? 'text/csv' : 'application/json' });
     return URL.createObjectURL(blob);
   }, [dataFormat, output]);
