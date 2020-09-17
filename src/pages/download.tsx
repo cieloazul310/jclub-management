@@ -46,7 +46,7 @@ function DownloadPage({ data }: PageProps<DownloadQuery>) {
   const isMobile = useIsMobile();
   const dict = useDictionary();
   const allClubs = useAllClubs().map(({ node }) => node.slug ?? '');
-  const allCategories = ['J1', 'J2', 'J3', 'others'];
+  const allCategories = React.useMemo(() => ['J1', 'J2', 'J3', 'others'], []);
 
   const [tab, setTab] = React.useState(0);
   const [clubsFilter, setClubsFilter] = React.useState(allClubs);

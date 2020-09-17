@@ -1,6 +1,5 @@
 import { ClubTemplateQuery } from '../../graphql-types';
 export * from './download';
-export { SortKey, FilterCategory } from '../utils/AppState';
 
 export type Tab = 'pl' | 'bs' | 'revenue' | 'expense' | 'attd';
 export type Mode = 'club' | 'year';
