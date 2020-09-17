@@ -1,12 +1,18 @@
+const path = require('path');
 const blue = require('@material-ui/core/colors/blue').default;
+
+const baseUrl = 'https://cieloazul310.github.io';
+const pathPrefix = '/jclub-financial-table';
+const siteUrl = path.join(baseUrl, pathPrefix);
 
 module.exports = {
   siteMetadata: {
     title: `Jクラブ経営情報2005-2019`,
     description: `Jリーグが毎年公開している「Jクラブ個別経営情報開示資料」の15年分のデータをクラブ別、年度別に表示したページ。損益計算書、貸借対照表、営業収入、営業費用、入場者数の項目別に表と解説を掲載。`,
-    siteUrl: `https://cieloazul310.github.io/jclub-financial-table`,
+    siteUrl: siteUrl,
+    baseUrl: baseUrl,
   },
-  pathPrefix: '/jclub-financial-table',
+  pathPrefix: pathPrefix,
   plugins: [
     {
       resolve: 'gatsby-plugin-top-layout',
@@ -90,6 +96,28 @@ module.exports = {
         icon: `src/images/og_twitter.png`, // This path is relative to the root of the site.
       },
     },
-    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                baseUrl
+              }
+            }
+            allSitePage {
+              nodes {
+                path
+              }
+            }
+          }
+        `,
+        resolveSiteUrl: ({ site }) => {
+          //Alternatively, you may also pass in an environment variable (or any location) at the beginning of your `gatsby-config.js`.
+          return site.siteMetadata.baseUrl;
+        },
+      },
+    },
   ],
 };
