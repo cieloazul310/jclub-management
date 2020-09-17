@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import AppStateContext from '../../../src/utils/AppStateContext';
 import reducer, { useInitialAppState } from '../../../src/utils/AppState';
 
