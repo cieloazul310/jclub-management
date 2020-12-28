@@ -23,7 +23,7 @@ title: データについて
 - [2016年度(平成28年度)](https://www.jleague.jp/docs/aboutj/club-h28kaiji.pdf "2016年度(平成28年度) Jクラブ個別経営情報開示資料")
 - [2017年度(平成29年度)](https://www.jleague.jp/docs/aboutj/club-h29kaiji.pdf "2017年度(平成29年度) Jクラブ個別経営情報開示資料")
 - [2018年度(平成30年度)](https://www.jleague.jp/docs/aboutj/club-h30kaiji_3.pdf "2018年度(平成30年度) Jクラブ個別経営情報開示資料")
-- [2019年度(平成31年度)](https://www.jleague.jp/corporate/assets/pdf/club-h31kaiji_1_20200731.pdf "2019年度(平成31年度) Jクラブ個別経営情報開示資料")
+- [2019年度(平成31年度)](https://aboutj.jleague.jp/corporate/wp-content/themes/j_corp/assets/pdf/club-h31kaiji_1_20200731.pdf "2019年度(平成31年度) Jクラブ個別経営情報開示資料")
 
 ### その他のデータソース
 
@@ -44,13 +44,13 @@ title: データについて
 - [コンサドーレ札幌 決算情報](https://www.consadole-sapporo.jp/club/settlement/)
 - [ファジアーノ岡山 2013年度　経営状況についてのご報告](https://www.fagiano-okayama.com/news/p1398334491.html)
 - [ファジアーノ岡山 2014年度　経営状況についてのご報告](https://www.fagiano-okayama.com/news/p1429706533.html)
-- [横浜F・マリノス 2013年度決算について](https://www.f-marinos.com/news/detail?id=1922)
 
 ### 更新情報
 
 - 2020-08-11 新バージョンで公開
 - 2020-08-22 データダウンロードページを公開
 - 2020-09-24 ブラウブリッツ秋田の2014〜2019シーズン入場者数を修正 (参考: [ブラウブリッツ秋田　入場者数の訂正について](https://www.jleague.jp/release/post-64557/))
+- 2020-12-28 2019年度(平成31年度) Jクラブ個別経営情報開示資料のリンク切れを修正
 
 ### 制作
 
