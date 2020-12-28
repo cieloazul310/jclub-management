@@ -23,7 +23,7 @@ title: データについて
 - [2016年度(平成28年度)](https://www.jleague.jp/docs/aboutj/club-h28kaiji.pdf "2016年度(平成28年度) Jクラブ個別経営情報開示資料")
 - [2017年度(平成29年度)](https://www.jleague.jp/docs/aboutj/club-h29kaiji.pdf "2017年度(平成29年度) Jクラブ個別経営情報開示資料")
 - [2018年度(平成30年度)](https://www.jleague.jp/docs/aboutj/club-h30kaiji_3.pdf "2018年度(平成30年度) Jクラブ個別経営情報開示資料")
-- [2019年度(平成31年度)](https://aboutj.jleague.jp/corporate/wp-content/themes/j_corp/assets/pdf/club-h31kaiji_1_20200731.pdf "2019年度(平成31年度) Jクラブ個別経営情報開示資料")
+- [2019年度(平成31年度)](https://www.jleague.jp/docs/aboutj/club-h31kaiji-1.pdf "2019年度(平成31年度) Jクラブ個別経営情報開示資料")
 
 ### その他のデータソース
 
