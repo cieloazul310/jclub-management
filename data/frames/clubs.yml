@@ -1,5 +1,5 @@
-# 2020
-# J1 18 clubs
+# 2021
+# J1 20 clubs
 - id: "1"
   slug: consadole
   name: 北海道コンサドーレ札幌
@@ -179,6 +179,28 @@
   hometown: 広島市
   area: 広島県
 
+- id: "35"
+  slug: vortis
+  name: 徳島ヴォルティス
+  fullname: 徳島ヴォルティス
+  short_name: 徳島
+  company: 徳島ヴォルティス株式会社
+  category: J1
+  hometown: 鳴門市、徳島市、吉野川市、美馬市、板野町、松茂町、藍住町、北島町を中心とする全県
+  area: 徳島県
+  settlement: https://www.vortis.jp/clubinfo/
+
+- id: "37"
+  slug: avispa
+  name: アビスパ福岡
+  fullname: アビスパ福岡
+  short_name: 福岡
+  company: アビスパ福岡株式会社
+  category: J1
+  hometown: 福岡市
+  area: 福岡県
+  settlement: https://www.avispa.co.jp/news/post-30093
+
 - id: "18"
   slug: sagan
   name: サガン鳥栖
@@ -200,6 +222,16 @@
   area: 大分県
 
 # J2 22 clubs
+- id: "42"
+  slug: braublitz
+  name: ブラウブリッツ秋田
+  fullname: ブラウブリッツ秋田
+  short_name: 秋田
+  company: 株式会社ブラウブリッツ秋田
+  category: J2
+  hometown: 秋田市、由利本荘市、にかほ市、男鹿市を中心とする全県
+  area: 秋田県
+
 - id: "19"
   slug: montedio
   name: モンテディオ山形
@@ -290,6 +322,18 @@
   area: 東京都
   relatedCompanies:
     - NPO法人アスレチッククラブ町田
+
+- id: "46"
+  slug: scsagamihara
+  name: SC相模原
+  fullname: SC相模原
+  short_name: 相模原
+  company: 株式会社スポーツクラブ相模原
+  category: J2
+  hometown: 相模原市、座間市、綾瀬市、愛川町
+  area: 神奈川県
+  relatedCompanies:
+    - NPO法人スポーツクラブ相模原
 
 - id: "10"
   slug: ventforet
@@ -384,17 +428,6 @@
   relatedCompanies:
     - NPO法人レノファ山口スポーツクラブ
 
-- id: "35"
-  slug: vortis
-  name: 徳島ヴォルティス
-  fullname: 徳島ヴォルティス
-  short_name: 徳島
-  company: 徳島ヴォルティス株式会社
-  category: J2
-  hometown: 鳴門市、徳島市、吉野川市、美馬市、板野町、松茂町、藍住町、北島町を中心とする全県
-  area: 徳島県
-  settlement: https://www.vortis.jp/clubinfo/
-
 - id: "36"
   slug: ehimefc
   name: 愛媛FC
@@ -405,17 +438,6 @@
   hometown: 松山市を中心とする全県
   area: 愛媛県
   settlement: https://ehimefc.com/topics/topic10466.html
-
-- id: "37"
-  slug: avispa
-  name: アビスパ福岡
-  fullname: アビスパ福岡
-  short_name: 福岡
-  company: アビスパ福岡株式会社
-  category: J2
-  hometown: 福岡市
-  area: 福岡県
-  settlement: https://www.avispa.co.jp/news/post-30093
 
 - id: "52"
   slug: giravanz
@@ -470,16 +492,6 @@
   hometown: 盛岡市､宮古市､大船渡市､花巻市､北上市､久慈市､遠野市､一関市､陸前高田市､釜石市､二戸市､八幡平市､奥州市､滝沢市､雫石町､葛巻町､岩手町､紫波町､矢巾町､西和賀町､金ケ崎町､平泉町､住田町､大槌町､山田町､岩泉町､田野畑村､普代村､軽米町､野田村､九戸村､洋野町､一戸町【岩手県全県】
   area: 岩手県
 
-- id: "42"
-  slug: braublitz
-  name: ブラウブリッツ秋田
-  fullname: ブラウブリッツ秋田
-  short_name: 秋田
-  company: 株式会社ブラウブリッツ秋田
-  category: J3
-  hometown: 秋田市、由利本荘市、にかほ市、男鹿市を中心とする全県
-  area: 秋田県
-
 - id: "43"
   slug: fufc
   name: 福島ユナイテッドFC
@@ -501,18 +513,6 @@
   category: J3
   hometown: 横浜市
   area: 神奈川県
-
-- id: "46"
-  slug: scsagamihara
-  name: SC相模原
-  fullname: SC相模原
-  short_name: 相模原
-  company: 株式会社スポーツクラブ相模原
-  category: J3
-  hometown: 相模原市、座間市、綾瀬市、愛川町
-  area: 神奈川県
-  relatedCompanies:
-    - NPO法人スポーツクラブ相模原
 
 - id: "47"
   slug: parceiro
