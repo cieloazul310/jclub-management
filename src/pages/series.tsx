@@ -9,9 +9,13 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import NativeSelect from '@material-ui/core/NativeSelect';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Layout from '../layout';
-import { useAllClubs, useAllYears } from '../utils/graphql-hooks';
+import { ContentBasisLarge } from '../components/Basis';
+import { AdInArticle } from '../components/Ads';
+import allFields from '../components/download/fields';
+import { useAllClubs, useAllYears, useDictionary } from '../utils/graphql-hooks';
 import { SeriesQuery } from '../../graphql-types';
 
 const useStyles = makeStyles((theme) =>
@@ -24,17 +28,20 @@ const useStyles = makeStyles((theme) =>
       minWidth: 1000,
       scrollSnapType: 'both mandatory',
     },
+    tbodyLabel: {
+      fontWeight: 'bold',
+      zIndex: 2,
+      background: theme.palette.background.default,
+      minWidth: '8em',
+    },
     j1: {
-      backgroundColor: theme.palette.type === 'light' ? '#fee' : '#533',
+      backgroundColor: theme.palette.type === 'light' ? '#fee' : '#633',
     },
     j2: {
-      backgroundColor: theme.palette.type === 'light' ? '#efe' : '#353',
+      backgroundColor: theme.palette.type === 'light' ? '#efe' : '#363',
     },
     j3: {
-      backgroundColor: theme.palette.type === 'light' ? '#eef' : '#335',
-    },
-    others: {
-      backgroundColor: theme.palette.type === 'light' ? '#ddd' : undefined,
+      backgroundColor: theme.palette.type === 'light' ? '#eef' : '#336',
     },
   })
 );
@@ -43,8 +50,12 @@ function Series({ data }: PageProps<SeriesQuery>) {
   const classes = useStyles();
   const allClubs = useAllClubs();
   const allYears = useAllYears();
+  const dict = useDictionary();
+
+  const [field, setField] = React.useState('revenue');
   const [sortYear, setSortYear] = React.useState(allYears.length - 1);
   const [sortAsc, setSortAsc] = React.useState(false);
+
   const items = data.allDataset.group.map(({ edges, fieldValue }) => {
     const club = allClubs[allClubs.map(({ node }) => node.slug).indexOf(fieldValue)];
     return {
@@ -60,12 +71,19 @@ function Series({ data }: PageProps<SeriesQuery>) {
       setSortYear(index);
     }
   };
+  const _onFieldChange = (event: React.ChangeEvent<{ name?: string; value: string }>) => {
+    setField(event.target.value);
+  };
 
   return (
     <Layout title="項目別表示">
-      <Typography variant="h3" component="h2" gutterBottom>
-        Series
-      </Typography>
+      <NativeSelect value={field} onChange={_onFieldChange}>
+        {allFields.map((fieldName) => (
+          <option value={fieldName} key={fieldName}>
+            {dict[fieldName]}
+          </option>
+        ))}
+      </NativeSelect>
       <TableContainer className={classes.container} component={Paper}>
         <Table className={classes.table} size="small" stickyHeader>
           <TableHead>
@@ -77,8 +95,9 @@ function Series({ data }: PageProps<SeriesQuery>) {
                     active={sortYear === index}
                     direction={sortYear === index && sortAsc ? 'asc' : 'desc'}
                     onClick={_onLabelClicked(index)}
-                  ></TableSortLabel>
-                  {year}
+                  >
+                    {year}
+                  </TableSortLabel>
                 </TableCell>
               ))}
             </TableRow>
@@ -88,7 +107,7 @@ function Series({ data }: PageProps<SeriesQuery>) {
               .sort((a, b) => (sortAsc ? 1 : -1) * ((a.edges[sortYear]?.node?.revenue ?? 0) - (b.edges[sortYear]?.node?.revenue ?? 0)))
               .map(({ fieldValue, short_name, edges }) => (
                 <TableRow key={fieldValue}>
-                  <TableCell align="right" component="th" scope="row">
+                  <TableCell className={classes.tbodyLabel} align="right" component="th" scope="row">
                     {short_name}
                   </TableCell>
                   {edges.map((edge, index) => (
@@ -102,7 +121,7 @@ function Series({ data }: PageProps<SeriesQuery>) {
                           ? classes.j2
                           : edge?.node?.category === 'J3'
                           ? classes.j3
-                          : classes.others
+                          : undefined
                       }
                     >
                       {edge?.node?.revenue ?? '-'}
@@ -113,6 +132,9 @@ function Series({ data }: PageProps<SeriesQuery>) {
           </TableBody>
         </Table>
       </TableContainer>
+      <ContentBasisLarge>
+        <AdInArticle />
+      </ContentBasisLarge>
     </Layout>
   );
 }

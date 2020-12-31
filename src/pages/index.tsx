@@ -61,7 +61,16 @@ function IndexPage() {
                   <YearsLink />
                 </ContentBasis>
               </Grid>
-              <Grid item xs={12} sm={3}>
+              <Grid item xs={12} sm={12}>
+                <ContentBasis>
+                  <Typography variant="h6" component="h3" gutterBottom>
+                    <AppLink to="/series" color="inherit">
+                      項目別表示
+                    </AppLink>
+                  </Typography>
+                </ContentBasis>
+              </Grid>
+              <Grid item xs={12} sm={12}>
                 <ContentBasis>
                   <Typography variant="h6" component="h3" gutterBottom>
                     <AppLink to="/download" color="inherit">
