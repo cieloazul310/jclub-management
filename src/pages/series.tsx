@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { graphql, PageProps } from 'gatsby';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -14,9 +13,11 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Layout from '../layout';
 import { ContentBasisLarge } from '../components/Basis';
 import { AdInArticle } from '../components/Ads';
-import allFields from '../components/download/fields';
+import { plFields, bsFields, revenueFields, expenseFields, attdFields, Fields } from '../components/download/fields';
 import { useAllClubs, useAllYears, useDictionary } from '../utils/graphql-hooks';
 import { SeriesQuery } from '../../graphql-types';
+
+const allFields = [...plFields, ...bsFields, ...revenueFields, ...expenseFields, ...attdFields];
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -52,7 +53,7 @@ function Series({ data }: PageProps<SeriesQuery>) {
   const allYears = useAllYears();
   const dict = useDictionary();
 
-  const [field, setField] = React.useState('revenue');
+  const [field, setField] = React.useState<Fields>('revenue');
   const [sortYear, setSortYear] = React.useState(allYears.length - 1);
   const [sortAsc, setSortAsc] = React.useState(false);
 
@@ -69,18 +70,42 @@ function Series({ data }: PageProps<SeriesQuery>) {
       setSortAsc(!sortAsc);
     } else {
       setSortYear(index);
+      setSortAsc(false);
     }
   };
   const _onFieldChange = (event: React.ChangeEvent<{ name?: string; value: string }>) => {
-    setField(event.target.value);
+    if (isFields(event.target.value)) {
+      setField(event.target.value);
+    }
   };
+  const getFieldValue = React.useCallback(
+    (edge: SeriesQuery['allDataset']['group'][number]['edges'][number] | null) => {
+      if (!edge) return null;
+
+      const { node } = edge;
+      if (field === 'league_average') {
+        return Math.round((node.league_attd ?? 0) / (node.league_games ?? 1));
+      } else if (field === 'unit_price') {
+        return (((node.ticket ?? 0) * 1000000) / (node.all_attd ?? 1)).toFixed(2);
+      } else {
+        return node[field];
+      }
+    },
+    [field]
+  );
 
   return (
     <Layout title="項目別表示">
       <NativeSelect value={field} onChange={_onFieldChange}>
         {allFields.map((fieldName) => (
           <option value={fieldName} key={fieldName}>
-            {dict[fieldName]}
+            {fieldName === 'league_average'
+              ? 'リーグ戦平均入場者数'
+              : fieldName === 'unit_price'
+              ? '客単価'
+              : dict && dict[fieldName]
+              ? dict[fieldName]
+              : ''}
           </option>
         ))}
       </NativeSelect>
@@ -104,7 +129,7 @@ function Series({ data }: PageProps<SeriesQuery>) {
           </TableHead>
           <TableBody>
             {[...items]
-              .sort((a, b) => (sortAsc ? 1 : -1) * ((a.edges[sortYear]?.node?.revenue ?? 0) - (b.edges[sortYear]?.node?.revenue ?? 0)))
+              .sort((a, b) => (sortAsc ? 1 : -1) * ((getFieldValue(a.edges[sortYear]) ?? 0) - (getFieldValue(b.edges[sortYear]) ?? 0)))
               .map(({ fieldValue, short_name, edges }) => (
                 <TableRow key={fieldValue}>
                   <TableCell className={classes.tbodyLabel} align="right" component="th" scope="row">
@@ -124,7 +149,7 @@ function Series({ data }: PageProps<SeriesQuery>) {
                           : undefined
                       }
                     >
-                      {edge?.node?.revenue ?? '-'}
+                      {getFieldValue(edge) ?? '-'}
                     </TableCell>
                   ))}
                 </TableRow>
@@ -217,4 +242,8 @@ export const query = graphql`
 
 function createNullField<T>(arr: T[]): (len: number) => (T | null)[] {
   return (len: number) => [...Array.from({ length: len - arr.length }, () => null), ...arr];
+}
+
+function isFields(input: string): input is Fields {
+  return allFields.includes(input as Fields);
 }
