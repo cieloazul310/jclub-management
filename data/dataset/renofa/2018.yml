@@ -28,8 +28,8 @@ sp_rev: 0
 sp_exp: 0
 profit_before_tax: -53
 related_revenue: 113
-tax: -56
-profit: 3
+tax: 3
+profit: -56
 curr_assets: 291
 fixed_assets: 59
 assets: 351
