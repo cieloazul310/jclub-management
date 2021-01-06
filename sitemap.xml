@@ -73,4 +73,5 @@
 <url> <loc>https://cieloazul310.github.io/jclub-financial-table/year/2019</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://cieloazul310.github.io/jclub-financial-table/download/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://cieloazul310.github.io/jclub-financial-table/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://cieloazul310.github.io/jclub-financial-table/series/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 </urlset>
