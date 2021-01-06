@@ -57,13 +57,13 @@ function TableHeadLabel({ mode }: Props) {
   );
 }
 
-interface TableBodyLabel {
+interface TableBodyLabelProps {
   mode: Mode;
   index: number;
   edge: Edge;
 }
 
-function TableBodyLabel({ mode, index, edge }: TableBodyLabel) {
+function TableBodyLabel({ mode, index, edge }: TableBodyLabelProps) {
   const classes = useStyles({ mode });
   const { node } = edge;
   return mode === 'club' ? (

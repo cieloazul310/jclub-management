@@ -87,6 +87,13 @@ function FooterLinks() {
       </Grid>
       <Grid item xs={12} sm={3}>
         <Typography variant="subtitle1" component="p" gutterBottom>
+          <AppLink to="/series" color="inherit">
+            項目別表示
+          </AppLink>
+        </Typography>
+      </Grid>
+      <Grid item xs={12} sm={3}>
+        <Typography variant="subtitle1" component="p" gutterBottom>
           <AppLink to="/download" color="inherit">
             データダウンロード
           </AppLink>
