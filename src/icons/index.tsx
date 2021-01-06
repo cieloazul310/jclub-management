@@ -1,4 +1,5 @@
 import HomeIcon from '@material-ui/icons/Home';
+import SeriesIcon from '@material-ui/icons/GridOn';
 import DownloadIcon from '@material-ui/icons/GetApp';
 import SummaryIcon from '@material-ui/icons/Description';
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -12,4 +13,16 @@ import ListIcon from '@material-ui/icons/List';
 import DarkModeIcon from '@material-ui/icons/Brightness2';
 import LightModeIcon from '@material-ui/icons/Brightness5';
 
-export { HomeIcon, DownloadIcon, SummaryIcon, SettingsIcon, FigureIcon, ArticleIcon, TableIcon, ListIcon, DarkModeIcon, LightModeIcon };
+export {
+  HomeIcon,
+  SeriesIcon,
+  DownloadIcon,
+  SummaryIcon,
+  SettingsIcon,
+  FigureIcon,
+  ArticleIcon,
+  TableIcon,
+  ListIcon,
+  DarkModeIcon,
+  LightModeIcon,
+};

@@ -5,7 +5,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import { HomeIcon, DownloadIcon } from '../../icons';
+import { HomeIcon, SeriesIcon, DownloadIcon } from '../../icons';
 
 function DrawerMenu() {
   return (
@@ -15,6 +15,12 @@ function DrawerMenu() {
           <HomeIcon />
         </ListItemIcon>
         <ListItemText primary="トップページ" />
+      </ListItem>
+      <ListItem button component={GatsbyLink} to="/series">
+        <ListItemIcon>
+          <SeriesIcon />
+        </ListItemIcon>
+        <ListItemText primary="項目別表示" />
       </ListItem>
       <ListItem button component={GatsbyLink} to="/download">
         <ListItemIcon>

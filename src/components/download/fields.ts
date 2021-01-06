@@ -44,7 +44,7 @@ export const attdFields: Fields[] = [
   'po_attd',
   'po_games',
   'acl_attd',
-  'acl_attd',
+  'acl_games',
   'second_attd',
   'second_games',
 ];
