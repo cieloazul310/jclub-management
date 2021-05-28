@@ -26,6 +26,7 @@ ordinary_profit: -5138
 sp_rev: 5250
 sp_exp: 26
 profit_before_tax: 86
+related_revenue: 0
 tax: 45
 profit: 41
 curr_assets: 2008
