@@ -162,7 +162,7 @@ function Series({ data }: PageProps<SeriesQuery>) {
       return {
         fieldValue,
         short_name: club.node?.short_name,
-        edges: createNullField<SeriesQuery['allDataset']['group'][number]['edges'][number]>(edges)(allYears.length),
+        edges: createNullField(edges)(allYears),
       };
     });
     return [...clubs]
@@ -375,8 +375,19 @@ export const query = graphql`
   }
 `;
 
-function createNullField<T>(arr: T[]): (len: number) => (T | null)[] {
-  return (len: number) => [...Array.from({ length: len - arr.length }, () => null), ...arr];
+function createNullField(
+  edges: SeriesQuery['allDataset']['group'][number]['edges'][number][]
+): (allYears: ReturnType<typeof useAllYears>) => (SeriesQuery['allDataset']['group'][number]['edges'][number] | null)[] {
+  return (allYears: ReturnType<typeof useAllYears>) => {
+    if (allYears.length === edges.length) return edges;
+    const first = allYears.map(({ year }) => year).indexOf(edges[0].node.year ?? 0);
+    return [
+      ...Array.from({ length: first }, () => null),
+      ...edges,
+      ...Array.from({ length: allYears.length - edges.length - first }, () => null),
+    ];
+    // return [...Array.from({ length: len - arr.length }, () => null), ...arr];
+  };
 }
 
 function isFields(input: string): input is Fields {
