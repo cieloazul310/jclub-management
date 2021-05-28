@@ -67,7 +67,6 @@
     "format": "prettier --parser typescript --trailing-comma es5 --single-quote --write \"src/**/*.ts*\"",
     "start": "npm run develop",
     "convert": "node converter/index.js",
-    "convert-all": "node converter/all.js",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "repository": {

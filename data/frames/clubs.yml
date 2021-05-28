@@ -613,6 +613,16 @@
   relatedCompanies:
     - 一般社団法人ロアッソ熊本スポーツクラブ
 
+- id: "57"
+  slug: tegevajaro
+  name: テゲバジャーロ宮崎
+  fullname: テゲバジャーロ宮崎
+  short_name: 宮崎
+  company: 株式会社テゲバジャーロ宮崎
+  category: J3
+  hometown: 宮崎市、新富町
+  area: 宮崎県
+
 - id: "53"
   slug: kufc
   name: 鹿児島ユナイテッドFC
