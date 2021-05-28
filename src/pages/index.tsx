@@ -24,7 +24,7 @@ function IndexPage() {
           <ContentBasis>
             <Typography paragraph>{description}</Typography>
             <Typography paragraph>
-              <AppLink to="/year/2019">最新の経営情報を見る</AppLink>
+              <AppLink to="/year/2020">最新の経営情報を見る</AppLink>
             </Typography>
           </ContentBasis>
           <ContentBasis>

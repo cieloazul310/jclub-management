@@ -35,7 +35,7 @@
   category: J1
   hometown: 鹿嶋市、潮来市、神栖市、行方市、鉾田市
   area: 茨城県
-  settlement: https://www.antlers.co.jp/news/release/76993
+  settlement: https://www.antlers.co.jp/news/release/82312
 
 - id: "4"
   slug: urawa
@@ -199,7 +199,7 @@
   category: J1
   hometown: 福岡市
   area: 福岡県
-  settlement: https://www.avispa.co.jp/news/post-30093
+  settlement: https://www.avispa.co.jp/news/post-39712
 
 - id: "18"
   slug: sagan
@@ -210,6 +210,7 @@
   category: J1
   hometown: 鳥栖市
   area: 佐賀県
+  settlement: https://www.sagan-tosu.net/news/p/5401/
 
 - id: "40"
   slug: trinita
@@ -220,6 +221,7 @@
   category: J1
   hometown: 大分市、別府市、佐伯市を中心とする全県
   area: 大分県
+  settlement: https://www.oita-trinita.co.jp/news/20210467777/
 
 # J2 22 clubs
 - id: "42"
@@ -253,7 +255,7 @@
   category: J2
   hometown: 水戸市、ひたちなか市、笠間市、那珂市、小美玉市、茨城町、城里町、大洗町、東海村
   area: 茨城県
-  settlement: https://www.mito-hollyhock.net/news/p=470/
+  settlement: https://www.mito-hollyhock.net/news/p=9262/
   relatedCompanies:
     - 一般社団法人ホーリーホックIBARAKIクラブ
 
@@ -266,7 +268,7 @@
   category: J2
   hometown: 宇都宮市
   area: 栃木県
-  settlement: https://www.tochigisc.jp/info/11609
+  settlement: http://www.tochigisc.jp/info/_15
 
 - id: "21"
   slug: thespa
@@ -277,7 +279,7 @@
   category: J2
   hometown: 草津町、前橋市を中心とする全県
   area: 群馬県
-  settlement: https://www.thespa.co.jp/thespa/club_newsinfo/news/newsdesc.cgi?newsid=2020042401
+  settlement: https://www.thespa.co.jp/thespa/club_newsinfo/news/newsdesc.cgi?newsid=2021042302
   relatedCompanies:
     - NPO法人ザスパスポーツクラブ
 
@@ -344,6 +346,7 @@
   category: J2
   hometown: 甲府市、韮崎市を中心とする全県
   area: 山梨県
+  settlement: https://www.ventforet.jp/news/press_release/520817
   relatedCompanies:
     - 一般社団法人ヴァンフォーレスポーツクラブ
 
@@ -379,7 +382,7 @@
   category: J2
   hometown: 金沢市、白山市、野々市市、かほく市、津幡町、内灘町を中心とする全県
   area: 石川県
-  settlement: http://www.zweigen-kanazawa.jp/news/p3937.html
+  settlement: http://www.zweigen-kanazawa.jp/news/p4404.html
   relatedCompanies:
     - 一般社団法人石川ツエーゲンスポーツクラブ
 
@@ -413,7 +416,7 @@
   category: J2
   hometown: 岡山市、倉敷市、津山市を中心とする全県
   area: 岡山県
-  settlement: https://www.fagiano-okayama.com/news/p1473055715.html
+  settlement: https://www.fagiano-okayama.com/news/p1473056626.html
 
 - id: "33"
   slug: renofa
@@ -424,7 +427,7 @@
   category: J2
   hometown: 山口市、下関市、山陽小野田市、宇部市、防府市、周南市、美祢市、萩市、下松市、岩国市、光市、長門市、柳井市、周防大島町、和木町、上関町、田布施町、平生町、阿武町【山口県全県】
   area: 山口県
-  settlement: https://www.renofa.com/archives/58873/
+  settlement: https://www.renofa.com/archives/74595/
   relatedCompanies:
     - NPO法人レノファ山口スポーツクラブ
 
@@ -448,6 +451,7 @@
   category: J2
   hometown: 北九州市
   area: 福岡県
+  settlement: https://www.giravanz.jp/news/p35336.html
 
 - id: "38"
   slug: vvaren
@@ -458,6 +462,7 @@
   category: J2
   hometown: 長崎市、諫早市を中心とする全県
   area: 長崎県
+  settlement: https://www.v-varen.com/clubinfo/139502.html
 
 - id: "54"
   slug: fcryukyu
@@ -468,6 +473,7 @@
   category: J2
   hometown: 沖縄市を中心とする全県
   area: 沖縄県
+  settlement: http://fcryukyu.com/news/27459/
 
 # J3 16 clubs
 - id: "55"
@@ -523,6 +529,7 @@
   category: J3
   hometown: 長野市、須坂市、中野市、飯山市、千曲市、坂城市、小布施町、高山村、山ノ内町、木島平村、野沢温泉村、信濃町、飯綱町、小川村、栄村、佐久市
   area: 長野県
+  settlement: https://parceiro.co.jp/info/detail/k91YblYS3-oa38jdox2RtlZQVE5VdWZkTlF3My1XZUpoSVZ0M29pVFBRdlBVczFCV2EzdXpKUmllUHM
 
 - id: "48"
   slug: kataller
@@ -566,7 +573,7 @@
   category: J3
   hometown: 岐阜市を中心とする全県
   area: 岐阜県
-  settlement: https://www.fc-gifu.com/news_information/58801.html
+  settlement: https://www.fc-gifu.com/news_information/70908.html
 
 - id: "51"
   slug: gainare
@@ -577,7 +584,7 @@
   category: J3
   hometown: 鳥取市、米子市、倉吉市、境港市を中心とする全県
   area: 鳥取県
-  settlement: https://www.gainare.co.jp/news/detail/41595/
+  settlement: https://www.gainare.co.jp/news/detail/42007/
 
 - id: "34"
   slug: kamatamare
@@ -588,7 +595,7 @@
   category: J3
   hometown: 高松市、丸亀市を中心とする全県
   area: 香川県
-  settlement: https://www.kamatamare.jp/news/?id=1158&item=INFO
+  settlement: https://www.kamatamare.jp/news/?id=1720&item=INFO
 
 - id: "56"
   slug: fcimabari
@@ -599,6 +606,7 @@
   category: J3
   hometown: 今治市
   area: 愛媛県
+  settlement: https://www.fcimabari.com/news/2021/004017.html
 
 - id: "39"
   slug: roasso
