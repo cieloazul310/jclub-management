@@ -1,3 +1,4 @@
+/* eslint react/jsx-props-no-spreading: off */
 import * as React from 'react';
 import Typography, { TypographyProps } from '@material-ui/core/Typography';
 import MuiLink, { LinkProps } from '@material-ui/core/Link';
@@ -7,7 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import AppLink from '../components/AppLink';
+import { AppLink } from '../components/AppLink';
 
 interface StylesProps {
   variant: TypographyProps['variant'];
@@ -29,17 +30,17 @@ function Heading({ variant, ...props }: Omit<TypographyProps, 'ref'>) {
   return <Typography className={classes.heading} variant={variant} gutterBottom {...props} />;
 }
 
-const H2 = (props: Omit<TypographyProps, 'ref'>) => <Heading variant="h4" component="h2" gutterBottom {...props} />;
-const H3 = (props: Omit<TypographyProps, 'ref'>) => <Heading variant="h5" component="h3" gutterBottom {...props} />;
-const H4 = (props: Omit<TypographyProps, 'ref'>) => <Heading variant="h6" component="h4" gutterBottom {...props} />;
-const H5 = (props: Omit<TypographyProps, 'ref'>) => <Heading variant="h6" component="h5" gutterBottom {...props} />;
-const H6 = (props: Omit<TypographyProps, 'ref'>) => <Heading variant="subtitle2" component="h6" gutterBottom {...props} />;
-const Paragraph = (props: TypographyProps) => <Typography variant="body1" paragraph {...props} />;
-const Link = (props: LinkProps) => <MuiLink color="secondary" target="_blank" rel="noopener noreferrer" {...props} />;
-const Ul = (props: Omit<TypographyProps, 'ref'>) => <Typography component="ul" gutterBottom {...props} />;
-const Ol = (props: Omit<TypographyProps, 'ref'>) => <Typography component="ol" gutterBottom {...props} />;
-const Li = (props: Omit<TypographyProps, 'ref'>) => <Typography variant="body2" gutterBottom component="li" {...props} />;
-const Table = (props: TableProps) => (
+const H2 = (props: Omit<TypographyProps, 'ref'>): JSX.Element => <Heading variant="h4" component="h2" gutterBottom {...props} />;
+const H3 = (props: Omit<TypographyProps, 'ref'>): JSX.Element => <Heading variant="h5" component="h3" gutterBottom {...props} />;
+const H4 = (props: Omit<TypographyProps, 'ref'>): JSX.Element => <Heading variant="h6" component="h4" gutterBottom {...props} />;
+const H5 = (props: Omit<TypographyProps, 'ref'>): JSX.Element => <Heading variant="h6" component="h5" gutterBottom {...props} />;
+const H6 = (props: Omit<TypographyProps, 'ref'>): JSX.Element => <Heading variant="subtitle2" component="h6" gutterBottom {...props} />;
+const Paragraph = (props: TypographyProps): JSX.Element => <Typography variant="body1" paragraph {...props} />;
+const Link = (props: LinkProps): JSX.Element => <MuiLink color="secondary" target="_blank" rel="noopener noreferrer" {...props} />;
+const Ul = (props: Omit<TypographyProps, 'ref'>): JSX.Element => <Typography component="ul" gutterBottom {...props} />;
+const Ol = (props: Omit<TypographyProps, 'ref'>): JSX.Element => <Typography component="ol" gutterBottom {...props} />;
+const Li = (props: Omit<TypographyProps, 'ref'>): JSX.Element => <Typography variant="body2" gutterBottom component="li" {...props} />;
+const Table = (props: TableProps): JSX.Element => (
   <TableContainer>
     <MuiTable {...props} />
   </TableContainer>
@@ -65,3 +66,5 @@ const components = {
 };
 
 export default components;
+
+export { H2, H3, H4, H5, H6, Paragraph, Link, Ul, Ol, Li, Table, TableRow, TableCell, Divider, AppLink };

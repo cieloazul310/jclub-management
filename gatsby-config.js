@@ -46,17 +46,6 @@ module.exports = {
           if (node.relativePath === 'years.yml') return 'yearsYaml';
           if (node.relativePath === 'dict.yml') return 'dictYaml';
           return 'yaml';
-          /*
-          return node.sourceInstanceName === 'dataset'
-            ? `dataset`
-            : node.relativePath === 'clubs.yml'
-            ? `clubsYaml`
-            : node.relativePath === 'years.yml'
-            ? `yearsYaml`
-            : node.relativePath === 'dict.yml'
-            ? `dictYaml`
-            : `yaml`;
-          */
         },
       },
     },

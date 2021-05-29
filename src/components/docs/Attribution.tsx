@@ -1,9 +1,15 @@
 import * as React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import { MarkDownQuery } from '../../../graphql-types';
 import DocContainer from './DocContainer';
+import { Maybe, MarkDownQuery, MarkdownRemark, MarkdownRemarkFrontmatter } from '../../../graphql-types';
 
-export function useAttribution() {
+export function useAttribution():
+  | Maybe<
+      Pick<MarkdownRemark, 'htmlAst'> & {
+        frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'title'>> | undefined;
+      }
+    >
+  | undefined {
   const { markdownRemark } = useStaticQuery<MarkDownQuery>(graphql`
     query MarkDown {
       markdownRemark(frontmatter: { id: { eq: "data" } }) {
@@ -17,9 +23,7 @@ export function useAttribution() {
   return markdownRemark;
 }
 
-export function AttributionDoc() {
+export function AttributionDoc(): JSX.Element | null {
   const markdownRemark = useAttribution();
   return markdownRemark ? <DocContainer markdownRemark={markdownRemark} /> : null;
 }
-
-export default AttributionDoc;

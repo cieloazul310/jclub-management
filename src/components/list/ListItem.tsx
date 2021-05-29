@@ -2,7 +2,7 @@ import * as React from 'react';
 import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import AppLink from '../AppLink';
+import { AppLink } from '../AppLink';
 import CategoryAvatar from '../CategoryAvatar';
 import ListItemTable from './ListItemTable';
 import { useAppState, useDispatch } from '../../utils/AppStateContext';

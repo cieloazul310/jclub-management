@@ -2,7 +2,7 @@ import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import AppLink from '../../components/AppLink';
+import { AppLink } from '../../components/AppLink';
 import { useJ1Clubs, useJ2Clubs, useJ3Clubs, useAllYears, Clubs } from '../../utils/graphql-hooks';
 
 const useStyles = makeStyles((theme) =>

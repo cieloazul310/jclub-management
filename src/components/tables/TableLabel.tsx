@@ -2,7 +2,7 @@ import * as React from 'react';
 import clsx from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import AppLink from '../AppLink';
+import { AppLink } from '../AppLink';
 import { Mode, Edge } from '../../types';
 
 interface StylesProps {

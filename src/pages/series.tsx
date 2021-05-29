@@ -23,7 +23,7 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import CheckIcon from '@material-ui/icons/Check';
 import RemoveIcon from '@material-ui/icons/Remove';
 import Layout from '../layout';
-import AppLink from '../components/AppLink';
+import { AppLink } from '../components/AppLink';
 import { ContentBasisLarge, ContentBasis } from '../components/Basis';
 import { AdInArticle } from '../components/Ads';
 import { plFields, bsFields, revenueFields, expenseFields, attdFields, Fields } from '../components/download/fields';
@@ -69,7 +69,26 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-function Series({ data }: PageProps<SeriesQuery>) {
+function createNullField(
+  edges: SeriesQuery['allDataset']['group'][number]['edges'][number][]
+): (allYears: ReturnType<typeof useAllYears>) => (SeriesQuery['allDataset']['group'][number]['edges'][number] | null)[] {
+  return (allYears: ReturnType<typeof useAllYears>) => {
+    if (allYears.length === edges.length) return edges;
+    const first = allYears.map(({ year }) => year).indexOf(edges[0].node.year ?? 0);
+    return [
+      ...Array.from({ length: first }, () => null),
+      ...edges,
+      ...Array.from({ length: allYears.length - edges.length - first }, () => null),
+    ];
+    // return [...Array.from({ length: len - arr.length }, () => null), ...arr];
+  };
+}
+
+function isFields(input: string): input is Fields {
+  return allFields.includes(input as Fields);
+}
+
+function Series({ data }: PageProps<SeriesQuery>): JSX.Element {
   const classes = useStyles();
   const allClubs = useAllClubs();
   const allYears = useAllYears();
@@ -83,10 +102,10 @@ function Series({ data }: PageProps<SeriesQuery>) {
   const [sortAsc, setSortAsc] = React.useState(false);
   const [open, setOpen] = React.useState(false);
 
-  const _handleClose = () => {
+  const handleClose = () => {
     setOpen(false);
   };
-  const _onLabelClicked = (index: number) => () => {
+  const onLabelClicked = (index: number) => () => {
     if (index === sortYear) {
       setSortAsc(!sortAsc);
     } else {
@@ -94,33 +113,33 @@ function Series({ data }: PageProps<SeriesQuery>) {
       setSortAsc(false);
     }
   };
-  const _handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const _handleMenuClose = () => {
+  const handleMenuClose = () => {
     setAnchorEl(null);
   };
-  const _onMenuItemClick = (slug: string) => () => {
+  const onMenuItemClick = (slug: string) => () => {
     if (clubFilter.includes(slug)) {
       setClubFilter(clubFilter.filter((club) => club !== slug));
     } else {
       setClubFilter([...clubFilter, slug]);
     }
   };
-  const _setAllFilter = (bool: boolean) => () => {
+  const setAllFilter = (bool: boolean) => () => {
     if (bool) {
       setClubFilter(slugs);
     } else {
       setClubFilter([]);
     }
   };
-  const _onFieldChange = (event: React.ChangeEvent<{ name?: string; value: string }>) => {
+  const onFieldChange = (event: React.ChangeEvent<{ name?: string; value: string }>) => {
     if (isFields(event.target.value)) {
       setField(event.target.value);
     }
   };
-  const _onCopy = () => {
+  const onCopy = () => {
     const table = document.querySelector('#series-table');
     if (table) {
       const range = document.createRange();
@@ -181,36 +200,35 @@ function Series({ data }: PageProps<SeriesQuery>) {
     <Layout title="項目別表示">
       <div className={classes.selector}>
         <ContentBasis>
-          <NativeSelect value={field} onChange={_onFieldChange}>
+          <NativeSelect value={field} onChange={onFieldChange}>
             {allFields.map((fieldName) => (
               <option value={fieldName} key={fieldName}>
-                {fieldName === 'league_average'
-                  ? 'リーグ戦平均入場者数'
-                  : fieldName === 'unit_price'
-                  ? '客単価'
-                  : dict && dict[fieldName]
-                  ? dict[fieldName]
-                  : ''}
+                {(() => {
+                  if (fieldName === 'league_average') return 'リーグ戦平均入場者数';
+                  if (fieldName === 'unit_price') return '客単価';
+                  if (dict && dict[fieldName]) return dict[fieldName];
+                  return '';
+                })()}
               </option>
             ))}
           </NativeSelect>
           <Tooltip title="フィルタ">
-            <IconButton aria-controls="filter-menu" aria-haspopup="true" onClick={_handleMenuClick}>
+            <IconButton aria-controls="filter-menu" aria-haspopup="true" onClick={handleMenuClick}>
               <FilterListIcon />
             </IconButton>
           </Tooltip>
-          <Menu id="filter-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={_handleMenuClose}>
-            <MenuItem onClick={_setAllFilter(true)}>全て選択</MenuItem>
-            <MenuItem onClick={_setAllFilter(false)}>全て解除</MenuItem>
+          <Menu id="filter-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleMenuClose}>
+            <MenuItem onClick={setAllFilter(true)}>全て選択</MenuItem>
+            <MenuItem onClick={setAllFilter(false)}>全て解除</MenuItem>
             {allClubs.map(({ node }) => (
-              <MenuItem key={node.slug} onClick={_onMenuItemClick(node.slug ?? '')}>
+              <MenuItem key={node.slug} onClick={onMenuItemClick(node.slug ?? '')}>
                 <ListItemIcon>{clubFilter.includes(node.slug ?? '') ? <CheckIcon /> : <RemoveIcon />}</ListItemIcon>
                 {node.short_name}
               </MenuItem>
             ))}
           </Menu>
           <Tooltip title="表をクリップボードにコピー">
-            <IconButton onClick={_onCopy}>
+            <IconButton onClick={onCopy}>
               <FileCopyIcon />
             </IconButton>
           </Tooltip>
@@ -218,13 +236,13 @@ function Series({ data }: PageProps<SeriesQuery>) {
       </div>
       <Typography component="div" variant="body2" align="right">
         単位:{' '}
-        {field === 'unit_price'
-          ? '円'
-          : ['all_attd', 'league_average', 'league_attd', 'leaguecup_attd', 'po_attd', 'acl_attd', 'second_attd'].includes(field)
-          ? '人'
-          : ['all_games', 'league_games', 'leaguecup_games', 'po_games', 'acl_games', 'second_games'].includes(field)
-          ? '試合'
-          : '百万円'}
+        {(() => {
+          if (field === 'unit_price') return '円';
+          if (['all_attd', 'league_average', 'league_attd', 'leaguecup_attd', 'po_attd', 'acl_attd', 'second_attd'].includes(field))
+            return '人';
+          if (['all_games', 'league_games', 'leaguecup_games', 'po_games', 'acl_games', 'second_games'].includes(field)) return '試合';
+          return '百万円';
+        })()}
       </Typography>
       <TableContainer className={classes.container} component={Paper}>
         <Table className={classes.table} size="small" stickyHeader id="series-table">
@@ -234,7 +252,7 @@ function Series({ data }: PageProps<SeriesQuery>) {
                 <TableSortLabel
                   active={sortYear === -1}
                   direction={sortYear === -1 && sortAsc ? 'asc' : 'desc'}
-                  onClick={_onLabelClicked(-1)}
+                  onClick={onLabelClicked(-1)}
                 >
                   クラブ
                 </TableSortLabel>
@@ -244,7 +262,7 @@ function Series({ data }: PageProps<SeriesQuery>) {
                   <TableSortLabel
                     active={sortYear === index}
                     direction={sortYear === index && sortAsc ? 'asc' : 'desc'}
-                    onClick={_onLabelClicked(index)}
+                    onClick={onLabelClicked(index)}
                   >
                     {year}
                   </TableSortLabel>
@@ -262,17 +280,14 @@ function Series({ data }: PageProps<SeriesQuery>) {
                 </TableCell>
                 {edges.map((edge, index) => (
                   <TableCell
-                    key={index}
+                    key={index.toString()}
                     align={edge ? 'right' : 'center'}
-                    className={
-                      edge?.node?.category === 'J1'
-                        ? classes.j1
-                        : edge?.node?.category === 'J2'
-                        ? classes.j2
-                        : edge?.node?.category === 'J3'
-                        ? classes.j3
-                        : undefined
-                    }
+                    className={(() => {
+                      if (edge?.node?.category === 'J1') return classes.j1;
+                      if (edge?.node?.category === 'J2') return classes.j2;
+                      if (edge?.node?.category === 'J3') return classes.j3;
+                      return undefined;
+                    })()}
                   >
                     {getFieldValue(edge) ?? '-'}
                   </TableCell>
@@ -287,11 +302,11 @@ function Series({ data }: PageProps<SeriesQuery>) {
       </ContentBasisLarge>
       <Snackbar
         open={open}
-        onClose={_handleClose}
+        onClose={handleClose}
         message="クリップボードにコピーしました"
         autoHideDuration={2500}
         action={
-          <Button color="secondary" size="small" onClick={_handleClose}>
+          <Button color="secondary" size="small" onClick={handleClose}>
             OK
           </Button>
         }
@@ -375,22 +390,3 @@ export const query = graphql`
     }
   }
 `;
-
-function createNullField(
-  edges: SeriesQuery['allDataset']['group'][number]['edges'][number][]
-): (allYears: ReturnType<typeof useAllYears>) => (SeriesQuery['allDataset']['group'][number]['edges'][number] | null)[] {
-  return (allYears: ReturnType<typeof useAllYears>) => {
-    if (allYears.length === edges.length) return edges;
-    const first = allYears.map(({ year }) => year).indexOf(edges[0].node.year ?? 0);
-    return [
-      ...Array.from({ length: first }, () => null),
-      ...edges,
-      ...Array.from({ length: allYears.length - edges.length - first }, () => null),
-    ];
-    // return [...Array.from({ length: len - arr.length }, () => null), ...arr];
-  };
-}
-
-function isFields(input: string): input is Fields {
-  return allFields.includes(input as Fields);
-}

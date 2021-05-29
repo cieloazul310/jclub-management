@@ -18,7 +18,12 @@ module.exports = {
     node: true,
   },
   rules: {
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'prettier/prettier': [
+      'warn',
+      {
+        endOfLine: 'auto',
+      },
+    ],
   },
   overrides: [
     {
