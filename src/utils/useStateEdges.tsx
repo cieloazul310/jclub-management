@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useAppState } from './AppStateContext';
-import { SortKey, FilterCategory } from '../utils/AppState';
+import { SortKey, FilterCategory } from './AppState';
 import { Mode, Edge } from '../types';
 
 export default function useStateEdges(edges: Edge[], mode: Mode) {
@@ -11,11 +11,10 @@ export default function useStateEdges(edges: Edge[], mode: Mode) {
 
 export function useFilteredEdges(edges: Edge[], mode: Mode) {
   const { filterCategories } = useAppState();
-  return React.useMemo(() => (mode === 'club' ? edges : edges.filter((edge) => filterCategories.includes(getCategory(edge)))), [
-    edges,
-    mode,
-    filterCategories,
-  ]);
+  return React.useMemo(
+    () => (mode === 'club' ? edges : edges.filter((edge) => filterCategories.includes(getCategory(edge)))),
+    [edges, mode, filterCategories]
+  );
 }
 
 function getCategory(edge: Edge): FilterCategory {
@@ -52,7 +51,8 @@ export function useSortedValue({ node }: Edge): string {
   const { sortKey } = useAppState();
   if (sortKey === 'unit_price') {
     return node.ticket && node.all_attd ? `${Math.round((node.ticket * 1000000) / node.all_attd)}円` : '-';
-  } else if (sortKey === 'average_attd') {
+  }
+  if (sortKey === 'average_attd') {
     return node.league_attd && node.league_games ? `${Math.round(node.league_attd / node.league_games)}人` : '-';
   }
   return sortKey === 'rank' && node.category && node.rank

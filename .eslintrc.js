@@ -2,12 +2,16 @@ module.exports = {
   globals: {
     __PATH_PREFIX__: true,
   },
+  extends: ['airbnb-typescript', 'airbnb/hooks', 'plugin:@typescript-eslint/recommended', 'prettier', 'plugin:prettier/recommended'],
+  plugins: ['react', '@typescript-eslint'],
   parser: `@typescript-eslint/parser`,
-  extends: ['react-app', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended', 'prettier/@typescript-eslint'],
-  plugins: ['@typescript-eslint', 'prettier'],
   parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
     ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
     sourceType: 'module', // Allows for the use of imports
+    project: './tsconfig.eslint.json',
   },
   env: {
     browser: true,

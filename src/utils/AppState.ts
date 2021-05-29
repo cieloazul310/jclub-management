@@ -76,7 +76,7 @@ export default function reducer(state: AppState, action: Action) {
       return {
         ...state,
         sortKey: action.sortKey,
-        sortAsc: action.sortKey === 'rank' ? true : false,
+        sortAsc: action.sortKey === 'rank',
       };
     case 'TOGGLE_SORTASC':
       return {

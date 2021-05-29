@@ -9,10 +9,10 @@ module.exports = {
   siteMetadata: {
     title: `Jクラブ経営情報ポータル`,
     description: `Jリーグが毎年公開している「Jクラブ個別経営情報開示資料」のデータをクラブ別、年度別に表示したページ。損益計算書、貸借対照表、営業収入、営業費用、入場者数の項目別に表と解説を掲載。`,
-    siteUrl: siteUrl,
-    baseUrl: baseUrl,
+    siteUrl,
+    baseUrl,
   },
-  pathPrefix: pathPrefix,
+  pathPrefix,
   plugins: [
     {
       resolve: 'gatsby-plugin-top-layout',
@@ -41,6 +41,12 @@ module.exports = {
       resolve: `gatsby-transformer-yaml`,
       options: {
         typeName: ({ node }) => {
+          if (node.sourceInstanceName === 'dataset') return 'dataset';
+          if (node.relativePath === 'clubs.yml') return 'clubsYaml';
+          if (node.relativePath === 'years.yml') return 'yearsYaml';
+          if (node.relativePath === 'dict.yml') return 'dictYaml';
+          return 'yaml';
+          /*
           return node.sourceInstanceName === 'dataset'
             ? `dataset`
             : node.relativePath === 'clubs.yml'
@@ -50,6 +56,7 @@ module.exports = {
             : node.relativePath === 'dict.yml'
             ? `dictYaml`
             : `yaml`;
+          */
         },
       },
     },
@@ -67,15 +74,12 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-eslint`,
+      resolve: 'gatsby-plugin-eslint',
       options: {
-        test: /\.js$|\.jsx$|\.ts$|\.tsx$/,
-        exclude: /(node_modules|.cache|public)/,
         stages: ['develop'],
-        options: {
-          emitWarning: true,
-          failOnError: false,
-        },
+        extensions: ['js', 'jsx', 'ts', 'tsx'],
+        exclude: ['node_modules', '.cache', 'public'],
+        // Any eslint-webpack-plugin options below
       },
     },
     {
@@ -108,7 +112,7 @@ module.exports = {
           }
         `,
         resolveSiteUrl: ({ site }) => {
-          //Alternatively, you may also pass in an environment variable (or any location) at the beginning of your `gatsby-config.js`.
+          // Alternatively, you may also pass in an environment variable (or any location) at the beginning of your `gatsby-config.js`.
           return site.siteMetadata.baseUrl;
         },
       },

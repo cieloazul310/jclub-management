@@ -106,9 +106,11 @@ function AttdList({ fields, setFields }: Props) {
   const _toggleField = (newField: string) => () => {
     setFields(fields.includes(newField) ? fields.filter((field) => field !== newField) : [...fields, newField]);
   };
-  const _toggleFieldSet = ([attd, games]: string[]) => () => {
-    setFields(fields.includes(attd) ? fields.filter((field) => field !== attd && field !== games) : [...fields, attd, games]);
-  };
+  const _toggleFieldSet =
+    ([attd, games]: string[]) =>
+    () => {
+      setFields(fields.includes(attd) ? fields.filter((field) => field !== attd && field !== games) : [...fields, attd, games]);
+    };
   const _setAllFields = () => {
     setFields(Array.from(new Set([...fields, ...attdFields])));
   };

@@ -148,7 +148,8 @@ function Series({ data }: PageProps<SeriesQuery>) {
       const { node } = edge;
       if (field === 'league_average') {
         return Math.round((node.league_attd ?? 0) / (node.league_games ?? 1));
-      } else if (field === 'unit_price') {
+      }
+      if (field === 'unit_price') {
         return Math.round(((node.ticket ?? 0) * 1000000) / (node.all_attd ?? 1));
       }
       return node[field] as number;

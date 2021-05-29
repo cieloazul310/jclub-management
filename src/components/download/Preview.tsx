@@ -114,7 +114,7 @@ function Preview({ dataset }: Props) {
         <textarea className={classes.textArea} spellCheck={false} readOnly value={output} />
       </div>
       <div className={classes.section}>
-        <Button variant="contained" color="primary" startIcon={<GetAppIcon />} href={href} download={true} component="a">
+        <Button variant="contained" color="primary" startIcon={<GetAppIcon />} href={href} download component="a">
           ダウンロード
         </Button>
       </div>
