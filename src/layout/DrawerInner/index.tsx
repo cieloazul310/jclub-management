@@ -49,11 +49,11 @@ interface Props {
   title?: string;
   next?: SitePageContextNext | null;
   previous?: SitePageContextPrevious | null;
-  drawerContents?: JSX.Element | JSX.Element[] | (JSX.Element | JSX.Element[])[];
+  drawerContents?: React.ReactNode;
   onCloseIconClick: () => void;
 }
 
-function DrawerInner({ title, next, previous, drawerContents, onCloseIconClick }: Props) {
+function DrawerInner({ title, next, previous, drawerContents, onCloseIconClick }: Props): JSX.Element {
   const classes = useStyles();
   const siteTitle = useSiteMetadata().title;
   return (
@@ -103,5 +103,12 @@ function DrawerInner({ title, next, previous, drawerContents, onCloseIconClick }
     </div>
   );
 }
+
+DrawerInner.defaultProps = {
+  title: undefined,
+  next: undefined,
+  previous: undefined,
+  drawerContents: undefined,
+};
 
 export default DrawerInner;

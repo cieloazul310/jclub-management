@@ -21,7 +21,7 @@ export interface MobileTabPaneProps {
   children: React.ReactNode;
 }
 
-function MobileTabPane({ value, mobileTab, children, mobileOnly = false }: MobileTabPaneProps) {
+function MobileTabPane({ value, mobileTab, children, mobileOnly = false }: MobileTabPaneProps): JSX.Element | null {
   const classes = useStyles();
   const isMobile = useIsMobile();
   return !mobileOnly || isMobile ? (

@@ -4,7 +4,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { MarkDownQuery } from '../../../graphql-types';
 import DocContainer from './DocContainer';
 
-export function usePL() {
+function PLDoc(): JSX.Element | null {
   const { markdownRemark } = useStaticQuery<MarkDownQuery>(graphql`
     query {
       markdownRemark(frontmatter: { id: { eq: "pl" } }) {
@@ -15,11 +15,6 @@ export function usePL() {
       }
     }
   `);
-  return markdownRemark;
-}
-
-export function PLDoc() {
-  const markdownRemark = usePL();
   return markdownRemark ? <DocContainer markdownRemark={markdownRemark} /> : null;
 }
 

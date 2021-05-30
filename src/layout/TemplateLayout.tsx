@@ -100,7 +100,7 @@ interface Props {
   pageContext: SitePageContext;
 }
 
-function Experimental({ mode, title, headerTitle, description, data, pageContext }: Props) {
+function TemplateLayout({ mode, title, headerTitle, description, data, pageContext }: Props): JSX.Element {
   const isClient = useUpdateOnClient();
   const storaged = typeof window === 'object' ? sessionStorage.getItem('jclubTab-experimental') : null;
   const initialTabs = storaged ? JSON.parse(storaged) : {};
@@ -125,19 +125,19 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
     }
   }, [mobileTab, tab]);
 
-  const _handleDrawer = (newValue: boolean | undefined = undefined) => {
+  const handleDrawer = (newValue: boolean | undefined = undefined) => {
     return () => setDrawerOpen(newValue ?? !drawerOpen);
   };
-  const _handleTab = (_: React.ChangeEvent<unknown>, newValue: string) => {
+  const handleTab = (_: React.ChangeEvent<unknown>, newValue: string) => {
     if (newValue !== 'pl' && newValue !== 'bs' && newValue !== 'revenue' && newValue !== 'expense' && newValue !== 'attd') return;
     setTab(newValue);
   };
-  const _handleMobileTab = (_: React.ChangeEvent<unknown>, newValue: string) => {
+  const handleMobileTab = (_: React.ChangeEvent<unknown>, newValue: string) => {
     if (newValue === 'summary' || newValue === 'figure' || newValue === 'article' || newValue === 'settings') {
       setMobileTab(newValue);
     }
   };
-  const _onChangeTabIndex = (index: number) => {
+  const onChangeTabIndex = (index: number) => {
     setTab(tabs[index]);
   };
 
@@ -146,12 +146,12 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
       <SEO title={title} description={description} />
       <Slide appear={false} direction="down" in={!trigger}>
         <AppBar className={classes.appBar}>
-          <AppBarInner title={headerTitle ?? title} onLeftButtonClick={_handleDrawer()} previous={previous} next={next} />
+          <AppBarInner title={headerTitle ?? title} onLeftButtonClick={handleDrawer()} previous={previous} next={next} />
         </AppBar>
       </Slide>
       <Slide appear={false} direction="down" in={!isMobile || mobileTab === 'figure' || mobileTab === 'article'}>
         <nav className={clsx(classes.tabs, { [classes.tabsTriggered]: trigger })}>
-          <Tabs value={tab} variant="scrollable" indicatorColor="secondary" textColor="secondary" onChange={_handleTab}>
+          <Tabs value={tab} variant="scrollable" indicatorColor="secondary" textColor="secondary" onChange={handleTab}>
             <MuiTab label="損益計算書" value="pl" wrapped />
             <MuiTab label="貸借対照表" value="bs" wrapped />
             <MuiTab label="営業収入" value="revenue" wrapped />
@@ -162,9 +162,9 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
       </Slide>
       <main>
         <div className={classes.mobileTabContainer}>
-          <FigureTabPane mobileTab={mobileTab} data={data} mode={mode} tab={tab} onChangeTabIndex={_onChangeTabIndex} />
+          <FigureTabPane mobileTab={mobileTab} data={data} mode={mode} tab={tab} onChangeTabIndex={onChangeTabIndex} />
           <SummaryTabPane mobileTab={mobileTab} mode={mode} data={data} previous={previous} next={next} />
-          <ArticleTabPane data={data} mobileTab={mobileTab} tab={tab} mode={mode} onChangeTabIndex={_onChangeTabIndex} />
+          <ArticleTabPane data={data} mobileTab={mobileTab} tab={tab} mode={mode} onChangeTabIndex={onChangeTabIndex} />
           <SettingsTabPane mobileTab={mobileTab} />
         </div>
       </main>
@@ -173,21 +173,26 @@ function Experimental({ mode, title, headerTitle, description, data, pageContext
       </Hidden>
       <Hidden smUp implementation="css">
         <nav className={classes.bottomNavigation}>
-          <BottomNavigation value={mobileTab} onChange={_handleMobileTab} />
+          <BottomNavigation value={mobileTab} onChange={handleMobileTab} />
         </nav>
       </Hidden>
       <div className={classes.fab}>
         <Tooltip title="メニュー">
-          <Fab color="secondary" onClick={_handleDrawer()}>
+          <Fab color="secondary" onClick={handleDrawer()}>
             <MenuIcon />
           </Fab>
         </Tooltip>
       </div>
-      <SwipeableDrawer open={drawerOpen} onClose={_handleDrawer(false)} onOpen={_handleDrawer(true)}>
-        <DrawerInner title={headerTitle ?? title} previous={previous} next={next} onCloseIconClick={_handleDrawer(false)} />
+      <SwipeableDrawer open={drawerOpen} onClose={handleDrawer(false)} onOpen={handleDrawer(true)}>
+        <DrawerInner title={headerTitle ?? title} previous={previous} next={next} onCloseIconClick={handleDrawer(false)} />
       </SwipeableDrawer>
     </div>
   );
 }
 
-export default Experimental;
+TemplateLayout.defaultProps = {
+  headerTitle: undefined,
+  description: undefined,
+};
+
+export default TemplateLayout;

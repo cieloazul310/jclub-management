@@ -4,7 +4,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { MarkDownQuery } from '../../../graphql-types';
 import DocContainer from './DocContainer';
 
-export function useAttd() {
+function AttdDoc(): JSX.Element | null {
   const { markdownRemark } = useStaticQuery<MarkDownQuery>(graphql`
     query {
       markdownRemark(frontmatter: { id: { eq: "attd" } }) {
@@ -15,11 +15,6 @@ export function useAttd() {
       }
     }
   `);
-  return markdownRemark;
-}
-
-export function AttdDoc() {
-  const markdownRemark = useAttd();
   return markdownRemark ? <DocContainer markdownRemark={markdownRemark} /> : null;
 }
 

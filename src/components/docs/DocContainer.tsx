@@ -16,7 +16,7 @@ interface Props {
   markdownRemark: NonNullable<MarkDownQuery['markdownRemark']>;
 }
 
-function DocContainer({ markdownRemark }: Props) {
+function DocContainer({ markdownRemark }: Props): JSX.Element {
   const { frontmatter, htmlAst } = markdownRemark;
   const classes = useDocStyles();
   return (

@@ -4,7 +4,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { MarkDownQuery } from '../../../graphql-types';
 import DocContainer from './DocContainer';
 
-export function useBS() {
+function BSDoc(): JSX.Element | null {
   const { markdownRemark } = useStaticQuery<MarkDownQuery>(graphql`
     query {
       markdownRemark(frontmatter: { id: { eq: "bs" } }) {
@@ -15,11 +15,6 @@ export function useBS() {
       }
     }
   `);
-  return markdownRemark;
-}
-
-export function BSDoc() {
-  const markdownRemark = useBS();
   return markdownRemark ? <DocContainer markdownRemark={markdownRemark} /> : null;
 }
 

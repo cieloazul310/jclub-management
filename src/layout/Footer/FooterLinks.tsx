@@ -67,7 +67,7 @@ function YearsLinks() {
   );
 }
 
-function FooterLinks() {
+function FooterLinks(): JSX.Element {
   const j1clubs = useJ1Clubs();
   const j2clubs = useJ2Clubs();
   const j3clubs = useJ3Clubs();

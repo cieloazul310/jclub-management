@@ -3,7 +3,7 @@ import { Link as GatsbyLink } from 'gatsby';
 import Button from '@material-ui/core/Button';
 import { useAllYears } from '../../utils/graphql-hooks';
 
-export function YearsLink() {
+export function YearsLink(): JSX.Element {
   const years = useAllYears();
   return (
     <>

@@ -45,7 +45,7 @@ function AppBarInner({
   onLeftButtonClick = () => {
     // do nothing
   },
-}: Props) {
+}: Props): JSX.Element {
   const classes = useStyles();
   return (
     <Toolbar>
@@ -68,5 +68,12 @@ function AppBarInner({
     </Toolbar>
   );
 }
+
+AppBarInner.defaultProps = {
+  title: undefined,
+  previous: undefined,
+  next: undefined,
+  onLeftButtonClick: undefined,
+};
 
 export default AppBarInner;

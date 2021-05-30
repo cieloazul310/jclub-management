@@ -14,17 +14,17 @@ interface Props {
   disabled: boolean;
 }
 
-function FilterButton({ disabled }: Props) {
+function FilterButton({ disabled }: Props): JSX.Element {
   const { filterCategories } = useAppState();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const _handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const _handleClose = () => {
+  const handleClose = () => {
     setAnchorEl(null);
   };
-  const _toggleCategory = (category: FilterCategory) => () => {
+  const toggleCategory = (category: FilterCategory) => () => {
     dispatch({ type: 'TOGGLE_FILTERCATEGORY', category });
   };
 
@@ -32,23 +32,23 @@ function FilterButton({ disabled }: Props) {
     <>
       <Tooltip title="フィルタ">
         <span>
-          <IconButton onClick={_handleClick} color={filterCategories.length === 4 ? 'inherit' : 'primary'} disabled={disabled}>
+          <IconButton onClick={handleClick} color={filterCategories.length === 4 ? 'inherit' : 'primary'} disabled={disabled}>
             <FilterListIcon />
           </IconButton>
         </span>
       </Tooltip>
-      <Menu anchorEl={anchorEl} open={!!anchorEl} onClose={_handleClose} keepMounted>
-        <MenuItem onClick={_toggleCategory('J1')}>
+      <Menu anchorEl={anchorEl} open={!!anchorEl} onClose={handleClose} keepMounted>
+        <MenuItem onClick={toggleCategory('J1')}>
           <ListItemIcon>{filterCategories.includes('J1') ? <CheckIcon /> : <RemoveIcon />}</ListItemIcon>
           J1
         </MenuItem>
-        <MenuItem onClick={_toggleCategory('J2')}>
+        <MenuItem onClick={toggleCategory('J2')}>
           <ListItemIcon>{filterCategories.includes('J2') ? <CheckIcon /> : <RemoveIcon />}</ListItemIcon>J2
         </MenuItem>
-        <MenuItem onClick={_toggleCategory('J3')}>
+        <MenuItem onClick={toggleCategory('J3')}>
           <ListItemIcon>{filterCategories.includes('J3') ? <CheckIcon /> : <RemoveIcon />}</ListItemIcon>J3
         </MenuItem>
-        <MenuItem onClick={_toggleCategory('others')}>
+        <MenuItem onClick={toggleCategory('others')}>
           <ListItemIcon>{filterCategories.includes('others') ? <CheckIcon /> : <RemoveIcon />}</ListItemIcon>JFL・地域
         </MenuItem>
       </Menu>

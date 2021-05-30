@@ -40,17 +40,17 @@ interface Props {
   dataset: DownloadDataset[];
 }
 
-function Preview({ dataset }: Props) {
+function Preview({ dataset }: Props): JSX.Element {
   const classes = useStyles();
   const allClubs = useAllClubs();
   const allYears = useAllYears();
   const slugs = allClubs.map(({ node }) => node.slug ?? '');
   const [dataFormat, setDataFormat] = React.useState('json');
   const [grouping, setGrouping] = React.useState('none');
-  const _handleChangeDataFormat = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeDataFormat = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDataFormat(event.target.name);
   };
-  const _handleChangeGrouping = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeGrouping = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGrouping(event.target.name);
   };
   const output = React.useMemo(() => {
@@ -93,21 +93,21 @@ function Preview({ dataset }: Props) {
         </Typography>
         <FormGroup row>
           <FormControlLabel
-            control={<Radio checked={dataFormat === 'json'} name="json" onChange={_handleChangeDataFormat} />}
+            control={<Radio checked={dataFormat === 'json'} name="json" onChange={handleChangeDataFormat} />}
             label="JSON"
           />
-          <FormControlLabel control={<Radio checked={dataFormat === 'csv'} name="csv" onChange={_handleChangeDataFormat} />} label="CSV" />
+          <FormControlLabel control={<Radio checked={dataFormat === 'csv'} name="csv" onChange={handleChangeDataFormat} />} label="CSV" />
         </FormGroup>
         <FormGroup row>
           <FormControlLabel
-            control={<Radio checked={grouping === 'none'} name="none" onChange={_handleChangeGrouping} />}
+            control={<Radio checked={grouping === 'none'} name="none" onChange={handleChangeGrouping} />}
             label="グループ化しない"
           />
           <FormControlLabel
-            control={<Radio checked={grouping === 'club'} name="club" onChange={_handleChangeGrouping} />}
+            control={<Radio checked={grouping === 'club'} name="club" onChange={handleChangeGrouping} />}
             label="クラブ別"
           />
-          <FormControlLabel control={<Radio checked={grouping === 'year'} name="year" onChange={_handleChangeGrouping} />} label="年別" />
+          <FormControlLabel control={<Radio checked={grouping === 'year'} name="year" onChange={handleChangeGrouping} />} label="年別" />
         </FormGroup>
       </div>
       <div className={clsx(classes.section, classes.flexGrow)}>

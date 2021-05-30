@@ -32,53 +32,10 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-interface Props {
-  tab: Tab;
-  edge: Edge;
-  mode: Mode;
-  index: number;
-  selected?: boolean;
-}
-
-function TableBodyRow({ tab, index, mode, edge, selected = false }: Props) {
-  const classes = useStyles();
-  return (
-    <TableRow selected={selected}>
-      <TableBodyLabel mode={mode} edge={edge} index={index} />
-      <TableCell className={classes.rowInfo} align="center" padding="none">
-        <CategoryLabel category={edge.node.category ?? ''} />
-      </TableCell>
-      <TableCell
-        className={clsx(
-          classes.rowInfo,
-          { [classes.promoted]: edge.node.elevation === '昇格' },
-          { [classes.relegated]: edge.node.elevation === '降格' }
-        )}
-        align="center"
-        padding="none"
-      >
-        {edge.node.rank}
-      </TableCell>
-      {tab === 'pl' ? (
-        <PLTableRow edge={edge} />
-      ) : tab === 'bs' ? (
-        <BSTableRow edge={edge} />
-      ) : tab === 'revenue' ? (
-        <RevenueTableRow edge={edge} />
-      ) : tab === 'expense' ? (
-        <ExpenseTableRow edge={edge} />
-      ) : (
-        <AttdTableRow edge={edge} />
-      )}
-    </TableRow>
-  );
-}
-
-export default TableBodyRow;
 
 type TableRowProps = Pick<Props, 'edge'>;
 
-export function PLTableRow({ edge }: TableRowProps) {
+export function PLTableRow({ edge }: TableRowProps): JSX.Element {
   const classes = useStyles();
   const { node } = edge;
   return (
@@ -121,7 +78,7 @@ export function PLTableRow({ edge }: TableRowProps) {
   );
 }
 
-export function BSTableRow({ edge }: TableRowProps) {
+export function BSTableRow({ edge }: TableRowProps): JSX.Element {
   const classes = useStyles();
   const { node } = edge;
   return (
@@ -161,7 +118,7 @@ export function BSTableRow({ edge }: TableRowProps) {
   );
 }
 
-export function RevenueTableRow({ edge }: TableRowProps) {
+export function RevenueTableRow({ edge }: TableRowProps): JSX.Element {
   const classes = useStyles();
   const { node } = edge;
   return (
@@ -209,7 +166,7 @@ export function RevenueTableRow({ edge }: TableRowProps) {
   );
 }
 
-export function ExpenseTableRow({ edge }: TableRowProps) {
+export function ExpenseTableRow({ edge }: TableRowProps): JSX.Element {
   const classes = useStyles();
   const { node } = edge;
   return (
@@ -284,7 +241,7 @@ export function ExpenseTableRow({ edge }: TableRowProps) {
   );
 }
 
-export function AttdTableRow({ edge }: TableRowProps) {
+export function AttdTableRow({ edge }: TableRowProps): JSX.Element {
   const classes = useStyles();
   const { node } = edge;
   const { displayFullAttd } = useAppState();
@@ -330,3 +287,49 @@ export function AttdTableRow({ edge }: TableRowProps) {
     </>
   );
 }
+
+interface Props {
+  tab: Tab;
+  edge: Edge;
+  mode: Mode;
+  index: number;
+  selected?: boolean;
+}
+
+function TableBodyRow({ tab, index, mode, edge, selected = false }: Props): JSX.Element {
+  const classes = useStyles();
+  const rowData = (currentTab: Tab) => {
+    if (currentTab === 'pl') return <PLTableRow edge={edge} />;
+    if (currentTab === 'bs') return <BSTableRow edge={edge} />;
+    if (currentTab === 'revenue') return <RevenueTableRow edge={edge} />;
+    if (currentTab === 'expense') return <ExpenseTableRow edge={edge} />;
+    return <AttdTableRow edge={edge} />;
+  };
+
+  return (
+    <TableRow selected={selected}>
+      <TableBodyLabel mode={mode} edge={edge} index={index} />
+      <TableCell className={classes.rowInfo} align="center" padding="none">
+        <CategoryLabel category={edge.node.category ?? ''} />
+      </TableCell>
+      <TableCell
+        className={clsx(
+          classes.rowInfo,
+          { [classes.promoted]: edge.node.elevation === '昇格' },
+          { [classes.relegated]: edge.node.elevation === '降格' }
+        )}
+        align="center"
+        padding="none"
+      >
+        {edge.node.rank}
+      </TableCell>
+      {rowData(tab)}
+    </TableRow>
+  );
+}
+
+TableBodyRow.defaultProps = {
+  selected: undefined,
+};
+
+export default TableBodyRow;

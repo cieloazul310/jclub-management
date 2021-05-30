@@ -15,11 +15,11 @@ interface CategoryLinksProps {
   clubs: Clubs;
 }
 
-export function CategoryLinks({ title, clubs }: CategoryLinksProps) {
+export function CategoryLinks({ title, clubs }: CategoryLinksProps): JSX.Element {
   const storaged = typeof window === 'object' ? sessionStorage.getItem(`${title}Open`) : null;
   const initialOpen = storaged ? (JSON.parse(storaged) as boolean) : false;
   const [open, setOpen] = React.useState(initialOpen);
-  const _toggleOpen = () => {
+  const toggleOpen = () => {
     setOpen(!open);
   };
   React.useEffect(() => {
@@ -28,7 +28,7 @@ export function CategoryLinks({ title, clubs }: CategoryLinksProps) {
 
   return (
     <>
-      <ListItem button onClick={_toggleOpen}>
+      <ListItem button onClick={toggleOpen}>
         <ListItemText primary={title} />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
@@ -45,12 +45,12 @@ export function CategoryLinks({ title, clubs }: CategoryLinksProps) {
   );
 }
 
-export function YearsLinks() {
+export function YearsLinks(): JSX.Element {
   const years = useAllYears();
   const storaged = typeof window === 'object' ? sessionStorage.getItem('yearsOpen') : null;
   const initialOpen = storaged ? (JSON.parse(storaged) as boolean) : false;
   const [open, setOpen] = React.useState(initialOpen);
-  const _toggleOpen = () => {
+  const toggleOpen = () => {
     setOpen(!open);
   };
   React.useEffect(() => {
@@ -59,7 +59,7 @@ export function YearsLinks() {
 
   return (
     <>
-      <ListItem button onClick={_toggleOpen}>
+      <ListItem button onClick={toggleOpen}>
         <ListItemText primary="年度別" />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
@@ -76,7 +76,7 @@ export function YearsLinks() {
   );
 }
 
-function DrawerLinks() {
+function DrawerLinks(): JSX.Element {
   const j1clubs = useJ1Clubs();
   const j2clubs = useJ2Clubs();
   const j3clubs = useJ3Clubs();

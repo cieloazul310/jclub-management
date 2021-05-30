@@ -7,7 +7,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { HomeIcon, SeriesIcon, DownloadIcon } from '../../icons';
 
-function DrawerMenu() {
+function DrawerMenu(): JSX.Element {
   return (
     <List subheader={<ListSubheader>コンテンツ</ListSubheader>}>
       <ListItem button component={GatsbyLink} to="/">

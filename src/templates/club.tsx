@@ -3,15 +3,16 @@ import { graphql, PageProps } from 'gatsby';
 import { ClubTemplateQuery, SitePageContext } from '../../graphql-types';
 import TemplateLayout from '../layout/TemplateLayout';
 
-function ClubTemplate(props: PageProps<ClubTemplateQuery, SitePageContext>) {
-  const { clubsYaml } = props.data;
+function ClubTemplate({ data, pageContext }: PageProps<ClubTemplateQuery, SitePageContext>): JSX.Element {
+  const { clubsYaml } = data;
   return (
     <TemplateLayout
       mode="club"
       title={`${clubsYaml?.name}の経営情報`}
       headerTitle={`${clubsYaml?.name}`}
       description={`${clubsYaml?.fullname}の年度別経営情報一覧。損益計算書・貸借対照表・営業収入・営業費用・入場者数を項目ごとに時系列表示。`}
-      {...props}
+      data={data}
+      pageContext={pageContext}
     />
   );
 }

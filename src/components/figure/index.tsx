@@ -29,9 +29,13 @@ interface Props {
   onChangeTabIndex: (index: number) => void;
 }
 
-function Figure({ edges, mode, tab, onChangeTabIndex }: Props) {
+function Figure({ edges, mode, tab, onChangeTabIndex }: Props): JSX.Element {
   const { listMode } = useAppState();
   const classes = useStyles();
+  const tableOrList = (tabItem: Tab) => {
+    if (tabItem !== tab) return null;
+    return listMode ? <FinancialList edges={edges} mode={mode} tab={tab} /> : <FinancialTable edges={edges} mode={mode} tab={tab} />;
+  };
 
   return (
     <Container maxWidth="lg" disableGutters className={clsx(classes.root, { [classes.rootYear]: mode === 'year' })}>
@@ -40,13 +44,7 @@ function Figure({ edges, mode, tab, onChangeTabIndex }: Props) {
         <SwipeableViews resistance disabled={!listMode} index={tabs.indexOf(tab)} onChangeIndex={onChangeTabIndex}>
           {tabs.map((t) => (
             <div key={t} role="tabpanel" hidden={t !== tab}>
-              {t === tab ? (
-                listMode ? (
-                  <FinancialList edges={edges} mode={mode} tab={tab} />
-                ) : (
-                  <FinancialTable edges={edges} mode={mode} tab={tab} />
-                )
-              ) : null}
+              {tableOrList(t)}
             </div>
           ))}
         </SwipeableViews>

@@ -5,19 +5,27 @@ import MobileTabPane, { MobileTabPaneProps } from './index';
 import { ContentBasisLarge, ContentBasis } from '../../components/Basis';
 import { PLDoc, BSDoc, RevenueDoc, ExpenseDoc, AttdDoc, AttributionDoc } from '../../components/docs';
 import { AdInArticle } from '../../components/Ads';
-import { Mode, Tab, tabs } from '../../types';
-import { ClubTemplateQuery, YearTemplateQuery } from '../../../graphql-types';
+import { Tab, tabs } from '../../types';
+// import { ClubTemplateQuery, YearTemplateQuery } from '../../../graphql-types';
+
+function docTab(tab: Tab) {
+  if (tab === 'pl') return <PLDoc />;
+  if (tab === 'bs') return <BSDoc />;
+  if (tab === 'revenue') return <RevenueDoc />;
+  if (tab === 'expense') return <ExpenseDoc />;
+  return <AttdDoc />;
+}
 
 type Props = {
   tab: Tab;
-  data: ClubTemplateQuery | YearTemplateQuery;
-  mode: Mode;
+  // data: ClubTemplateQuery | YearTemplateQuery;
+  // mode: Mode;
   onChangeTabIndex: (index: number) => void;
 } & Omit<MobileTabPaneProps, 'children' | 'value'>;
 
-function MainTab({ tab, data, mode, onChangeTabIndex, ...props }: Props) {
+function MainTab({ tab, onChangeTabIndex, mobileOnly, mobileTab }: Props): JSX.Element {
   return (
-    <MobileTabPane value="article" {...props}>
+    <MobileTabPane value="article" mobileOnly={mobileOnly} mobileTab={mobileTab}>
       <ContentBasisLarge>
         <SwipeableViews resistance index={tabs.indexOf(tab)} onChangeIndex={onChangeTabIndex}>
           {tabs.map((t) => (
@@ -28,19 +36,7 @@ function MainTab({ tab, data, mode, onChangeTabIndex, ...props }: Props) {
                     <article>
                       <section>
                         <ContentBasisLarge>
-                          <article>
-                            {t === 'pl' ? (
-                              <PLDoc />
-                            ) : t === 'bs' ? (
-                              <BSDoc />
-                            ) : t === 'revenue' ? (
-                              <RevenueDoc />
-                            ) : t === 'expense' ? (
-                              <ExpenseDoc />
-                            ) : (
-                              <AttdDoc />
-                            )}
-                          </article>
+                          <article>{docTab(tab)}</article>
                         </ContentBasisLarge>
                       </section>
                       <section>

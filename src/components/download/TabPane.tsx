@@ -15,7 +15,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-function TabPane({ index, value, children }: Props) {
+function TabPane({ index, value, children }: Props): JSX.Element {
   const classes = useStyles();
   return (
     <div className={classes.tabPane} hidden={index !== value}>

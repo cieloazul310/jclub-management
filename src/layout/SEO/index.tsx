@@ -10,7 +10,7 @@ interface Props {
   description?: string;
 }
 
-function Seo({ title, description }: Props) {
+function Seo({ title, description }: Props): JSX.Element {
   const siteMetadata = useSiteMetadata();
   const { href } = useLocation();
   return (
@@ -64,5 +64,10 @@ function Seo({ title, description }: Props) {
     />
   );
 }
+
+Seo.defaultProps = {
+  title: undefined,
+  description: undefined,
+};
 
 export default Seo;

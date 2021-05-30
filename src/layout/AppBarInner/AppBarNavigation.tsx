@@ -12,7 +12,7 @@ interface Props {
   next?: SitePageContextNext | null;
 }
 
-function AppBarNavigation({ previous, next }: Props) {
+function AppBarNavigation({ previous, next }: Props): JSX.Element {
   const prev = useNeighbor(previous);
   const nxt = useNeighbor(next);
   return (
@@ -34,5 +34,10 @@ function AppBarNavigation({ previous, next }: Props) {
     </div>
   );
 }
+
+AppBarNavigation.defaultProps = {
+  previous: undefined,
+  next: undefined,
+};
 
 export default AppBarNavigation;

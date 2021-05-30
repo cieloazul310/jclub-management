@@ -9,7 +9,7 @@ interface Props {
   onChange: (event: React.ChangeEvent<unknown>, newValue: string) => void;
 }
 
-function BottomNavigation({ value, onChange }: Props) {
+function BottomNavigation({ value, onChange }: Props): JSX.Element {
   return (
     <MuiBottomNavigation value={value} onChange={onChange} showLabels>
       <BottomNavigationAction label="概要" value="summary" icon={<SummaryIcon />} />

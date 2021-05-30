@@ -14,7 +14,7 @@ interface Props {
   tab: Tab;
 }
 
-function FinancialTable({ edges, mode, tab }: Props) {
+function FinancialTable({ edges, mode, tab }: Props): JSX.Element {
   const stateEdges = useStateEdges(edges, mode);
   const id = useTableId(tab);
   return (

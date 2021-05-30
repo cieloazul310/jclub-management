@@ -14,7 +14,7 @@ interface Props {
   tab: Tab;
 }
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       flexGrow: 1,
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-function FinancialList({ edges, mode, tab }: Props) {
+function FinancialList({ edges, mode, tab }: Props): JSX.Element {
   const classes = useStyles();
   const stateEdges = useStateEdges(edges, mode);
   const isMobile = useIsMobile();

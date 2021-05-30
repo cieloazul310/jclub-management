@@ -16,12 +16,12 @@ interface Props {
   children: React.ReactNode;
 }
 
-export function ContentBasis({ children }: Props) {
+export function ContentBasis({ children }: Props): JSX.Element {
   const classes = useBasisStyles();
   return <div className={classes.basis}>{children}</div>;
 }
 
-export function ContentBasisLarge({ children }: Props) {
+export function ContentBasisLarge({ children }: Props): JSX.Element {
   const classes = useBasisStyles();
   return <div className={classes.basisLarge}>{children}</div>;
 }

@@ -51,21 +51,21 @@ interface Props {
   index: number;
 }
 
-function ListItem({ edge, mode, tab, index }: Props) {
+function ListItem({ edge, mode, tab, index }: Props): JSX.Element {
   const classes = useStyles();
   const value = useSortedValue(edge);
   const { sortKey } = useAppState();
   const dispatch = useDispatch();
   const { node } = edge;
 
-  const _rankSort = () => {
+  const rankSort = () => {
     if (mode !== 'year') return;
     dispatch(sortKey !== 'rank' ? { type: 'CHANGE_SORTKEY', sortKey: 'rank' } : { type: 'TOGGLE_SORTASC' });
   };
   return (
     <div className={classes.root}>
       <div>
-        <div className={clsx(classes.avatarWrapper, { [classes.avatarWrapperYear]: mode === 'year' })} onClick={_rankSort}>
+        <div className={clsx(classes.avatarWrapper, { [classes.avatarWrapperYear]: mode === 'year' })} onClick={rankSort}>
           <CategoryAvatar category={node.category ?? ''} />
           <Typography variant="body2" color={mode === 'year' && sortKey === 'rank' ? 'secondary' : 'inherit'}>
             {node.rank}位

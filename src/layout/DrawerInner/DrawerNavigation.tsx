@@ -14,7 +14,7 @@ interface Props {
   previous?: SitePageContextPrevious | null;
 }
 
-function DrawerNavigation({ next, previous }: Props) {
+function DrawerNavigation({ next, previous }: Props): JSX.Element | null {
   const nxt = useNeighbor(next);
   const prev = useNeighbor(previous);
   return next || previous ? (
@@ -38,5 +38,10 @@ function DrawerNavigation({ next, previous }: Props) {
     </List>
   ) : null;
 }
+
+DrawerNavigation.defaultProps = {
+  next: undefined,
+  previous: undefined,
+};
 
 export default DrawerNavigation;
