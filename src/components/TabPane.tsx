@@ -6,7 +6,7 @@ interface Props extends ContainerProps {
   index: number;
 }
 
-function TabPane({ value, index, children, ...props }: Props) {
+function TabPane({ value, index, children, ...props }: Props): JSX.Element {
   return (
     <div role="tabpanel" hidden={value !== index}>
       {value === index && <Container {...props}>{children}</Container>}

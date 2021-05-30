@@ -32,7 +32,7 @@ interface Props {
   next?: SitePageContextNext | null;
 }
 
-function PageNavigation({ previous, next }: Props) {
+function PageNavigation({ previous, next }: Props): JSX.Element {
   const classes = useStyles();
   const prev = useNeighbor(previous);
   const nxt = useNeighbor(next);
@@ -73,5 +73,10 @@ function PageNavigation({ previous, next }: Props) {
     </div>
   );
 }
+
+PageNavigation.defaultProps = {
+  next: undefined,
+  previous: undefined,
+};
 
 export default PageNavigation;

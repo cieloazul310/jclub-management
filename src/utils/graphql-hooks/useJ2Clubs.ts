@@ -1,7 +1,7 @@
 import { useStaticQuery, graphql } from 'gatsby';
 import { AllClubsQuery } from '../../../graphql-types';
 
-export function useJ2Clubs() {
+export default function useJ2Clubs(): AllClubsQuery['allClubsYaml']['edges'] {
   const data = useStaticQuery<AllClubsQuery>(graphql`
     {
       allClubsYaml(filter: { category: { eq: "J2" } }) {

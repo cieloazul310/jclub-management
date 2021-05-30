@@ -18,7 +18,7 @@ function FinancialTable({ edges, mode, tab }: Props): JSX.Element {
   const stateEdges = useStateEdges(edges, mode);
   const id = useTableId(tab);
   return (
-    <TableCore mode={mode} id={id}>
+    <TableCore id={id}>
       <TableHead>
         <TableHeadRow mode={mode} tab={tab} />
       </TableHead>

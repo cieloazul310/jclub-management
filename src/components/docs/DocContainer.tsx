@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { renderAst } from '../../utils/renderAst';
+import renderAst from '../../utils/renderAst';
 import { MarkDownQuery } from '../../../graphql-types';
 
 export const useDocStyles = makeStyles((theme) =>

@@ -1,7 +1,7 @@
 import { useStaticQuery, graphql } from 'gatsby';
 import { AllClubsQuery } from '../../../graphql-types';
 
-export function useAllClubs() {
+export default function useAllClubs(): AllClubsQuery['allClubsYaml']['edges'] {
   const data = useStaticQuery<AllClubsQuery>(graphql`
     query AllClubs {
       allClubsYaml {
@@ -25,5 +25,3 @@ export function useAllClubs() {
   `);
   return data.allClubsYaml.edges;
 }
-
-export type Clubs = AllClubsQuery['allClubsYaml']['edges'];

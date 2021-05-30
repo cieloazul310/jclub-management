@@ -38,7 +38,7 @@ interface Props {
   category: string;
 }
 
-function CategoryAvatar({ category }: Props) {
+function CategoryAvatar({ category }: Props): JSX.Element {
   const filterCategory = category === 'J1' || category === 'J2' || category === 'J3' ? category : 'others';
   const classes = useCategoryStyles();
   return (
@@ -50,7 +50,7 @@ function CategoryAvatar({ category }: Props) {
 
 export default CategoryAvatar;
 
-export function CategoryLabel({ category }: Props) {
+export function CategoryLabel({ category }: Props): JSX.Element {
   const filterCategory = category === 'J1' || category === 'J2' || category === 'J3' ? category : 'others';
   const classes = useCategoryStyles();
   return <span className={clsx(classes.label, classes[filterCategory])}>{category}</span>;

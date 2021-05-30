@@ -1,3 +1,4 @@
+/* eslint react/jsx-props-no-spreading: warn */
 import * as React from 'react';
 import clsx from 'clsx';
 import TableCell, { TableCellProps } from '@material-ui/core/TableCell';
@@ -29,17 +30,17 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-interface Props extends TableCellProps {
+interface Props extends Omit<TableCellProps, 'align'> {
   mode: Mode;
   sortableKey?: SortKey;
 }
 
-function TableHeadCell({ sortableKey, mode, children, ...props }: Props) {
+function TableHeadCell({ sortableKey, mode, children, ...props }: Props): JSX.Element {
   const { sortKey } = useAppState();
   const selected = sortKey === sortableKey;
   const classes = useStyles();
   const dispatch = useDispatch();
-  const _onClick = () => {
+  const onClick = () => {
     if (mode === 'club' || !sortableKey) return;
     if (selected) {
       dispatch({ type: 'TOGGLE_SORTASC' });
@@ -56,12 +57,16 @@ function TableHeadCell({ sortableKey, mode, children, ...props }: Props) {
         { [classes.selected]: mode === 'year' && selected }
       )}
       align="center"
-      onClick={_onClick}
+      onClick={onClick}
       {...props}
     >
       {children}
     </TableCell>
   );
 }
+
+TableHeadCell.defaultProps = {
+  sortableKey: undefined,
+};
 
 export default TableHeadCell;

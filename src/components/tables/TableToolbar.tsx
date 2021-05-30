@@ -30,7 +30,7 @@ interface Props {
   tab: Tab;
 }
 
-function TableToolbar({ mode, tab }: Props) {
+function TableToolbar({ mode, tab }: Props): JSX.Element {
   const classes = useStyles();
   const unitString = useUnitString(tab);
   const { sortString, filterString } = useStateString();

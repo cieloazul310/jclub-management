@@ -10,7 +10,7 @@ interface SiteMetadataQuery {
   };
 }
 
-export function useSiteMetadata() {
+export default function useSiteMetadata(): SiteMetadataQuery['site']['siteMetadata'] {
   const data = useStaticQuery<SiteMetadataQuery>(graphql`
     query SiteMetadata {
       site {

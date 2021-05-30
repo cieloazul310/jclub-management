@@ -50,7 +50,7 @@ export const initialAppState: AppState = {
   listMode: false,
 };
 
-export function useInitialAppState(isMobile: boolean) {
+export function useInitialAppState(isMobile: boolean): AppState {
   return {
     ...initialAppState,
     listMode: isMobile,
@@ -65,7 +65,8 @@ export type Action =
   | { type: 'TOGGLE_LISTMODE' }
   | { type: 'RESET' };
 
-export default function reducer(state: AppState, action: Action) {
+export default function reducer(state: AppState, action: Action): AppState {
+  const isMobile = window.matchMedia('(max-width: 600px)').matches;
   switch (action.type) {
     case 'TOGGLE_FULL_ATTD':
       return {
@@ -96,7 +97,6 @@ export default function reducer(state: AppState, action: Action) {
         listMode: !state.listMode,
       };
     case 'RESET':
-      const isMobile = window.matchMedia('(max-width: 600px)').matches;
       return {
         ...initialAppState,
         listMode: isMobile,
