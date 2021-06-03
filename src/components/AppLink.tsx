@@ -1,3 +1,4 @@
+/* eslint-disable */
 import * as React from 'react';
 import { Link as GatsbyLink, GatsbyLinkProps, withPrefix } from 'gatsby';
 import MuiLink, { LinkProps as MuiLinkProps } from '@material-ui/core/Link';
@@ -19,7 +20,7 @@ interface LinkPropsBase {
 
 export type AppLinkProps = LinkPropsBase & GatsbyLinkComposedProps & Omit<MuiLinkProps, 'href'>;
 
-export function AppLink(props: AppLinkProps) {
+export function AppLink(props: AppLinkProps): JSX.Element {
   const {
     activeClassName = 'active',
     className: classNameProps,
@@ -44,7 +45,6 @@ export function AppLink(props: AppLinkProps) {
     <MuiLink component={GatsbyLinkComposed} className={className} to={to} ref={innerRef} color={color} underline={underline} {...other} />
   );
 }
-export default AppLink;
 
 interface ButtonPropsBase {
   innerRef?: React.Ref<HTMLAnchorElement>;
@@ -52,7 +52,7 @@ interface ButtonPropsBase {
 
 export type AppLinkButtonProps = ButtonPropsBase & GatsbyLinkComposedProps & Omit<ButtonProps, 'href'>;
 
-export function AppLinkButton(props: AppLinkButtonProps) {
+export function AppLinkButton(props: AppLinkButtonProps): JSX.Element {
   const { className, color = 'secondary', innerRef, to, ...other } = props;
 
   return <Button component={GatsbyLinkComposed} className={className} to={to} ref={innerRef} color={color} {...other} />;

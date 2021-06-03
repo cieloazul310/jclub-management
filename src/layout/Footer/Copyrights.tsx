@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import MuiLink from '@material-ui/core/Link';
-import AppLink from '../../components/AppLink';
+import { AppLink } from '../../components/AppLink';
 import { useSiteMetadata } from '../../utils/graphql-hooks';
 
-function Copyrights() {
+function Copyrights(): JSX.Element {
   const { title } = useSiteMetadata();
   return (
     <>

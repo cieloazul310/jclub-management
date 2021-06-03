@@ -12,7 +12,7 @@ interface Props {
   title?: string;
 }
 
-function DrawerShare({ title }: Props) {
+function DrawerShare({ title }: Props): JSX.Element {
   const twitterUrl = useTwitterShare(title);
   const fbUrl = useFacebookShare();
   return (
@@ -32,5 +32,9 @@ function DrawerShare({ title }: Props) {
     </List>
   );
 }
+
+DrawerShare.defaultProps = {
+  title: undefined,
+};
 
 export default DrawerShare;

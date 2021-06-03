@@ -15,11 +15,11 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-function YearAxisLabel({ text, ...props }: ArgumentAxis.LabelProps) {
+function YearAxisLabel({ text, x, y, dy, textAnchor }: ArgumentAxis.LabelProps): JSX.Element {
   const classes = useStyles();
   const isMobile = useIsMobile();
   return (
-    <text className={classes.yearLabel} {...props}>
+    <text className={classes.yearLabel} x={x} y={y} dy={dy} textAnchor={textAnchor}>
       {typeof text === 'number' || !isMobile ? text : text.slice(-2)}
     </text>
   );

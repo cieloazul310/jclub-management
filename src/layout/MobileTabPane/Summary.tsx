@@ -11,6 +11,10 @@ import { CategoryLink, YearsLink } from '../../components/links';
 import { Mode } from '../../types';
 import { ClubTemplateQuery, YearTemplateQuery, SitePageContextNext, SitePageContextPrevious } from '../../../graphql-types';
 
+function isClubData(data: ClubTemplateQuery | YearTemplateQuery): data is ClubTemplateQuery {
+  return 'clubsYaml' in data;
+}
+
 type Props = {
   mode: Mode;
   data: ClubTemplateQuery | YearTemplateQuery;
@@ -18,9 +22,9 @@ type Props = {
   next?: SitePageContextNext | null;
 } & Omit<MobileTabPaneProps, 'children' | 'value'>;
 
-function SummaryTabPane({ mode, data, previous, next, ...props }: Props) {
+function SummaryTabPane({ mode, data, previous, next, mobileOnly, mobileTab }: Props): JSX.Element {
   return (
-    <MobileTabPane value="summary" {...props}>
+    <MobileTabPane value="summary" mobileOnly={mobileOnly} mobileTab={mobileTab}>
       <ContentBasisLarge>
         <Container maxWidth="md">
           <ContentBasis>
@@ -29,7 +33,9 @@ function SummaryTabPane({ mode, data, previous, next, ...props }: Props) {
             </Typography>
             {mode === 'club' ? <ClubInfo data={data} /> : <YearInfo data={data} />}
           </ContentBasis>
-          <ContentBasis>{mode === 'club' ? <CategoryLink category={data.clubsYaml.category} /> : <YearsLink />}</ContentBasis>
+          <ContentBasis>
+            {mode === 'club' && isClubData(data) ? <CategoryLink category={data.clubsYaml?.category ?? ''} /> : <YearsLink />}
+          </ContentBasis>
           <ContentBasis>
             <PageNavigation previous={previous} next={next} />
           </ContentBasis>
@@ -38,5 +44,10 @@ function SummaryTabPane({ mode, data, previous, next, ...props }: Props) {
     </MobileTabPane>
   );
 }
+
+SummaryTabPane.defaultProps = {
+  next: undefined,
+  previous: undefined,
+};
 
 export default SummaryTabPane;

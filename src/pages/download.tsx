@@ -40,7 +40,11 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-function DownloadPage({ data }: PageProps<DownloadQuery>) {
+function getCategory(category: string | null | undefined) {
+  return category === 'J1' || category === 'J2' || category === 'J3' ? category : 'others';
+}
+
+function DownloadPage({ data }: PageProps<DownloadQuery>): JSX.Element {
   const { allDataset } = data;
   const classes = useStyles();
   const isMobile = useIsMobile();
@@ -53,10 +57,10 @@ function DownloadPage({ data }: PageProps<DownloadQuery>) {
   const [yearsFilter, setYearsFilter] = React.useState([2019]);
   const [categoriesFilter, setCategoriesFilter] = React.useState(allCategories);
   const [fields, setFields] = React.useState<string[]>(allFields);
-  const _handleTabChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handleTabChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setTab(value);
   };
-  const _handleChangeIndex = (index: number) => {
+  const handleChangeIndex = (index: number) => {
     setTab(index);
   };
   React.useEffect(() => {
@@ -79,7 +83,7 @@ function DownloadPage({ data }: PageProps<DownloadQuery>) {
             id: datum.slug ?? '',
           };
           const selectedFields = allFields.filter((field) => fields.includes(field));
-          for (let i = 0; i < selectedFields.length; i++) {
+          for (let i = 0; i < selectedFields.length; i += 1) {
             const field = selectedFields[i];
             if (field === 'league_average') {
               obj['リーグ平均入場者数'] = Math.round((datum.league_attd ?? 0) / (datum.league_games ?? 1));
@@ -137,12 +141,12 @@ function DownloadPage({ data }: PageProps<DownloadQuery>) {
     <Layout title="データダウンロード">
       {isMobile ? (
         <div>
-          <Tabs value={tab} textColor="secondary" onChange={_handleTabChange}>
+          <Tabs value={tab} textColor="secondary" onChange={handleTabChange}>
             <Tab label="フィルタ" value={0} />
             <Tab label="項目" value={1} />
             <Tab label="プレビュー" value={2} />
           </Tabs>
-          <SwipeableViews index={tab} onChangeIndex={_handleChangeIndex} resistance>
+          <SwipeableViews index={tab} onChangeIndex={handleChangeIndex} resistance>
             <TabPane value={tab} index={0}>
               {ItemFilterTab}
             </TabPane>
@@ -157,7 +161,7 @@ function DownloadPage({ data }: PageProps<DownloadQuery>) {
       ) : (
         <div className={classes.root}>
           <div className={classes.tabPane}>
-            <Tabs value={tab} textColor="secondary" onChange={_handleTabChange}>
+            <Tabs value={tab} textColor="secondary" onChange={handleTabChange}>
               <Tab label="フィルタ" value={0} />
               <Tab label="項目" value={1} />
             </Tabs>
@@ -181,10 +185,6 @@ function DownloadPage({ data }: PageProps<DownloadQuery>) {
 }
 
 export default DownloadPage;
-
-function getCategory(category: string | null | undefined) {
-  return category === 'J1' || category === 'J2' || category === 'J3' ? category : 'others';
-}
 
 export const query = graphql`
   query Download {

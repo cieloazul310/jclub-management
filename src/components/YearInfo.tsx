@@ -6,30 +6,6 @@ import useStat from '../utils/useStat';
 import { Edge } from '../types';
 import { YearTemplateQuery } from '../../graphql-types';
 
-interface Props {
-  data: YearTemplateQuery;
-}
-
-function YearInfo({ data }: Props) {
-  const { yearsYaml, allDataset } = data;
-  return (
-    <ContentBasis>
-      <Typography variant="h6" component="h2" gutterBottom>
-        {yearsYaml?.year}年
-      </Typography>
-      <Grid container>
-        {yearsYaml?.categories
-          ? yearsYaml.categories.map((category, index) => (
-              <CategoryInfo key={category ?? index} edges={allDataset.edges} category={category} />
-            ))
-          : null}
-      </Grid>
-    </ContentBasis>
-  );
-}
-
-export default YearInfo;
-
 interface CategoryInfoProps {
   edges: Edge[];
   category: string | null;
@@ -61,3 +37,27 @@ function CategoryInfo({ edges, category }: CategoryInfoProps) {
     </Grid>
   ) : null;
 }
+
+interface Props {
+  data: YearTemplateQuery;
+}
+
+function YearInfo({ data }: Props): JSX.Element {
+  const { yearsYaml, allDataset } = data;
+  return (
+    <ContentBasis>
+      <Typography variant="h6" component="h2" gutterBottom>
+        {yearsYaml?.year}年
+      </Typography>
+      <Grid container>
+        {yearsYaml?.categories
+          ? yearsYaml.categories.map((category, index) => (
+              <CategoryInfo key={category ?? index} edges={allDataset.edges} category={category} />
+            ))
+          : null}
+      </Grid>
+    </ContentBasis>
+  );
+}
+
+export default YearInfo;

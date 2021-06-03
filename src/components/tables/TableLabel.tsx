@@ -2,7 +2,7 @@ import * as React from 'react';
 import clsx from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import AppLink from '../AppLink';
+import { AppLink } from '../AppLink';
 import { Mode, Edge } from '../../types';
 
 interface StylesProps {
@@ -41,7 +41,7 @@ interface Props {
   mode: Mode;
 }
 
-function TableHeadLabel({ mode }: Props) {
+function TableHeadLabel({ mode }: Props): JSX.Element {
   const classes = useStyles({ mode });
   return mode === 'club' ? (
     <TableCell className={clsx(classes.label, classes.theadLabel)} align="center">
@@ -63,7 +63,7 @@ interface TableBodyLabelProps {
   edge: Edge;
 }
 
-function TableBodyLabel({ mode, index, edge }: TableBodyLabelProps) {
+function TableBodyLabel({ mode, index, edge }: TableBodyLabelProps): JSX.Element {
   const classes = useStyles({ mode });
   const { node } = edge;
   return mode === 'club' ? (

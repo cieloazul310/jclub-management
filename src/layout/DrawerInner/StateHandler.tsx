@@ -7,16 +7,16 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Switch from '@material-ui/core/Switch';
 import { useAppState, useDispatch } from '../../utils/AppStateContext';
 
-function StateHandler() {
+function StateHandler(): JSX.Element {
   const { displayFullAttd, listMode } = useAppState();
   const dispatch = useDispatch();
-  const _toggleListMode = () => {
+  const toggleListMode = () => {
     dispatch({ type: 'TOGGLE_LISTMODE' });
   };
-  const _toggleFullAttd = () => {
+  const toggleFullAttd = () => {
     dispatch({ type: 'TOGGLE_FULL_ATTD' });
   };
-  const _reset = () => {
+  const reset = () => {
     dispatch({ type: 'RESET' });
   };
 
@@ -25,16 +25,16 @@ function StateHandler() {
       <ListItem>
         <ListItemText primary="リストモード" />
         <ListItemSecondaryAction>
-          <Switch edge="end" checked={listMode} onChange={_toggleListMode} />
+          <Switch edge="end" checked={listMode} onChange={toggleListMode} />
         </ListItemSecondaryAction>
       </ListItem>
       <ListItem>
         <ListItemText primary="詳細な観客数を表示" />
         <ListItemSecondaryAction>
-          <Switch edge="end" checked={displayFullAttd} onChange={_toggleFullAttd} />
+          <Switch edge="end" checked={displayFullAttd} onChange={toggleFullAttd} />
         </ListItemSecondaryAction>
       </ListItem>
-      <ListItem button onClick={_reset}>
+      <ListItem button onClick={reset}>
         <ListItemText primary="設定をリセット" />
       </ListItem>
     </List>

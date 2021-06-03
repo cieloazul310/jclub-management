@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-function Footer() {
+function Footer(): JSX.Element {
   const classes = useStyles();
 
   return (

@@ -50,7 +50,7 @@ export const initialAppState: AppState = {
   listMode: false,
 };
 
-export function useInitialAppState(isMobile: boolean) {
+export function useInitialAppState(isMobile: boolean): AppState {
   return {
     ...initialAppState,
     listMode: isMobile,
@@ -65,7 +65,7 @@ export type Action =
   | { type: 'TOGGLE_LISTMODE' }
   | { type: 'RESET' };
 
-export default function reducer(state: AppState, action: Action) {
+export default function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case 'TOGGLE_FULL_ATTD':
       return {
@@ -76,7 +76,7 @@ export default function reducer(state: AppState, action: Action) {
       return {
         ...state,
         sortKey: action.sortKey,
-        sortAsc: action.sortKey === 'rank' ? true : false,
+        sortAsc: action.sortKey === 'rank',
       };
     case 'TOGGLE_SORTASC':
       return {
@@ -95,12 +95,13 @@ export default function reducer(state: AppState, action: Action) {
         ...state,
         listMode: !state.listMode,
       };
-    case 'RESET':
+    case 'RESET': {
       const isMobile = window.matchMedia('(max-width: 600px)').matches;
       return {
         ...initialAppState,
         listMode: isMobile,
       };
+    }
     default:
       throw new Error();
   }

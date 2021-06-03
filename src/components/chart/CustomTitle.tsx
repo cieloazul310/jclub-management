@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Title, TitleProps } from '@devexpress/dx-react-chart';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     chartTitle: {
       flexGrow: 1,
@@ -21,8 +21,8 @@ function TextComponent({ text }: Title.TextProps) {
   );
 }
 
-function CustomTitle({ ...props }: Omit<TitleProps, 'textComponent'>) {
-  return <Title textComponent={TextComponent} {...props} />;
+function CustomTitle({ text, position }: Omit<TitleProps, 'textComponent'>): JSX.Element {
+  return <Title text={text} textComponent={TextComponent} position={position} />;
 }
 
 export default CustomTitle;

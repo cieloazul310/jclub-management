@@ -7,9 +7,9 @@ import { ContentBasis, ContentBasisLarge } from '../../components/Basis';
 import StateHandler from '../DrawerInner/StateHandler';
 import ThemeHandler from '../DrawerInner/ThemeHandler';
 
-function SettingsTabPane(props: Omit<MobileTabPaneProps, 'children' | 'value' | 'mobileOnly'>) {
+function SettingsTabPane({ mobileTab }: Omit<MobileTabPaneProps, 'children' | 'value' | 'mobileOnly'>): JSX.Element {
   return (
-    <MobileTabPane value="settings" mobileOnly {...props}>
+    <MobileTabPane value="settings" mobileOnly mobileTab={mobileTab}>
       <ContentBasisLarge>
         <Container maxWidth="md">
           <Typography variant="h3" component="h2" gutterBottom>

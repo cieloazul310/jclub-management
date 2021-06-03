@@ -12,7 +12,7 @@ interface Props {
   data: ClubTemplateQuery;
 }
 
-function ClubInfo({ data }: Props) {
+function ClubInfo({ data }: Props): JSX.Element {
   const { clubsYaml, allDataset } = data;
   return (
     <ContentBasis>

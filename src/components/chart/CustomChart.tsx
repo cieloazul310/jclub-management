@@ -25,13 +25,15 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) =>
   })
 );
 
-function CustomChart({ children, ...props }: Omit<ChartProps, 'rootComponent'> & Chart.RootProps) {
-  const classes = useStyles({ height: props.height });
+function CustomChart(props: Omit<ChartProps, 'rootComponent'> & Chart.RootProps): JSX.Element {
+  const { data, width, height, rotated } = props;
+  const classes = useStyles({ height });
   const ChartComponent = ({ children }: Chart.RootProps) => <div className={classes.chart}>{children}</div>;
 
+  const { children } = props;
   return (
     <div className={classes.container}>
-      <Chart rootComponent={ChartComponent} {...props}>
+      <Chart rootComponent={ChartComponent} data={data} width={width} height={height} rotated={rotated}>
         {children}
       </Chart>
     </div>

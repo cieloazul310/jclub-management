@@ -18,30 +18,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export function AdInDrawer() {
-  const classes = useStyles();
-  const { pathname } = useLocation();
-  React.useEffect(() => {
-    if (window) {
-      window.adsbygoogle = window.adsbygoogle || [];
-      window.adsbygoogle.push({});
-    }
-  }, [pathname]);
-  return (
-    <div className={classes.root} key={pathname}>
-      <ins
-        className="adsbygoogle"
-        style={{ display: 'block' }}
-        data-ad-client="ca-pub-7323207940463794"
-        data-ad-slot="2525174843"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      />
-    </div>
-  );
-}
-
-export function AdInArticle() {
+export function AdInArticle(): JSX.Element {
   const classes = useStyles();
   const { pathname } = useLocation();
   React.useEffect(() => {
@@ -66,7 +43,7 @@ export function AdInArticle() {
   );
 }
 
-export function AdInFooter() {
+export function AdInFooter(): JSX.Element {
   const classes = useStyles();
   const { pathname } = useLocation();
   React.useEffect(() => {
@@ -91,7 +68,7 @@ export function AdInFooter() {
   );
 }
 
-export function AdInListFooter() {
+export function AdInListFooter(): JSX.Element {
   const classes = useStyles();
   const { pathname } = useLocation();
   React.useEffect(() => {

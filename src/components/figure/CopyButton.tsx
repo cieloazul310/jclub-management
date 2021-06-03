@@ -12,13 +12,13 @@ interface Props {
   disabled: boolean;
 }
 
-function CopyButton({ tab, disabled }: Props) {
+function CopyButton({ tab, disabled }: Props): JSX.Element {
   const tableId = useTableId(tab);
   const [open, setOpen] = React.useState(false);
-  const _handleClose = () => {
+  const handleClose = () => {
     setOpen(false);
   };
-  const _onClick = () => {
+  const onClick = () => {
     const table = document.querySelector(`#${tableId}`);
     if (table) {
       const range = document.createRange();
@@ -44,18 +44,18 @@ function CopyButton({ tab, disabled }: Props) {
     <>
       <Tooltip title="表をクリップボードにコピー">
         <span>
-          <IconButton onClick={_onClick} disabled={disabled}>
+          <IconButton onClick={onClick} disabled={disabled}>
             <FileCopyIcon />
           </IconButton>
         </span>
       </Tooltip>
       <Snackbar
         open={open}
-        onClose={_handleClose}
+        onClose={handleClose}
         message="クリップボードにコピーしました"
         autoHideDuration={2500}
         action={
-          <Button color="secondary" size="small" onClick={_handleClose}>
+          <Button color="secondary" size="small" onClick={handleClose}>
             OK
           </Button>
         }

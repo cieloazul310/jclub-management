@@ -4,14 +4,14 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 
 import Layout from '../layout';
-import AppLink from '../components/AppLink';
+import { AppLink } from '../components/AppLink';
 import { ContentBasis, ContentBasisLarge } from '../components/Basis';
 import { J1Link, J2Link, J3Link, YearsLink } from '../components/links';
-import AttributionDoc from '../components/docs/Attribution';
+import { AttributionDoc } from '../components/docs';
 import { AdInArticle } from '../components/Ads';
 import { useSiteMetadata } from '../utils/graphql-hooks';
 
-function IndexPage() {
+function IndexPage(): JSX.Element {
   const { title, description } = useSiteMetadata();
 
   return (

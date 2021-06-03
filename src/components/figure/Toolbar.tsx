@@ -43,13 +43,13 @@ interface Props {
   mode: Mode;
 }
 
-function FigureToolbar({ tab, mode }: Props) {
+function FigureToolbar({ tab, mode }: Props): JSX.Element {
   const classes = useStyles();
   const { listMode } = useAppState();
   const dispatch = useDispatch();
   const unitString = useUnitString(tab);
   const { field, sortType } = useSortStateString();
-  const _toggleListMode = () => {
+  const toggleListMode = () => {
     dispatch({ type: 'TOGGLE_LISTMODE' });
   };
   return (
@@ -57,14 +57,14 @@ function FigureToolbar({ tab, mode }: Props) {
       <div className={classes.left}>
         <Tooltip title={`テーブル表示${!listMode ? '中' : ''}`}>
           <span>
-            <IconButton edge="start" color="inherit" onClick={_toggleListMode} disabled={!listMode}>
+            <IconButton edge="start" color="inherit" onClick={toggleListMode} disabled={!listMode}>
               <TableIcon />
             </IconButton>
           </span>
         </Tooltip>
         <Tooltip title={`リスト表示${listMode ? '中' : ''}`}>
           <span>
-            <IconButton onClick={_toggleListMode} color="inherit" disabled={listMode}>
+            <IconButton onClick={toggleListMode} color="inherit" disabled={listMode}>
               <ListIcon />
             </IconButton>
           </span>

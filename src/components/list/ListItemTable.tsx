@@ -1,5 +1,6 @@
 import * as React from 'react';
 import clsx from 'clsx';
+import Typography from '@material-ui/core/Typography';
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -13,43 +14,100 @@ import { SortKey } from '../../utils/AppState';
 import { useAppState, useDispatch } from '../../utils/AppStateContext';
 import { Edge, Mode, Tab } from '../../types';
 
-interface Props {
-  edge: Edge;
-  mode: Mode;
-  tab: Tab;
+function useCollapsable(initialOpen: boolean): [boolean, () => void] {
+  const [open, setOpen] = React.useState(initialOpen);
+  const toggleOpen = () => {
+    setOpen(!open);
+  };
+  return [open, toggleOpen];
 }
 
-function ListItemTable({ edge, mode, tab }: Props) {
+const useDataTableRowStyles = makeStyles((theme) =>
+  createStyles({
+    selected: {
+      background: theme.palette.type === 'dark' ? theme.palette.background.paper : theme.palette.grey[200],
+    },
+    labelInset: {
+      paddingLeft: theme.spacing(5),
+    },
+    sortable: {
+      '&:hover': {
+        textDecoration: 'underline',
+        cursor: 'pointer',
+      },
+    },
+    current: {
+      color: theme.palette.secondary.main,
+      fontWeight: theme.typography.fontWeightBold,
+    },
+  })
+);
+
+interface DataTableRowProps {
+  open?: boolean;
+  toggleOpen?: () => void;
+  selected?: boolean;
+  inset?: boolean;
+  sortableKey?: SortKey;
+  mode: Mode;
+  label: React.ReactNode;
+  value: React.ReactNode | null;
+}
+
+function DataTableRow({ label, mode, value, open, toggleOpen, inset = false, selected = false, sortableKey }: DataTableRowProps) {
+  const { sortKey } = useAppState();
+  const current = sortKey === sortableKey;
+  const dispatch = useDispatch();
+  const classes = useDataTableRowStyles();
+  const onClick = () => {
+    if (mode === 'club' || !sortableKey) return;
+    if (current) {
+      dispatch({ type: 'TOGGLE_SORTASC' });
+    } else {
+      dispatch({ type: 'CHANGE_SORTKEY', sortKey: sortableKey });
+    }
+  };
+
   return (
-    <TableContainer>
-      <Table size="small">
-        {tab === 'pl' ? (
-          <PLTable edge={edge} mode={mode} />
-        ) : tab === 'bs' ? (
-          <BSTable edge={edge} mode={mode} />
-        ) : tab === 'revenue' ? (
-          <RevenueTable edge={edge} mode={mode} />
-        ) : tab === 'expense' ? (
-          <ExpenseTable edge={edge} mode={mode} />
-        ) : (
-          <AttdTable edge={edge} mode={mode} />
-        )}
-      </Table>
-    </TableContainer>
+    <TableRow className={clsx({ [classes.selected]: selected })}>
+      <TableCell padding="checkbox">
+        {typeof open === 'boolean' && typeof toggleOpen === 'function' ? (
+          <IconButton aria-label="expand row" size="small" onClick={toggleOpen}>
+            {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          </IconButton>
+        ) : null}
+      </TableCell>
+      <TableCell className={clsx({ [classes.labelInset]: inset })} component="th" scope="row">
+        <Typography
+          className={clsx({ [classes.sortable]: mode === 'year' && !!sortableKey, [classes.current]: mode === 'year' && current })}
+          variant="body2"
+          onClick={onClick}
+        >
+          {label}
+        </Typography>
+      </TableCell>
+      <TableCell align="right">{value ?? '-'}</TableCell>
+    </TableRow>
   );
 }
 
-export default ListItemTable;
+DataTableRow.defaultProps = {
+  open: undefined,
+  toggleOpen: undefined,
+  selected: undefined,
+  inset: undefined,
+  sortableKey: undefined,
+};
 
 function PLTable({ edge, mode }: Pick<Props, 'edge' | 'mode'>) {
   const { node } = edge;
-  const [open, _toggleOpen] = useCollapsable(false);
+  const [open, toggleOpen] = useCollapsable(false);
   return (
     <TableBody>
       <DataTableRow label="営業収入" value={<strong>{node.revenue}</strong>} mode={mode} sortableKey="revenue" />
       <DataTableRow label="営業費用" value={node.expense} mode={mode} sortableKey="expense" />
       <DataTableRow label="営業利益" value={node.op_profit} mode={mode} sortableKey="op_profit" />
-      <DataTableRow label="当期純利益" value={node.profit} open={open} toggleOpen={_toggleOpen} selected mode={mode} sortableKey="profit" />
+      <DataTableRow label="当期純利益" value={node.profit} open={open} toggleOpen={toggleOpen} selected mode={mode} sortableKey="profit" />
       {open ? (
         <>
           <DataTableRow label="営業外収入" value={node.no_rev} inset mode={mode} sortableKey="no_rev" />
@@ -142,6 +200,12 @@ function RevenueTable({ edge, mode }: Pick<Props, 'edge' | 'mode'>) {
 
 function ExpenseTable({ edge, mode }: Pick<Props, 'edge' | 'mode'>) {
   const { node } = edge;
+  const sgaLabel = (year: number) => {
+    if (year < 2011) return '一般管理費';
+    if (year < 2016) return '販売費および一般管理費(物販含む)';
+    return '販売費および一般管理費';
+  };
+
   return (
     <TableBody>
       <DataTableRow label="営業費用" value={<strong>{node.expense}</strong>} selected mode={mode} sortableKey="expense" />
@@ -156,14 +220,7 @@ function ExpenseTable({ edge, mode }: Pick<Props, 'edge' | 'mode'>) {
         </>
       ) : null}
       {(node.year ?? 0) > 2015 ? <DataTableRow label="物販関連経費" value={node.goods_rev} mode={mode} sortableKey="goods_exp" /> : null}
-      <DataTableRow
-        label={
-          (node.year ?? 0) < 2011 ? '一般管理費' : (node.year ?? 0) < 2016 ? '販売費および一般管理費(物販含む)' : '販売費および一般管理費'
-        }
-        value={node.sga}
-        mode={mode}
-        sortableKey="sga"
-      />
+      <DataTableRow label={sgaLabel(node.year ?? 0)} value={node.sga} mode={mode} sortableKey="sga" />
     </TableBody>
   );
 }
@@ -218,78 +275,26 @@ function AttdTable({ edge, mode }: Pick<Props, 'edge' | 'mode'>) {
   );
 }
 
-const useDataTableRowStyles = makeStyles((theme) =>
-  createStyles({
-    selected: {
-      background: theme.palette.type === 'dark' ? theme.palette.background.paper : theme.palette.grey[200],
-    },
-    labelInset: {
-      paddingLeft: theme.spacing(5),
-    },
-    sortable: {
-      '&:hover': {
-        textDecoration: 'underline',
-        cursor: 'pointer',
-      },
-    },
-    current: {
-      color: theme.palette.secondary.main,
-      fontWeight: theme.typography.fontWeightBold,
-    },
-  })
-);
-
-interface DataTableRowProps {
-  open?: boolean;
-  toggleOpen?: () => void;
-  selected?: boolean;
-  inset?: boolean;
-  sortableKey?: SortKey;
+interface Props {
+  edge: Edge;
   mode: Mode;
-  label: React.ReactNode;
-  value: React.ReactNode | null;
+  tab: Tab;
 }
 
-function DataTableRow({ label, mode, value, open, toggleOpen, inset = false, selected = false, sortableKey }: DataTableRowProps) {
-  const { sortKey } = useAppState();
-  const current = sortKey === sortableKey;
-  const dispatch = useDispatch();
-  const classes = useDataTableRowStyles();
-  const _onClick = () => {
-    if (mode === 'club' || !sortableKey) return;
-    if (current) {
-      dispatch({ type: 'TOGGLE_SORTASC' });
-    } else {
-      dispatch({ type: 'CHANGE_SORTKEY', sortKey: sortableKey });
-    }
+function ListItemTable({ edge, mode, tab }: Props): JSX.Element {
+  const tableItem = (currentTab: Tab) => {
+    if (currentTab === 'pl') return <PLTable edge={edge} mode={mode} />;
+    if (currentTab === 'bs') return <BSTable edge={edge} mode={mode} />;
+    if (currentTab === 'revenue') return <RevenueTable edge={edge} mode={mode} />;
+    if (currentTab === 'expense') return <ExpenseTable edge={edge} mode={mode} />;
+    return <AttdTable edge={edge} mode={mode} />;
   };
 
   return (
-    <TableRow className={clsx({ [classes.selected]: selected })}>
-      <TableCell padding="checkbox">
-        {typeof open === 'boolean' && typeof toggleOpen === 'function' ? (
-          <IconButton aria-label="expand row" size="small" onClick={toggleOpen}>
-            {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </IconButton>
-        ) : null}
-      </TableCell>
-      <TableCell className={clsx({ [classes.labelInset]: inset })} component="th" scope="row">
-        <span
-          className={clsx({ [classes.sortable]: mode === 'year' && !!sortableKey, [classes.current]: mode === 'year' && current })}
-          onClick={_onClick}
-        >
-          {label}
-        </span>
-      </TableCell>
-      <TableCell align="right">{value ?? '-'}</TableCell>
-    </TableRow>
+    <TableContainer>
+      <Table size="small">{tableItem(tab)}</Table>
+    </TableContainer>
   );
 }
 
-function useCollapsable(initialOpen: boolean): [boolean, () => void] {
-  const [open, setOpen] = React.useState(initialOpen);
-  const _setOpen = () => {
-    setOpen(!open);
-  };
-  return [open, _setOpen];
-}
+export default ListItemTable;

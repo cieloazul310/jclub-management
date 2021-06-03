@@ -10,34 +10,9 @@ interface Props {
   mode: Mode;
 }
 
-function TableHeadRow({ mode, tab }: Props) {
-  return (
-    <TableRow>
-      <TableHeadLabel mode={mode} />
-      <TableHeadCell mode={mode}>所属</TableHeadCell>
-      <TableHeadCell mode={mode} sortableKey="rank">
-        順位
-      </TableHeadCell>
-      {tab === 'pl' ? (
-        <PLTableHeadRow mode={mode} />
-      ) : tab === 'bs' ? (
-        <BSTableHeadRow mode={mode} />
-      ) : tab === 'revenue' ? (
-        <RevenueTableHeadRow mode={mode} />
-      ) : tab === 'expense' ? (
-        <ExpenseTableHeadRow mode={mode} />
-      ) : (
-        <AttdTableHeadRow mode={mode} />
-      )}
-    </TableRow>
-  );
-}
-
-export default TableHeadRow;
-
 type TableHeadRowProps = Pick<Props, 'mode'>;
 
-export function PLTableHeadRow({ mode }: TableHeadRowProps) {
+export function PLTableHeadRow({ mode }: TableHeadRowProps): JSX.Element {
   return (
     <>
       <TableHeadCell mode={mode} sortableKey="revenue">
@@ -76,7 +51,7 @@ export function PLTableHeadRow({ mode }: TableHeadRowProps) {
   );
 }
 
-export function BSTableHeadRow({ mode }: TableHeadRowProps) {
+export function BSTableHeadRow({ mode }: TableHeadRowProps): JSX.Element {
   return (
     <>
       <TableHeadCell mode={mode} sortableKey="assets">
@@ -104,7 +79,7 @@ export function BSTableHeadRow({ mode }: TableHeadRowProps) {
   );
 }
 
-export function RevenueTableHeadRow({ mode }: TableHeadRowProps) {
+export function RevenueTableHeadRow({ mode }: TableHeadRowProps): JSX.Element {
   return (
     <>
       <TableHeadCell mode={mode} sortableKey="revenue">
@@ -135,7 +110,7 @@ export function RevenueTableHeadRow({ mode }: TableHeadRowProps) {
   );
 }
 
-export function ExpenseTableHeadRow({ mode }: TableHeadRowProps) {
+export function ExpenseTableHeadRow({ mode }: TableHeadRowProps): JSX.Element {
   return (
     <>
       <TableHeadCell mode={mode} sortableKey="expense">
@@ -165,7 +140,7 @@ export function ExpenseTableHeadRow({ mode }: TableHeadRowProps) {
   );
 }
 
-export function AttdTableHeadRow({ mode }: TableHeadRowProps) {
+export function AttdTableHeadRow({ mode }: TableHeadRowProps): JSX.Element {
   const { displayFullAttd } = useAppState();
   return (
     <>
@@ -197,3 +172,26 @@ export function AttdTableHeadRow({ mode }: TableHeadRowProps) {
     </>
   );
 }
+
+function TableHeadRow({ mode, tab }: Props): JSX.Element {
+  const tableHeadLabels = (currentTab: Tab) => {
+    if (currentTab === 'pl') return <PLTableHeadRow mode={mode} />;
+    if (currentTab === 'bs') return <BSTableHeadRow mode={mode} />;
+    if (currentTab === 'revenue') return <RevenueTableHeadRow mode={mode} />;
+    if (currentTab === 'expense') return <ExpenseTableHeadRow mode={mode} />;
+    return <AttdTableHeadRow mode={mode} />;
+  };
+
+  return (
+    <TableRow>
+      <TableHeadLabel mode={mode} />
+      <TableHeadCell mode={mode}>所属</TableHeadCell>
+      <TableHeadCell mode={mode} sortableKey="rank">
+        順位
+      </TableHeadCell>
+      {tableHeadLabels(tab)}
+    </TableRow>
+  );
+}
+
+export default TableHeadRow;

@@ -3,9 +3,9 @@ import Paper from '@material-ui/core/Paper';
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Mode } from '../../types';
+// import { Mode } from '../../types';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     container: {
       flexGrow: 1,
@@ -19,11 +19,11 @@ const useStyles = makeStyles((theme) =>
 
 interface Props {
   id: string;
-  mode: Mode;
-  children: JSX.Element | JSX.Element[] | (JSX.Element | JSX.Element[])[];
+  // mode: Mode;
+  children: React.ReactNode;
 }
 
-function TableCore({ id, children, mode }: Props) {
+function TableCore({ id, children }: Props): JSX.Element {
   const classes = useStyles();
 
   return (

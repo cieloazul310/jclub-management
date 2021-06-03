@@ -1,7 +1,7 @@
 import { useStaticQuery, graphql } from 'gatsby';
 import { AllYearsQuery } from '../../../graphql-types';
 
-export function useAllYears() {
+export default function useAllYears(): AllYearsQuery['allYearsYaml']['nodes'] {
   const data = useStaticQuery<AllYearsQuery>(graphql`
     query AllYears {
       allYearsYaml {
@@ -15,5 +15,3 @@ export function useAllYears() {
   `);
   return data.allYearsYaml.nodes;
 }
-
-export type AllYears = AllYearsQuery['allYearsYaml']['nodes'];

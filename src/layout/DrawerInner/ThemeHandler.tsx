@@ -15,11 +15,11 @@ import {
   useToggleUseSystem,
 } from '../../../plugins/gatsby-plugin-top-layout/components/ThemeStateContext';
 
-function ThemeHandler() {
+function ThemeHandler(): JSX.Element {
   const { type } = useTheme().palette;
   const { darkMode, useSystemTheme } = useThemeContextState();
-  const _toggleDark = useToggleDark();
-  const _toggleUseSystem = useToggleUseSystem();
+  const toggleDark = useToggleDark();
+  const toggleUseSystem = useToggleUseSystem();
 
   return (
     <List subheader={<ListSubheader>画面</ListSubheader>}>
@@ -27,7 +27,7 @@ function ThemeHandler() {
         <ListItemIcon>{darkMode ? <Brightness2Icon /> : <Brightness5Icon />}</ListItemIcon>
         <ListItemText primary="ダークモード" />
         <ListItemSecondaryAction>
-          <Switch disabled={useSystemTheme} edge="end" checked={darkMode} onChange={_toggleDark} />
+          <Switch disabled={useSystemTheme} edge="end" checked={darkMode} onChange={toggleDark} />
         </ListItemSecondaryAction>
       </ListItem>
       <ListItem>
@@ -40,7 +40,7 @@ function ThemeHandler() {
         </ListItemIcon>
         <ListItemText primary="OSの設定を使用" />
         <ListItemSecondaryAction>
-          <Switch checked={useSystemTheme} edge="end" onChange={_toggleUseSystem} />
+          <Switch checked={useSystemTheme} edge="end" onChange={toggleUseSystem} />
         </ListItemSecondaryAction>
       </ListItem>
     </List>

@@ -14,7 +14,12 @@ export interface Stat {
   max: StatItem;
   min: StatItem;
 }
+
 type EdgeProps = keyof Edge['node'];
+
+function isNumbers(array: (number | string | undefined | null)[]): array is number[] {
+  return typeof array[0] === 'number';
+}
 
 function useStat(edges: Edge[], key: EdgeProps, idField: EdgeProps): Stat | null {
   return React.useMemo(() => {
@@ -43,7 +48,3 @@ function useStat(edges: Edge[], key: EdgeProps, idField: EdgeProps): Stat | null
 }
 
 export default useStat;
-
-function isNumbers(array: (number | string | undefined | null)[]): array is number[] {
-  return typeof array[0] === 'number';
-}

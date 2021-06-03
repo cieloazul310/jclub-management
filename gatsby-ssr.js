@@ -1,3 +1,5 @@
+/* eslint react/jsx-filename-extension: warn */
+
 /**
  * Implement Gatsby's SSR (Server Side Rendering) APIs in this file.
  *

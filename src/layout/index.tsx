@@ -35,21 +35,21 @@ const useStyles = makeStyles((theme) =>
 );
 
 interface Props {
-  children: JSX.Element | JSX.Element[] | (JSX.Element | JSX.Element[])[];
-  drawerContents?: JSX.Element | JSX.Element[] | (JSX.Element | JSX.Element[])[];
+  children: React.ReactNode;
+  drawerContents?: React.ReactNode;
   title?: string;
   description?: string;
   headerTitle?: string;
 }
 
-function Layout({ children, drawerContents, title, description, headerTitle }: Props) {
+function Layout({ children, drawerContents, title, description, headerTitle }: Props): JSX.Element {
   const classes = useStyles();
   const trigger = useScrollTrigger();
   const [drawerOpen, setDrawerOpen] = React.useState(false);
-  const _setDrawer = (open: boolean) => () => {
+  const setDrawer = (open: boolean) => () => {
     setDrawerOpen(open);
   };
-  const _toggleDrawer = () => {
+  const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
 
@@ -58,7 +58,7 @@ function Layout({ children, drawerContents, title, description, headerTitle }: P
       <SEO title={title} description={description} />
       <Slide appear={false} direction="down" in={!trigger}>
         <AppBar className={classes.appbar}>
-          <AppBarInner title={headerTitle || title} onLeftButtonClick={_toggleDrawer} />
+          <AppBarInner title={headerTitle || title} onLeftButtonClick={toggleDrawer} />
         </AppBar>
       </Slide>
       <div className={classes.content}>
@@ -67,16 +67,16 @@ function Layout({ children, drawerContents, title, description, headerTitle }: P
       <Footer />
       <SwipeableDrawer
         open={drawerOpen}
-        onClose={_setDrawer(false)}
-        onOpen={_setDrawer(true)}
+        onClose={setDrawer(false)}
+        onOpen={setDrawer(true)}
         disableBackdropTransition={!iOS}
         disableDiscovery={iOS}
       >
-        <DrawerInner onCloseIconClick={_setDrawer(false)} drawerContents={drawerContents} />
+        <DrawerInner onCloseIconClick={setDrawer(false)} drawerContents={drawerContents} />
       </SwipeableDrawer>
       <div className={classes.fab}>
         <Tooltip title="メニュー">
-          <Fab color="secondary" onClick={_toggleDrawer}>
+          <Fab color="secondary" onClick={toggleDrawer}>
             <MenuIcon />
           </Fab>
         </Tooltip>
@@ -84,5 +84,12 @@ function Layout({ children, drawerContents, title, description, headerTitle }: P
     </div>
   );
 }
+
+Layout.defaultProps = {
+  drawerContents: undefined,
+  title: undefined,
+  description: undefined,
+  headerTitle: undefined,
+};
 
 export default Layout;

@@ -1,7 +1,7 @@
 import useTheme from '@material-ui/core/styles/useTheme';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-function useIsMobile() {
+function useIsMobile(): boolean {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.only('xs'));
   return isMobile;

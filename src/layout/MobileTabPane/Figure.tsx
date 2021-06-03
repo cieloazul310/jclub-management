@@ -11,9 +11,9 @@ type Props = {
   onChangeTabIndex: (index: number) => void;
 } & Omit<MobileTabPaneProps, 'children' | 'value'>;
 
-function FigureTab({ tab, data, mode, onChangeTabIndex, ...props }: Props) {
+function FigureTab({ tab, data, mode, onChangeTabIndex, mobileOnly, mobileTab }: Props): JSX.Element {
   return (
-    <MobileTabPane value="figure" {...props}>
+    <MobileTabPane value="figure" mobileOnly={mobileOnly} mobileTab={mobileTab}>
       <Figure edges={data.allDataset.edges} mode={mode} tab={tab} onChangeTabIndex={onChangeTabIndex} />
     </MobileTabPane>
   );
