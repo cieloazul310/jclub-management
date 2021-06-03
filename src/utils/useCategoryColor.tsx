@@ -10,7 +10,10 @@ const categoryColors = {
   others: othersColor,
 };
 
-function useCategoryColor(category: FilterCategory) {
+function useCategoryColor(category: FilterCategory): {
+  color: string;
+  contrastText: string;
+} {
   const theme = useTheme();
   return React.useMemo(() => {
     const paletteType = theme.palette.type;

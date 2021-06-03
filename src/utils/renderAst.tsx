@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import * as React from 'react';
 import rehypeReact from 'rehype-react';
 import muiComponents from './muiComponents';

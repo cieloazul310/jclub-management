@@ -3,13 +3,23 @@ import { useAppState } from './AppStateContext';
 import { SortKey, FilterCategory } from './AppState';
 import { Mode, Edge } from '../types';
 
-export default function useStateEdges(edges: Edge[], mode: Mode) {
-  const filtered = useFilteredEdges(edges, mode);
-  const sorted = useSortedEdges(filtered, mode);
-  return sorted;
+function getCategory(edge: Edge): FilterCategory {
+  const { category } = edge.node;
+  return category !== 'J1' && category !== 'J2' && category !== 'J3' ? 'others' : category;
 }
 
-export function useFilteredEdges(edges: Edge[], mode: Mode) {
+export function getRank(node: Edge['node']): number {
+  const addition = (category: string) => {
+    if (category === 'J1') return 0;
+    if (category === 'J2') return 100;
+    if (category === 'J3') return 200;
+    if (category === 'JFL') return 300;
+    return 400;
+  };
+  return addition(node.category ?? '') + (node.rank ?? 0);
+}
+
+export function useFilteredEdges(edges: Edge[], mode: Mode): Edge[] {
   const { filterCategories } = useAppState();
   return React.useMemo(
     () => (mode === 'club' ? edges : edges.filter((edge) => filterCategories.includes(getCategory(edge)))),
@@ -17,34 +27,20 @@ export function useFilteredEdges(edges: Edge[], mode: Mode) {
   );
 }
 
-function getCategory(edge: Edge): FilterCategory {
-  const { category } = edge.node;
-  return category !== 'J1' && category !== 'J2' && category !== 'J3' ? 'others' : category;
+export function getValue({ node }: Edge, sortKey: SortKey): number {
+  if (sortKey === 'rank') return getRank(node);
+  if (sortKey === 'unit_price') return (node.ticket ?? 1) / (node.all_attd ?? 1);
+  if (sortKey === 'average_attd') return (node.league_attd ?? 1) / (node.league_games ?? 1);
+  return node[sortKey] ?? 1;
 }
 
-export function useSortedEdges(edges: Edge[], mode: Mode) {
+export function useSortedEdges(edges: Edge[], mode: Mode): Edge[] {
   const { sortKey, sortAsc } = useAppState();
   return React.useMemo(
     () =>
       mode === 'club' ? edges : [...edges].sort((a: Edge, b: Edge) => (sortAsc ? 1 : -1) * (getValue(a, sortKey) - getValue(b, sortKey))),
     [mode, edges, sortKey, sortAsc]
   );
-}
-
-export function getValue({ node }: Edge, sortKey: SortKey) {
-  return sortKey === 'rank'
-    ? getRank(node)
-    : sortKey === 'unit_price'
-    ? (node.ticket ?? 1) / (node.all_attd ?? 1)
-    : sortKey === 'average_attd'
-    ? (node.league_attd ?? 1) / (node.league_games ?? 1)
-    : node[sortKey] ?? 1;
-}
-
-export function getRank(node: Edge['node']) {
-  const addition =
-    node.category === 'J1' ? 0 : node.category === 'J2' ? 100 : node.category === 'J3' ? 200 : node.category === 'JFL' ? 300 : 400;
-  return addition + (node.rank ?? 0);
 }
 
 export function useSortedValue({ node }: Edge): string {
@@ -55,11 +51,14 @@ export function useSortedValue({ node }: Edge): string {
   if (sortKey === 'average_attd') {
     return node.league_attd && node.league_games ? `${Math.round(node.league_attd / node.league_games)}人` : '-';
   }
-  return sortKey === 'rank' && node.category && node.rank
-    ? `${node.category} ${node.rank}位`
-    : sortKey === 'league_attd' || sortKey === 'all_attd'
-    ? `${node[sortKey]}人`
-    : node[sortKey]
-    ? `${((node[sortKey] ?? 1) / 100).toFixed(2)}億円`
-    : '-';
+  if (sortKey === 'rank' && node.category && node.rank) return `${node.category} ${node.rank}位`;
+  if (sortKey === 'league_attd' || sortKey === 'all_attd') return `${node[sortKey]}人`;
+  if (node[sortKey]) return `${((node[sortKey] ?? 1) / 100).toFixed(2)}億円`;
+  return '-';
+}
+
+export default function useStateEdges(edges: Edge[], mode: Mode): Edge[] {
+  const filtered = useFilteredEdges(edges, mode);
+  const sorted = useSortedEdges(filtered, mode);
+  return sorted;
 }

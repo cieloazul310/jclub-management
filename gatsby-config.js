@@ -62,15 +62,19 @@ module.exports = {
         trackingId: 'UA-74683419-3',
       },
     },
+    /*
     {
       resolve: 'gatsby-plugin-eslint',
+      // v3.0.0 has an error for options
       options: {
         stages: ['develop'],
         extensions: ['js', 'jsx', 'ts', 'tsx'],
         exclude: ['node_modules', '.cache', 'public'],
         // Any eslint-webpack-plugin options below
+        failOnError: false,
       },
     },
+    */
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

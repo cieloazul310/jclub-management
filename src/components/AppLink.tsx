@@ -1,4 +1,4 @@
-/* eslint react/jsx-props-no-spreading: off */
+/* eslint-disable */
 import * as React from 'react';
 import { Link as GatsbyLink, GatsbyLinkProps, withPrefix } from 'gatsby';
 import MuiLink, { LinkProps as MuiLinkProps } from '@material-ui/core/Link';

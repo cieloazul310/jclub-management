@@ -65,13 +65,13 @@ function ListItem({ edge, mode, tab, index }: Props): JSX.Element {
   return (
     <div className={classes.root}>
       <div>
-        <div className={clsx(classes.avatarWrapper, { [classes.avatarWrapperYear]: mode === 'year' })} onClick={rankSort}>
+        <Typography className={clsx(classes.avatarWrapper, { [classes.avatarWrapperYear]: mode === 'year' })} onClick={rankSort}>
           <CategoryAvatar category={node.category ?? ''} />
           <Typography variant="body2" color={mode === 'year' && sortKey === 'rank' ? 'secondary' : 'inherit'}>
             {node.rank}位
           </Typography>
           {node.elevation ? <Typography variant="caption">{node.elevation}</Typography> : null}
-        </div>
+        </Typography>
       </div>
       <div className={classes.content}>
         <div className={classes.label}>

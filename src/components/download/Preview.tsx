@@ -59,22 +59,23 @@ function Preview({ dataset }: Props): JSX.Element {
 
       return csvFormat(csv);
     }
-    const json =
-      grouping === 'year'
-        ? allYears
-            .map(({ year }) => ({
-              year,
-              items: dataset.filter((datum) => datum['年'] === year),
-            }))
-            .filter(({ items }) => items.length > 0)
-        : grouping === 'club'
-        ? allClubs
-            .map(({ node }) => ({
-              ...node,
-              items: dataset.filter((datum) => datum.id === node.slug),
-            }))
-            .filter(({ items }) => items.length > 0)
-        : dataset;
+    const json = (() => {
+      if (grouping === 'year')
+        return allYears
+          .map(({ year }) => ({
+            year,
+            items: dataset.filter((datum) => datum['年'] === year),
+          }))
+          .filter(({ items }) => items.length > 0);
+      if (grouping === 'club')
+        return allClubs
+          .map(({ node }) => ({
+            ...node,
+            items: dataset.filter((datum) => datum.id === node.slug),
+          }))
+          .filter(({ items }) => items.length > 0);
+      return dataset;
+    })();
 
     return JSON.stringify(json, null, 2);
   }, [dataset, dataFormat, grouping, slugs, allClubs, allYears]);

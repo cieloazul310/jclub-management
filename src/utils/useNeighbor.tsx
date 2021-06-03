@@ -1,6 +1,9 @@
 import { SitePageContextNext, SitePageContextPrevious } from '../../graphql-types';
 
-function useNeighbor(neighbor: SitePageContextNext | SitePageContextPrevious | undefined | null) {
+function useNeighbor(neighbor: SitePageContextNext | SitePageContextPrevious | undefined | null): {
+  to: string;
+  title: string;
+} | null {
   if (!neighbor) return null;
   const mode = neighbor.slug ? 'club' : 'year';
   return {

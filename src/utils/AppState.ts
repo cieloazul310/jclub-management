@@ -66,7 +66,6 @@ export type Action =
   | { type: 'RESET' };
 
 export default function reducer(state: AppState, action: Action): AppState {
-  const isMobile = window.matchMedia('(max-width: 600px)').matches;
   switch (action.type) {
     case 'TOGGLE_FULL_ATTD':
       return {
@@ -96,11 +95,13 @@ export default function reducer(state: AppState, action: Action): AppState {
         ...state,
         listMode: !state.listMode,
       };
-    case 'RESET':
+    case 'RESET': {
+      const isMobile = window.matchMedia('(max-width: 600px)').matches;
       return {
         ...initialAppState,
         listMode: isMobile,
       };
+    }
     default:
       throw new Error();
   }

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import clsx from 'clsx';
+import Typography from '@material-ui/core/Typography';
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -77,13 +78,13 @@ function DataTableRow({ label, mode, value, open, toggleOpen, inset = false, sel
         ) : null}
       </TableCell>
       <TableCell className={clsx({ [classes.labelInset]: inset })} component="th" scope="row">
-        <span
+        <Typography
           className={clsx({ [classes.sortable]: mode === 'year' && !!sortableKey, [classes.current]: mode === 'year' && current })}
+          variant="body2"
           onClick={onClick}
-          role="button"
         >
           {label}
-        </span>
+        </Typography>
       </TableCell>
       <TableCell align="right">{value ?? '-'}</TableCell>
     </TableRow>
@@ -219,7 +220,7 @@ function ExpenseTable({ edge, mode }: Pick<Props, 'edge' | 'mode'>) {
         </>
       ) : null}
       {(node.year ?? 0) > 2015 ? <DataTableRow label="物販関連経費" value={node.goods_rev} mode={mode} sortableKey="goods_exp" /> : null}
-      <DataTableRow label={sgaLabel(year ?? 0)} value={node.sga} mode={mode} sortableKey="sga" />
+      <DataTableRow label={sgaLabel(node.year ?? 0)} value={node.sga} mode={mode} sortableKey="sga" />
     </TableBody>
   );
 }
